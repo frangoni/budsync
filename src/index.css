@@ -1,17 +1,40 @@
 :root {
-	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+	color-scheme: light dark;
+	font-family: 'Outfit', system-ui, Avenir, Helvetica, Arial, sans-serif;
 	line-height: 1.5;
 	font-weight: 400;
+	font-family: 'Outfit';
 	font-size: 16px;
-
-	color-scheme: light dark;
-	color: rgba(255, 255, 255, 0.87);
-	background-color: #242424;
-
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+}
+
+* {
+	box-sizing: border-box;
+	font-size: 16px;
+	font-family: 'Outfit';
+	outline: none;
+}
+
+html {
+	font-size: 1.125rem;
+}
+@media screen and (max-width: 1920px) {
+	html {
+		font-size: calc(0.3749999999999999rem + 0.6250000000000001vw);
+	}
+}
+@media screen and (max-width: 1440px) {
+	html {
+		font-size: calc(0.6565426638917794rem + 0.3121748178980229vw);
+	}
+}
+@media screen and (max-width: 479px) {
+	html {
+		font-size: calc(0.7494769874476988rem + 0.8368200836820083vw);
+	}
 }
 
 body {
@@ -22,9 +45,89 @@ body {
 	min-height: 100vh;
 }
 
-@media (prefers-color-scheme: light) {
-	:root {
-		color: #213547;
-		background-color: #ffffff;
+h1,
+h2,
+h3,
+h4,
+p,
+a,
+button {
+	margin: 0;
+	padding: 0;
+}
+
+h1 {
+	font-size: 4rem;
+	font-family: 'Outfit';
+	line-height: 1.2;
+
+	@media screen and (max-width: 768px) {
+		font-size: 3rem;
 	}
+}
+
+h2 {
+	font-size: 3rem;
+	font-family: 'Outfit';
+	line-height: 0.9;
+
+	@media screen and (max-width: 768px) {
+		font-size: 2rem;
+	}
+}
+
+h3 {
+	font-size: 2rem;
+	font-family: 'Outfit';
+
+	@media screen and (max-width: 768px) {
+		font-size: 1.5rem;
+	}
+}
+
+h4 {
+	font-size: 1.5rem;
+	font-family: 'Outfit';
+
+	@media screen and (max-width: 768px) {
+		font-size: 1.2rem;
+	}
+}
+
+p {
+	font-size: 1.2rem;
+	font-family: 'Outfit';
+
+	@media screen and (max-width: 768px) {
+		font-size: 1rem;
+	}
+}
+
+a {
+	font-size: 1.2rem;
+	font-family: 'Outfit';
+	text-decoration: none;
+
+	@media screen and (max-width: 768px) {
+		font-size: 1rem;
+	}
+}
+
+button {
+	font-size: 1rem;
+	font-family: 'Outfit';
+	font-weight: 700;
+}
+b {
+	font-weight: 700;
+}
+
+@font-face {
+	font-family: 'Outfit';
+	src: url('/fonts/Outfit/Outfit.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Grandstander';
+	src: url('/fonts/Grandstander/Grandstander.ttf') format('truetype');
 }
