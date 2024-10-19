@@ -1,7 +1,7 @@
 import React from 'react';
 import appTheme from '../appTheme';
-import { useAppDispatch, useAppSelector } from '@/modules/redux/store';
-import { toggleTheme } from '@/modules/redux/reducers/theme';
+import { useAppDispatch, useAppSelector } from '@/redux/store';
+import { toggleTheme } from '@/redux/reducers/theme';
 
 const prefersDarkTheme = window.matchMedia('(prefers-color-scheme: dark)');
 
@@ -27,7 +27,7 @@ export function useTheme() {
 
 	return {
 		themeMode,
-		theme: colors,
+		theme: appTheme[themeMode],
 		isDark: themeMode !== 'light',
 		isLight: themeMode !== 'dark',
 		toggleTheme: toggleAppTheme,

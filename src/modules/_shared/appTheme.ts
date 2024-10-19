@@ -83,12 +83,12 @@ const appTheme: { dark: ThemeInterface; light: ThemeInterface } = {
 	dark: {
 		colors: {
 			background: {
-				primary: '#333333',
-				secondary: '#383838',
+				primary: '#212121',
+				secondary: '#131313',
 				dark: '#FFFFFF',
 				main: '#6EB5B7',
 				sidebar: '#383838',
-				cards: '#4B4B4B',
+				cards: '#171717',
 				buttons: {
 					primary: '#377E80',
 					secondary: '#FFFFFF',

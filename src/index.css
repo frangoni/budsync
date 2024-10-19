@@ -131,3 +131,20 @@ b {
 	font-family: 'Grandstander';
 	src: url('/fonts/Grandstander/Grandstander.ttf') format('truetype');
 }
+
+.spacer-16 {
+	padding-top: 1rem;
+}
+.spacer-24 {
+	padding-top: 1.5rem;
+}
+.spacer-32 {
+	padding-top: 2rem;
+}
+.spacer-48 {
+	padding-top: 3rem;
+}
+
+.text-align-center {
+	text-align: center;
+}

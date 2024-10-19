@@ -146,13 +146,13 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     .ui.button.primary {
-      color: ${(props) => props.theme.colors.text.button} !important;
-      background: ${(props) => props.theme.colors.background.buttons.primary} !important;
+      color: ${props => props.theme.colors.text.button} !important;
+      background: ${props => props.theme.colors.background.buttons.primary} !important;
       border: none !important;
       &:hover {
         box-shadow: none !important;
-        color: ${(props) => props.theme.colors.text.button} !important;
-        background: ${(props) => props.theme.colors.background.buttons.primary} !important;
+        color: ${props => props.theme.colors.text.button} !important;
+        background: ${props => props.theme.colors.background.buttons.primary} !important;
       }
     }
 
@@ -182,7 +182,7 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     .ui.divider:not(.vertical):not(.horizontal) {
-      border-top: 1px solid ${(props) => props.theme.colors.border.primary};
+      border-top: 1px solid ${props => props.theme.colors.border.primary};
       border-bottom: none;
     }
 `;
