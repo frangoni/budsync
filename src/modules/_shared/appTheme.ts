@@ -159,7 +159,7 @@ const appTheme: { dark: ThemeInterface; light: ThemeInterface } = {
 				dark: '#333333',
 				main: '#377E80',
 				sidebar: '#FFFFFF',
-				cards: '#f4f4f4',
+				cards: '#EEEEEE',
 				buttons: {
 					primary: '#377E80',
 					secondary: '#FFFFFF',
@@ -178,7 +178,7 @@ const appTheme: { dark: ThemeInterface; light: ThemeInterface } = {
 				overlay: 'rgba(51, 51, 51, 0.35)',
 			},
 			border: {
-				primary: '#d7d7d7',
+				primary: '#aeaeae',
 				success: '#46C740',
 				danger: '#EA5455',
 				active: '#377E80',
