@@ -11,7 +11,7 @@ export const SidebarWrapper = styled.aside`
 	flex-direction: column;
 	width: auto;
 	max-width: 4.75rem;
-	transition: max-width 0.3s ease-out;
+	transition: all 0.3s ease-out;
 	position: relative;
 
 	.collapse-sidebar {

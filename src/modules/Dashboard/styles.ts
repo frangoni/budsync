@@ -4,7 +4,6 @@ export const ContentWrapper = styled.section`
 	flex: 1;
 	min-height: 100vh;
 	width: 100%;
-	background-color: ${({ theme }) => theme.colors.background.primary};
 	padding: 2rem 1rem;
 `;
 

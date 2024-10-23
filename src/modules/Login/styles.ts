@@ -21,9 +21,9 @@ export const ImageWrapper = styled.div`
 export const BgImage = styled.img`
 	position: absolute;
 	width: 100%;
-	z-index: -1;
-	mix-blend-mode: soft-light;
 	min-height: 100%;
+	filter: brightness(50%);
+	-webkit-filter: brightness(50%);
 `;
 
 export const FormWrapper = styled.div`

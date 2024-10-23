@@ -8,7 +8,7 @@ import router from './modules/routes';
 import { useGetUserQuery } from './redux/reducers/user';
 
 function App() {
-	const { theme, toggleTheme } = useTheme();
+	const { theme } = useTheme();
 	const { data } = useGetUserQuery(null);
 
 	return (
@@ -31,4 +31,6 @@ const AppContainer = styled.div`
 	position: relative;
 	max-height: 100vh;
 	overflow-y: auto;
+	background-color: ${({ theme }) => theme.colors.background.primary};
+	transition: background-color 0.3s ease;
 `;

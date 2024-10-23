@@ -1,18 +1,26 @@
 import { Icon } from '@iconify/react';
 import NavLogo from '../../assets/png/leaf-fill.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../_routes';
 import { useState } from 'react';
 import { SidebarWrapper } from './styles';
 import useKeyBindings from '../../hooks/useKeyBindings';
 import { logout } from '@/redux/reducers/user';
-import { useAppDispatch } from '@/redux/store';
+import { clearStoredState, persistedStore, useAppDispatch } from '@/redux/store';
+import { useTheme } from '../../hooks/useTheme';
 
 export default function Sidebar() {
+	const { isDark, toggleTheme } = useTheme();
 	const [active, setActive] = useState(false);
 	const handleClick = () => setActive(!active);
 	const dispatch = useAppDispatch();
-	const handleLogout = () => dispatch(logout());
+	const navigate = useNavigate();
+	const handleLogout = async () => {
+		await clearStoredState();
+		await persistedStore.purge();
+		navigate(ROUTES.login);
+		dispatch(logout());
+	};
 
 	useKeyBindings([{ key: 'b', callback: () => setActive(!active), ctrlKey: true }]);
 
@@ -45,6 +53,13 @@ export default function Sidebar() {
 			</div>
 
 			<div className='nav-footer'>
+				<div className='nav-link' onClick={toggleTheme}>
+					<Icon
+						icon={`${isDark ? 'mdi:moon-and-stars' : 'mdi:white-balance-sunny'}`}
+						style={{ fontSize: '1.5rem' }}
+					/>
+					<p>Theme</p>
+				</div>
 				<div className='nav-link' onClick={handleLogout}>
 					<Icon icon='mdi:logout' style={{ fontSize: '1.5rem' }} />
 					<p>Logout</p>
