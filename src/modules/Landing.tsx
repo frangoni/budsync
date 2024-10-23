@@ -12,6 +12,7 @@ const Landing = () => {
 		navigate(redirectUrl);
 	}, [data, navigate]);
 
+	console.log('Landing');
 	return null;
 };
 

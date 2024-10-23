@@ -4,7 +4,6 @@ export const LoginContainer = styled.div`
 	display: flex;
 	justify-content: stretch;
 	height: 100%;
-	width: 100%;
 `;
 
 export const ImageWrapper = styled.div`
@@ -13,9 +12,6 @@ export const ImageWrapper = styled.div`
 	align-items: center;
 	width: 40%;
 	overflow: hidden;
-	box-shadow: -10px -1px 31px -4px rgba(0, 0, 0, 0.75) inset;
-	-webkit-box-shadow: -10px -1px 31px -4px rgba(0, 0, 0, 0.75) inset;
-	-moz-box-shadow: -10px -1px 31px -4px rgba(0, 0, 0, 0.75) inset;
 
 	@media only screen and (max-width: 768px) {
 		display: none;
@@ -27,14 +23,20 @@ export const BgImage = styled.img`
 	width: 100%;
 	z-index: -1;
 	mix-blend-mode: soft-light;
+	min-height: 100%;
 `;
 
 export const FormWrapper = styled.div`
-	height: 100%;
 	display: flex;
 	flex-grow: 1;
+	border-radius: 2rem;
 	justify-content: center;
 	align-items: center;
+	transform: translateX(-2rem);
+	background-color: ${props => props.theme.colors.background.primary};
+	box-shadow: -41px 0px 32px -24px rgba(0, 0, 0, 0.75);
+	-webkit-box-shadow: -41px 0px 32px -24px rgba(0, 0, 0, 0.75);
+	-moz-box-shadow: -41px 0px 32px -24px rgba(0, 0, 0, 0.75);
 
 	form {
 		width: 30rem;
@@ -43,6 +45,12 @@ export const FormWrapper = styled.div`
 
 	.logo {
 		width: 8rem;
+	}
+
+	@media only screen and (max-width: 768px) {
+		transform: translateX(0rem);
+		border-radius: 0rem;
+		box-shadow: none;
 	}
 `;
 

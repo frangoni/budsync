@@ -5,6 +5,7 @@ import { CONSTANTS } from './_shared/_constants';
 import localforage from 'localforage';
 import Login from './Login';
 import Register from './Register';
+import Dashboard from './Dashboard';
 
 const getToken = async () => localforage.getItem(CONSTANTS.JWT_LS_KEY);
 
@@ -35,6 +36,25 @@ const router = createBrowserRouter([
 			const token = await getToken();
 			return token ? null : redirect(ROUTES.login);
 		},
+		element: <Dashboard />,
+		children: [
+			{
+				path: ROUTES.rooms,
+				element: <div>Rooms</div>,
+			},
+			{
+				path: ROUTES.plants,
+				element: <div>Plants</div>,
+			},
+			{
+				path: ROUTES.reports,
+				element: <div>Reports</div>,
+			},
+			{
+				path: ROUTES.users,
+				element: <div>Users</div>,
+			},
+		],
 	},
 	{
 		path: '*',

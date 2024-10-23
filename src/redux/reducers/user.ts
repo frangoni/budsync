@@ -43,7 +43,8 @@ export const userApi = baseApi.injectEndpoints({
 			query: () => `/me`,
 			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
 				try {
-					const { data } = await queryFulfilled;
+					/* const { data } = await queryFulfilled; */
+					const data = { user: { name: 'test', email: 'test@gmail.com' }, token: 'test' };
 					dispatch(setUser({ user: data.user, token: data.token }));
 					localforage.setItem(K.JWT_LS_KEY, data.token);
 				} catch (e) {
