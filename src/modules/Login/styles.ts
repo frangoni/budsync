@@ -29,14 +29,14 @@ export const BgImage = styled.img`
 export const FormWrapper = styled.div`
 	display: flex;
 	flex-grow: 1;
-	border-radius: 2rem;
+	border-radius: 1rem;
 	justify-content: center;
 	align-items: center;
 	transform: translateX(-2rem);
 	background-color: ${props => props.theme.colors.background.primary};
-	box-shadow: -41px 0px 32px -24px rgba(0, 0, 0, 0.75);
-	-webkit-box-shadow: -41px 0px 32px -24px rgba(0, 0, 0, 0.75);
-	-moz-box-shadow: -41px 0px 32px -24px rgba(0, 0, 0, 0.75);
+	box-shadow: -50px 0px 50px -30px rgba(0, 0, 0, 0.75);
+	-webkit-box-shadow: -50px 0px 50px -30px rgba(0, 0, 0, 0.75);
+	-moz-box-shadow: -50px 0px 50px -30px rgba(0, 0, 0, 0.75);
 
 	form {
 		width: 30rem;

@@ -1,11 +1,22 @@
 import { createBrowserRouter, redirect } from 'react-router-dom';
-import Landing from './Landing';
+import { lazy } from 'react';
 import { ROUTES } from './_shared/_routes';
 import { CONSTANTS } from './_shared/_constants';
 import localforage from 'localforage';
-import Login from './Login';
-import Register from './Register';
-import Dashboard from './Dashboard';
+import Reports from './Dashboard/Views/Reports';
+import Users from './Dashboard/Views/Users';
+const Landing = lazy(() => import('./Landing'));
+const Login = lazy(() => import('./Login'));
+const Register = lazy(() => import('./Register'));
+const Dashboard = lazy(() => import('./Dashboard'));
+const Rooms = lazy(() => import('./Dashboard/Views/Rooms'));
+const Plants = lazy(() => import('./Dashboard/Views/Plants'));
+const Room = lazy(() => import('./Dashboard/Views/Room'));
+const Plant = lazy(() => import('./Dashboard/Views/Plant'));
+const Tasks = lazy(() => import('./Dashboard/Views/Tasks'));
+const Task = lazy(() => import('./Dashboard/Views/Task'));
+const Record = lazy(() => import('./Dashboard/Views/Record'));
+const NotFound = lazy(() => import('./404'));
 
 const getToken = async () => localforage.getItem(CONSTANTS.JWT_LS_KEY);
 
@@ -40,25 +51,49 @@ const router = createBrowserRouter([
 		children: [
 			{
 				path: ROUTES.rooms,
-				element: <div>Rooms</div>,
+				element: <Rooms />,
+			},
+			{
+				path: ROUTES.room,
+				element: <Room />,
 			},
 			{
 				path: ROUTES.plants,
-				element: <div>Plants</div>,
+				element: <Plants />,
+			},
+			{
+				path: ROUTES.plant,
+				element: <Plant />,
+			},
+			{
+				path: ROUTES.tasks,
+				element: <Tasks />,
+			},
+			{
+				path: ROUTES.task,
+				element: <Task />,
+			},
+			{
+				path: ROUTES.record,
+				element: <Record />,
 			},
 			{
 				path: ROUTES.reports,
-				element: <div>Reports</div>,
+				element: <Reports />,
 			},
 			{
 				path: ROUTES.users,
-				element: <div>Users</div>,
+				element: <Users />,
+			},
+			{
+				path: '*',
+				element: <NotFound />,
 			},
 		],
 	},
 	{
 		path: '*',
-		element: <div>404</div>,
+		element: <NotFound />,
 	},
 ]);
 

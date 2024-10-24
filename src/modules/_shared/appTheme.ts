@@ -87,7 +87,7 @@ const appTheme: { dark: ThemeInterface; light: ThemeInterface } = {
 				secondary: '#131313',
 				dark: '#FFFFFF',
 				main: '#6EB5B7',
-				sidebar: '#383838',
+				sidebar: '#111111',
 				cards: '#171717',
 				buttons: {
 					primary: '#377E80',
@@ -158,7 +158,7 @@ const appTheme: { dark: ThemeInterface; light: ThemeInterface } = {
 				secondary: '#FFFFFF',
 				dark: '#333333',
 				main: '#377E80',
-				sidebar: '#FFFFFF',
+				sidebar: '#EEEEEE',
 				cards: '#EEEEEE',
 				buttons: {
 					primary: '#377E80',

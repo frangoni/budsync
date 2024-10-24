@@ -2,9 +2,11 @@ import { styled } from 'styled-components';
 
 export const ContentWrapper = styled.section`
 	flex: 1;
-	min-height: 100vh;
+	height: 100vh;
+	max-height: 100vh;
+	overflow-y: auto;
 	width: 100%;
-	padding: 2rem 1rem;
+	padding: 4rem 2rem 2rem;
 `;
 
 export const DashboardWrapper = styled.main`
