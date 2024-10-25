@@ -52,7 +52,7 @@ export const SidebarLink = styled(Link)`
 export const SidebarLinksWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
-	gap: 0.5rem;
+	gap: 1rem;
 	flex-grow: 1;
 	border-bottom: 1px solid ${({ theme }) => theme.colors.border.primary};
 `;
@@ -77,7 +77,7 @@ export const CollapseButton = styled.div`
 `;
 
 export const SidebarWrapper = styled.aside`
-	background-color: ${({ theme }) => theme.colors.background.cards};
+	background-color: ${({ theme }) => theme.colors.background.sidebar};
 	border: 1px solid ${({ theme }) => theme.colors.border.primary};
 	color: ${({ theme }) => theme.colors.text.primary};
 	border-radius: 1rem;
@@ -96,8 +96,6 @@ export const SidebarWrapper = styled.aside`
 	}
 
 	&.active {
-		background-color: ${({ theme }) => theme.colors.background.cards};
-		border: 1px solid ${({ theme }) => theme.colors.border.primary};
 		color: ${({ theme }) => theme.colors.text.primary};
 		max-width: 15rem;
 

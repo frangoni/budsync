@@ -53,6 +53,10 @@ export default function Sidebar() {
 					<Icon icon='mdi:report-finance' />
 					<p>Reports</p>
 				</SidebarLink>
+				<SidebarLink to={ROUTES.tasks}>
+					<Icon icon='mdi:subtasks' />
+					<p>Tasks</p>
+				</SidebarLink>
 				<SidebarLink to={ROUTES.users}>
 					<Icon icon='mdi:user-multiple-outline' />
 					<p>Users</p>

@@ -7,6 +7,9 @@ export const ROUTES = {
 	room: '/dashboard/rooms/:id',
 	plants: '/dashboard/plants',
 	plant: '/dashboard/plants/:id',
+	tasks: '/dashboard/tasks',
+	task: '/dashboard/tasks/:id',
+	record: '/dashboard/record/:id',
 	reports: '/dashboard/reports',
 	users: '/dashboard/users',
 };
