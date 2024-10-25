@@ -13,3 +13,13 @@ export const Card = styled.div`
 	background-color: ${props => props.theme.colors.background.cards};
 	padding: 2rem;
 `;
+
+export const CenteredWrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	max-height: 100vh;
+	width: 100%;
+`;

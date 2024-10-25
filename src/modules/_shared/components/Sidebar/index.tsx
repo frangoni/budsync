@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react';
 import NavLogo from '../../assets/png/leaf-fill.png';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../_routes';
 import { useState } from 'react';
 import {
@@ -22,11 +22,17 @@ export default function Sidebar() {
 	const handleClick = () => setActive(!active);
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
-	const handleLogout = async () => {
+	const handleLogout = async e => {
+		e.preventDefault();
 		await clearStoredState();
 		await persistedStore.purge();
 		navigate(ROUTES.login);
 		dispatch(logout());
+	};
+
+	const handleToggleTheme = e => {
+		e.preventDefault();
+		toggleTheme();
 	};
 
 	useKeyBindings([{ key: 'b', callback: () => setActive(!active), ctrlKey: true }]);
@@ -64,7 +70,7 @@ export default function Sidebar() {
 			</SidebarLinksWrapper>
 
 			<SidebarFooter>
-				<SidebarLink to={''} onClick={toggleTheme}>
+				<SidebarLink to={''} onClick={handleToggleTheme}>
 					<Icon
 						icon={`${isDark ? 'mdi:moon-and-stars' : 'mdi:white-balance-sunny'}`}
 						style={{ fontSize: '1.5rem' }}
