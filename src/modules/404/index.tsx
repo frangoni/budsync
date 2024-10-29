@@ -1,9 +1,8 @@
-import React from 'react';
-import Bud from '../_shared/assets/webp/buddy.webp';
+import Bud from '../_shared/assets/pngs/leafy-joint.png';
 import { StyledBud } from './styles';
 import { CenteredWrapper } from '../_shared/components/Layout/styles';
 import { useNavigate } from 'react-router-dom';
-import { Button } from 'antd';
+import AppButton from '../_shared/components/Button';
 
 export default function NotFound() {
 	const navigate = useNavigate();
@@ -13,7 +12,7 @@ export default function NotFound() {
 			<StyledBud src={Bud} alt='Bud smoking joint' />
 			<p>The page you are looking is not available</p>
 			<div className='spacer-24'></div>
-			<Button onClick={() => navigate(-1)}>Go back</Button>
+			<AppButton text='Go back' onClick={() => navigate(-1)} />
 		</CenteredWrapper>
 	);
 }

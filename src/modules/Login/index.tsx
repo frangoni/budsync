@@ -1,6 +1,6 @@
 import { BgImage, FormHeader, FormWrapper, ImageWrapper, LoginContainer } from './styles';
 import LoginBG from '../_shared/assets/webp/login-bg.webp';
-import Leaf from '../_shared/assets/png/leaf-fill.png';
+import Leaf from '../_shared/assets/pngs/leaf-fill.png';
 import MainContainer from '../_shared/components/Layout/MainContainer';
 import type { FormProps } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';

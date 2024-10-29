@@ -1,19 +1,26 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import theme from './reducers/theme';
-import user from './reducers/user';
-import { useDispatch, useSelector } from 'react-redux';
-import { userApi } from './reducers/user';
 import { setupListeners } from '@reduxjs/toolkit/query';
-import { CONSTANTS } from '@/modules/_shared/_constants';
+import { useDispatch, useSelector } from 'react-redux';
 import { KEY_PREFIX, getStoredState, persistReducer, persistStore, purgeStoredState } from 'redux-persist';
 import localforage from 'localforage';
+import { CONSTANTS } from '@/modules/_shared/_constants';
+import { plants, rooms, theme, user, plantsApi, roomsApi, userApi } from './reducers/index';
 
 const persistConfig = {
 	key: CONSTANTS.PERSIST_REDUX_KEY,
 	storage: localforage,
 };
 
-const rootReducer = combineReducers({ theme, user, [userApi.reducerPath]: userApi.reducer });
+const rootReducer = combineReducers({
+	theme,
+	user,
+	rooms,
+	plants,
+	[userApi.reducerPath]: userApi.reducer,
+	[roomsApi.reducerPath]: roomsApi.reducer,
+	[plantsApi.reducerPath]: plantsApi.reducer,
+});
+
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = configureStore({

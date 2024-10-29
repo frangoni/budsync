@@ -154,7 +154,7 @@ const appTheme: { dark: ThemeInterface; light: ThemeInterface } = {
 	light: {
 		colors: {
 			background: {
-				primary: '#F9F9F9',
+				primary: '#F4F4F4',
 				secondary: '#FFFFFF',
 				dark: '#333333',
 				main: '#377E80',

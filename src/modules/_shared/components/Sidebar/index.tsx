@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react';
-import NavLogo from '../../assets/png/leaf-fill.png';
+import NavLogo from '../../assets/pngs/leaf-fill.png';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../_routes';
 import { useState } from 'react';
