@@ -1,5 +1,5 @@
 import React from 'react';
-import Bud from '../_shared/assets/webp/bud.webp';
+import Bud from '../_shared/assets/webp/buddy.webp';
 import { StyledBud } from './styles';
 import { CenteredWrapper } from '../_shared/components/Layout/styles';
 import { useNavigate } from 'react-router-dom';

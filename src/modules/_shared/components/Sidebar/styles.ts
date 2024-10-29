@@ -60,12 +60,13 @@ export const SidebarLinksWrapper = styled.div`
 export const CollapseButton = styled.div`
 	position: absolute;
 	top: 50%;
-	right: -0.5rem;
+	right: -1.25rem;
 	border-radius: 0.5rem;
 	padding: 0.25rem 0.5rem;
 	background-color: ${({ theme }) => theme.colors.background.cards};
 	border: 1px solid ${({ theme }) => theme.colors.border.primary};
 	cursor: pointer;
+	transition: all 0.3s ease-out;
 
 	svg {
 		transition: transform 0.5s linear;
@@ -105,6 +106,7 @@ export const SidebarWrapper = styled.aside`
 		}
 
 		${CollapseButton} {
+			right: -0.75rem;
 			svg {
 				transform: rotateY(180deg);
 			}
