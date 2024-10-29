@@ -9,7 +9,14 @@ export const MainWrapper = styled.main`
 
 export const Card = styled.div`
 	border-radius: 1.5rem;
-	border: 0.15rem solid ${props => props.theme.colors.border.primary};
-	background-color: ${props => props.theme.colors.background.cards};
+	border: 0.15rem solid ${({ theme }) => theme.colors.border.primary};
+	background-color: ${({ theme }) => theme.colors.background.cards};
 	padding: 2rem;
+`;
+
+export const HeaderWrapper = styled.header`
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 4rem;
 `;

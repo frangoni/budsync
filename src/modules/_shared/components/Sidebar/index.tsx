@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react';
 import NavLogo from '../../assets/png/leaf-fill.png';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../_routes';
 import { useState } from 'react';
 import {
