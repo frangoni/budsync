@@ -29,7 +29,8 @@ const AppContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	position: relative;
-	max-height: 100vh;
+	height: 100vh;
+	width: 100vw;
 	overflow-y: auto;
 	background-color: ${({ theme }) => theme.colors.background.primary};
 	transition: background-color 0.3s ease;

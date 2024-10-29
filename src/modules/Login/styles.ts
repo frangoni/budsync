@@ -20,10 +20,10 @@ export const ImageWrapper = styled.div`
 
 export const BgImage = styled.img`
 	position: absolute;
-	width: 100%;
-	min-height: 100%;
+	min-width: 100%;
 	filter: brightness(50%);
 	-webkit-filter: brightness(50%);
+	object-fit: cover;
 `;
 
 export const FormWrapper = styled.div`

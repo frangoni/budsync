@@ -20,3 +20,12 @@ export const HeaderWrapper = styled.header`
 	align-items: center;
 	margin-bottom: 4rem;
 `;
+export const CenteredWrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	max-height: 100vh;
+	width: 100%;
+`;
