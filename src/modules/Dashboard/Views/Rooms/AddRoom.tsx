@@ -1,7 +1,8 @@
 import AppButton from '@/modules/_shared/components/Button';
+import { AppForm, AppInput } from '@/modules/_shared/components/Form/styles';
 import useNotification from '@/modules/_shared/hooks/useNotification';
 import { useCreateRoomMutation } from '@/redux/reducers/rooms';
-import { Form, FormProps, Input } from 'antd';
+import { FormProps } from 'antd';
 
 type FieldType = {
 	roomName?: string;
@@ -33,17 +34,20 @@ export default function AddRoom({ onSubmit }: AddRoomProps) {
 		});
 	};
 	return (
-		<Form layout='vertical' onFinish={onFinish} onFinishFailed={onFinishFailed}>
-			<Form.Item<FieldType>
+		// @ts-ignore
+		<AppForm layout='vertical' onFinish={onFinish} onFinishFailed={onFinishFailed}>
+			<h2>Create a room</h2>
+			<div className='spacer-12' />
+			<AppForm.Item<FieldType>
 				label='Room name'
 				name='roomName'
 				rules={[{ required: true, message: 'Please choose a room name!' }]}
 			>
-				<input placeholder='Room name' />
-			</Form.Item>
-			<Form.Item>
+				<AppInput placeholder='Room name' />
+			</AppForm.Item>
+			<AppForm.Item>
 				<AppButton text='Create room' block type='primary' htmlType='submit' />
-			</Form.Item>
-		</Form>
+			</AppForm.Item>
+		</AppForm>
 	);
 }

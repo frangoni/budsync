@@ -8,6 +8,7 @@ import { Button, Form, Input } from 'antd';
 import { useLoginMutation } from '@/redux/reducers/user';
 import useNotification from '../_shared/hooks/useNotification';
 import { Card } from '../_shared/components/Layout/styles';
+import { AppInput } from '../_shared/components/Form/styles';
 
 type FieldType = {
 	username?: string;
@@ -58,7 +59,7 @@ export default function Login() {
 								name='username'
 								rules={[{ required: true, message: 'Please input your User name!' }]}
 							>
-								<Input prefix={<UserOutlined />} placeholder='Username' />
+								<AppInput prefix={<UserOutlined />} placeholder='Username' />
 							</Form.Item>
 
 							<Form.Item<FieldType>
@@ -66,7 +67,7 @@ export default function Login() {
 								name='password'
 								rules={[{ required: true, message: 'Please input your password!' }]}
 							>
-								<Input.Password prefix={<LockOutlined />} type='password' placeholder='Password' />
+								<AppInput.Password prefix={<LockOutlined />} type='password' placeholder='Password' />
 							</Form.Item>
 
 							<Form.Item>

@@ -33,5 +33,6 @@ const AppContainer = styled.div`
 	width: 100vw;
 	overflow-y: auto;
 	background-color: ${({ theme }) => theme.colors.background.primary};
+	color: ${({ theme }) => theme.colors.text.primary};
 	transition: background-color 0.3s ease;
 `;
