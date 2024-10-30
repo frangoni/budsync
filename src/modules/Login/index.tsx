@@ -4,10 +4,11 @@ import Leaf from '../_shared/assets/pngs/leaf-fill.png';
 import MainContainer from '../_shared/components/Layout/MainContainer';
 import type { FormProps } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Form, Input } from 'antd';
+import { Form, Input } from 'antd';
 import { useLoginMutation } from '@/redux/reducers/user';
 import useNotification from '../_shared/hooks/useNotification';
 import { Card } from '../_shared/components/Layout/styles';
+import AppButton from '../_shared/components/Button';
 
 type FieldType = {
 	username?: string;
@@ -70,9 +71,7 @@ export default function Login() {
 							</Form.Item>
 
 							<Form.Item>
-								<Button block type='primary' htmlType='submit'>
-									Submit
-								</Button>
+								<AppButton block text='Submit' htmlType='submit' />
 							</Form.Item>
 						</Form>
 					</Card>
