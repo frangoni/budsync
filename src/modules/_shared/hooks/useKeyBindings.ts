@@ -11,8 +11,8 @@ function useKeyBindings(bindings: KeyBinding[]) {
 	useEffect(() => {
 		const handleKeyDown = (event: KeyboardEvent) => {
 			bindings.forEach(({ key, callback, ctrlKey = false, shiftKey = false }) => {
-				event.preventDefault();
 				if (event.key === key && event.ctrlKey === ctrlKey && event.shiftKey === shiftKey) {
+					event.preventDefault();
 					callback(event);
 				}
 			});

@@ -18,7 +18,7 @@ export const HeaderWrapper = styled.header`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	margin-bottom: 4rem;
+	margin-bottom: 1rem;
 `;
 export const CenteredWrapper = styled.div`
 	display: flex;
@@ -28,4 +28,12 @@ export const CenteredWrapper = styled.div`
 	height: 100%;
 	max-height: 100vh;
 	width: 100%;
+`;
+
+export const ToolbarWrapper = styled.div`
+	display: flex;
+	gap: 2rem;
+	align-items: center;
+	padding: 1rem 0 2rem;
+	border-top: 0.25rem groove ${({ theme }) => theme.colors.border.primary};
 `;
