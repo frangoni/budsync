@@ -18,7 +18,7 @@ export const HeaderWrapper = styled.header`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	margin-bottom: 1rem;
+	margin-bottom: 2rem;
 `;
 export const CenteredWrapper = styled.div`
 	display: flex;

@@ -18,7 +18,7 @@ export default function AppButton({ text, buttonType = 'primary', ...rest }: App
 const StyledButton = styled(Button)`
 	background-color: ${({ theme }) => theme.colors.background.buttons.primary};
 	color: ${({ theme }) => theme.colors.text.button};
-	border: ${({ theme }) => theme.colors.border.primary};
+	border: 1px solid ${({ theme }) => theme.colors.border.primary};
 	border-radius: 0.5rem;
 	padding: 1rem;
 	height: 3rem;
