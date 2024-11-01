@@ -22,7 +22,8 @@ const StyledButton = styled(Button)`
 	border-radius: 0.5rem;
 	padding: 1rem;
 	height: 3rem;
-	min-width: 8rem;
+	min-width: 3rem;
+	outline: none !important;
 
 	&:hover {
 		background-color: ${({ theme }) => theme.colors.background.secondary} !important;
@@ -31,7 +32,7 @@ const StyledButton = styled(Button)`
 	}
 
 	svg {
-		font-size: 2.5rem;
+		font-size: 1.5rem;
 	}
 
 	&.secondary {
