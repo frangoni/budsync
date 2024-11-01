@@ -13,7 +13,7 @@ export default function Rooms() {
 	const closeModal = () => modalRef.current?.close();
 
 	return (
-		<div>
+		<>
 			<Header title='Rooms' description='Here you can manage your rooms' />
 			<Toolbar items={[{ icon: <Icon icon='mdi:house-add' />, onClick: openModal, text: 'Add room' }]} />
 			<RoomsWrapper>
@@ -26,6 +26,6 @@ export default function Rooms() {
 			<Modal ref={modalRef}>
 				<AddRoom onSubmit={() => closeModal()} />
 			</Modal>
-		</div>
+		</>
 	);
 }
