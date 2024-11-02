@@ -7,6 +7,7 @@ import { Icon } from '@iconify/react/dist/iconify.js';
 import Modal, { ModalHandle } from '@/modules/_shared/components/Dialog';
 import { useRef } from 'react';
 import AddRoom from './AddRoom';
+
 export default function Rooms() {
 	const modalRef = useRef<ModalHandle>(null);
 	const openModal = () => modalRef.current?.open();

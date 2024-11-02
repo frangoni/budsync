@@ -1,11 +1,12 @@
 import AppButton from '@/modules/_shared/components/Button';
-import { AppForm, AppInput } from '@/modules/_shared/components/Form/styles';
+import { AppForm, AppInput, AppSelect } from '@/modules/_shared/components/Form/styles';
 import useNotification from '@/modules/_shared/hooks/useNotification';
+import { generatePDF } from '@/modules/_shared/utilities/pdf';
+import { generateQRCodes } from '@/modules/_shared/utilities/qr';
 import { TCreatePlants, useCreatePlantsMutation } from '@/redux/reducers/plants';
 import { useGetStrainsQuery } from '@/redux/reducers/strains';
 import { FormProps, Select } from 'antd';
 import { useState } from 'react';
-import { generatePDF, generateQRCodes } from './qrGenerator';
 
 interface AddPlantsProps {
 	onSubmit: () => void;
@@ -52,7 +53,6 @@ export default function AddPlants({ onSubmit, roomId }: AddPlantsProps) {
 		});
 
 		const qrCode = await generateQRCodes(createdPlants.data);
-		console.log(qrCode);
 		generatePDF(qrCode);
 		onSubmit();
 	};
@@ -66,7 +66,7 @@ export default function AddPlants({ onSubmit, roomId }: AddPlantsProps) {
 	};
 
 	return (
-		// @ts-ignore
+		// @ts-expect-error Antd Form component
 		<AppForm layout='vertical' onFinish={onFinish} onFinishFailed={onFinishFailed}>
 			<h2>Create new plants</h2>
 			<div className='spacer-12' />
@@ -94,11 +94,12 @@ export default function AddPlants({ onSubmit, roomId }: AddPlantsProps) {
 					rules={[{ required: true, message: 'Please select or create a strain!' }]}
 				>
 					{!isCreatingStrain ? (
-						<Select
+						<AppSelect
 							loading={loadingStrains}
 							placeholder='Select an existing strain'
 							disabled={isCreatingStrain}
 							options={strains?.map(strain => ({ value: strain.id, label: strain.name }))}
+							showSearch
 						/>
 					) : (
 						<AppInput placeholder='Enter new strain name' />

@@ -1,16 +1,72 @@
-import { Form, Input } from 'antd';
-import { styled } from 'styled-components';
+import { Form, Input, Select } from 'antd';
+import { css, styled } from 'styled-components';
 
-export const AppInput = styled(Input)`
+const InputBaseStyles = css`
 	border-radius: 0.25rem;
 	padding: 0.5rem 1rem;
 	width: 100%;
 	font-size: 1.25rem;
-	border: 0.2rem solid transparent;
+	border: 0.2rem solid ${({ theme }) => theme.colors.border.primary};
+	color: ${({ theme }) => theme.colors.text.primary};
+	background-color: ${({ theme }) => theme.colors.background.primary} !important;
+
+	.ant-input::placeholder {
+		color: ${({ theme }) => theme.colors.text.secondary} !important;
+	}
+
+	.ant-input-status-error {
+		background-color: ${({ theme }) => theme.colors.background.primary};
+	}
 
 	&:hover,
 	&:focus {
 		border: 0.2rem solid ${({ theme }) => theme.colors.border.active};
+		background-color: ${({ theme }) => theme.colors.background.secondary};
+	}
+`;
+
+export const AppInput = styled(Input)`
+	${InputBaseStyles}
+`;
+
+export const PasswordInput = styled(Input.Password)`
+	${InputBaseStyles}
+`;
+
+export const AppSelect = styled(Select)`
+	${InputBaseStyles}
+	min-height: 4rem;
+
+	.anticon {
+		color: ${({ theme }) => theme.colors.text.secondary};
+	}
+
+	.ant-select-selector {
+		background-color: transparent !important;
+		color: ${({ theme }) => theme.colors.text.primary};
+		border: none !important;
+		padding: 0 !important;
+	}
+	.ant-select-selector {
+		background-color: transparent !important;
+		border: none !important;
+	}
+
+	.ant-select-selection-placeholder {
+		color: ${({ theme }) => theme.colors.text.secondary} !important;
+	}
+
+	.ant-select-item-option {
+		color: ${({ theme }) => theme.colors.text.primary};
+		&:hover {
+			background-color: ${({ theme }) => theme.colors.background.secondary};
+			color: ${({ theme }) => theme.colors.text.primary};
+		}
+
+		&.ant-select-item-option-selected {
+			background-color: ${({ theme }) => theme.colors.background.secondary};
+			color: ${({ theme }) => theme.colors.text.primary};
+		}
 	}
 `;
 

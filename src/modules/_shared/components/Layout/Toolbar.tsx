@@ -2,9 +2,10 @@ import AppButton from '../Button';
 import { ToolbarWrapper } from './styles';
 
 interface ToolbarItem {
-	icon: any;
+	icon: React.ReactNode;
 	onClick: () => void;
 	text: string;
+	disabled?: boolean;
 }
 
 interface ToolbarProps {
@@ -15,7 +16,7 @@ export default function Toolbar({ items }: ToolbarProps) {
 	return (
 		<ToolbarWrapper>
 			{items.map((item, index) => {
-				const { icon, onClick, text } = item;
+				const { icon, onClick, text, disabled } = item;
 				return (
 					<AppButton
 						key={index}
@@ -24,6 +25,7 @@ export default function Toolbar({ items }: ToolbarProps) {
 						iconPosition='end'
 						icon={icon}
 						buttonType='secondary'
+						disabled={disabled}
 					/>
 				);
 			})}

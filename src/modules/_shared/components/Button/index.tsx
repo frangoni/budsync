@@ -25,6 +25,14 @@ const StyledButton = styled(Button)`
 	min-width: 3rem;
 	outline: none !important;
 
+	&:disabled {
+		opacity: 0.5;
+		color: ${({ theme }) => theme.colors.text.button};
+		&:hover {
+			background-color: none !important ;
+		}
+	}
+
 	&:hover {
 		background-color: ${({ theme }) => theme.colors.background.secondary} !important;
 		color: ${({ theme }) => theme.colors.text.active} !important;
@@ -43,6 +51,13 @@ const StyledButton = styled(Button)`
 		&:hover {
 			background-color: ${({ theme }) => theme.colors.background.main} !important;
 			color: ${({ theme }) => theme.colors.text.white} !important;
+		}
+
+		&:disabled {
+			opacity: 0.5;
+			&:hover {
+				background-color: none !important ;
+			}
 		}
 	}
 

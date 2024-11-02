@@ -18,7 +18,8 @@ export const HeaderWrapper = styled.header`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	margin-bottom: 2rem;
+	padding-bottom: 1rem;
+	border-bottom: 0.25rem groove ${({ theme }) => theme.colors.border.primary};
 `;
 export const CenteredWrapper = styled.div`
 	display: flex;
@@ -35,5 +36,4 @@ export const ToolbarWrapper = styled.div`
 	gap: 2rem;
 	align-items: center;
 	padding: 1rem 0 2rem;
-	border-top: 0.25rem groove ${({ theme }) => theme.colors.border.primary};
 `;

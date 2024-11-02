@@ -8,7 +8,7 @@ import { useLoginMutation } from '@/redux/reducers/user';
 import useNotification from '../_shared/hooks/useNotification';
 import { Card } from '../_shared/components/Layout/styles';
 import AppButton from '../_shared/components/Button';
-import { AppInput, AppForm } from '../_shared/components/Form/styles';
+import { AppInput, AppForm, PasswordInput } from '../_shared/components/Form/styles';
 
 type FieldType = {
 	username?: string;
@@ -68,7 +68,7 @@ export default function Login() {
 								name='password'
 								rules={[{ required: true, message: 'Please input your password!' }]}
 							>
-								<AppInput.Password prefix={<LockOutlined />} type='password' placeholder='Password' />
+								<PasswordInput prefix={<LockOutlined />} type='password' placeholder='Password' />
 							</AppForm.Item>
 
 							<AppForm.Item>

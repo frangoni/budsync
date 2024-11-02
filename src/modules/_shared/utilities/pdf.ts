@@ -1,16 +1,4 @@
-import QRCode from 'qrcode';
 import { jsPDF } from 'jspdf';
-import { TPlant } from '@/redux/reducers/plants';
-
-export const generateQRCodes = async (plants: TPlant[]) => {
-	const qrData = await Promise.all(
-		plants.map(async plant => {
-			const qrUrl = await QRCode.toDataURL(plant.id);
-			return { id: plant.id, qrUrl, strainId: plant.strainId };
-		})
-	);
-	return qrData;
-};
 
 export const generatePDF = (qrCodes: { id: string; qrUrl: string; strainId: string }[]) => {
 	const doc = new jsPDF();

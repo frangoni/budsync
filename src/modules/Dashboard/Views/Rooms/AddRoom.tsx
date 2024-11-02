@@ -34,7 +34,7 @@ export default function AddRoom({ onSubmit }: AddRoomProps) {
 		});
 	};
 	return (
-		// @ts-ignore
+		// @ts-expect-error Antd Form component
 		<AppForm layout='vertical' onFinish={onFinish} onFinishFailed={onFinishFailed}>
 			<h2>Create a room</h2>
 			<div className='spacer-12' />
