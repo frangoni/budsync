@@ -104,7 +104,7 @@ const appTheme: { dark: ThemeInterface; light: ThemeInterface } = {
 				success: 'rgba(40, 199, 111, 0.12)',
 				danger: '#FCECEA',
 				lightDanger: 'rgba(234, 84, 85, 0.12)',
-				overlay: 'rgba(51, 51, 51, 0.2)',
+				overlay: 'rgba(1, 1, 11, 0.4)',
 			},
 			border: {
 				primary: '#E9ECEF33',

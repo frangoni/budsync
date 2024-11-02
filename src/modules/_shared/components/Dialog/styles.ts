@@ -34,8 +34,8 @@ export const StyledDialog = styled.dialog`
 		justify-content: center;
 		align-items: center;
 		z-index: 3;
-		backdrop-filter: blur(5px);
-		--webkit-backdrop-filter: blur(5px);
+		backdrop-filter: blur(1rem);
+		--webkit-backdrop-filter: blur(1rem);
 		background-color: ${({ theme }) => theme.colors.background.overlay};
 
 		& > div {
