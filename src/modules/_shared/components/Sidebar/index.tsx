@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react';
 import NavLogo from '../../assets/pngs/leaf-fill.png';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../_routes';
 import { useState } from 'react';
 import {
@@ -47,9 +47,9 @@ export default function Sidebar() {
 				</CollapseButton>
 
 				<SidebarHeader>
-					<a href={ROUTES.dashboard}>
+					<Link to={ROUTES.dashboard}>
 						<img src={NavLogo} alt='nav logo' />
-					</a>
+					</Link>
 				</SidebarHeader>
 				<SidebarLinksWrapper>
 					<SidebarLink to={ROUTES.rooms}>
@@ -60,13 +60,13 @@ export default function Sidebar() {
 						<Icon icon='mdi:plant-outline' />
 						<p>Plants</p>
 					</SidebarLink>
-					<SidebarLink to={ROUTES.reports}>
-						<Icon icon='mdi:report-finance' />
-						<p>Reports</p>
-					</SidebarLink>
 					<SidebarLink to={ROUTES.tasks}>
 						<Icon icon='mdi:subtasks' />
 						<p>Tasks</p>
+					</SidebarLink>
+					<SidebarLink to={ROUTES.reports}>
+						<Icon icon='mdi:report-finance' />
+						<p>Reports</p>
 					</SidebarLink>
 					<SidebarLink to={ROUTES.users}>
 						<Icon icon='mdi:user-multiple-outline' />

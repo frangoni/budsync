@@ -4,5 +4,5 @@ import { TableProps } from 'antd';
 interface AppTableProps<T = unknown> extends TableProps<T> {}
 
 export default function AppTable<T extends object>({ columns, dataSource, ...rest }: AppTableProps<T>) {
-	return <StyledTable bordered={true} columns={columns} dataSource={dataSource} {...rest} />;
+	return <StyledTable bordered={false} columns={columns} dataSource={dataSource} {...rest} />;
 }

@@ -19,28 +19,26 @@ export const GlobalStyle = createGlobalStyle`
     =================================================================================================*/
     body ::-webkit-scrollbar-thumb {
       cursor: pointer;
-      border-radius: 5px;
+      border-radius: 1rem;
       -webkit-transition: color 0.2s ease;
       transition: color 0.2s ease;
-      border: 0.25rem ${({ theme }) => theme.colors.background.secondary} solid;
+      background: ${({ theme }) => theme.colors.background.mainDimmer};
+    }
+
+    body ::-webkit-scrollbar-thumb:hover {
+      background: ${({ theme }) => theme.colors.background.linear2};
     }
 
     body ::-webkit-scrollbar-track {
       background: ${({ theme }) => theme.colors.background.secondary};
-      border: 0.3rem ${({ theme }) => theme.colors.background.secondary} solid;
       border-radius: 0;
     }
     body ::-webkit-scrollbar {
       -webkit-appearance: none;
-      width: 0.95rem;
-      height: 1rem;
+      width: .5rem;
     }
-    body ::-webkit-scrollbar-thumb {
-      background-color: ${({ theme }) => theme.colors.background.primary};
-    }
-    body ::-webkit-scrollbar-thumb:hover {
-      background-color: ${({ theme }) => theme.colors.background.main};
-    }
+
+
 
 
 

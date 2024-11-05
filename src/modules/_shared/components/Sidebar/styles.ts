@@ -120,10 +120,21 @@ export const SidebarWrapper = styled.aside`
 		bottom: 0;
 		z-index: 100;
 		transition: all 0.3s ease-out;
-		transform: translateX(-90%);
+		transform: translateX(-100%);
 
+		${CollapseButton} {
+			right: -1.5rem;
+		}
+
+		${SidebarLink} p {
+			pointer-events: none;
+		}
 		&.active {
 			transform: translateX(0);
+
+			${SidebarLink} p {
+				pointer-events: all;
+			}
 		}
 	}
 `;

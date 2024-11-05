@@ -9,6 +9,11 @@ export const ContentWrapper = styled.section`
 	padding: 4rem 2rem 2rem;
 	display: flex;
 	flex-direction: column;
+
+	@media (max-width: 768px) {
+		padding-block: 2rem;
+		padding-inline: 2rem 1rem;
+	}
 `;
 
 export const DashboardWrapper = styled.main`
