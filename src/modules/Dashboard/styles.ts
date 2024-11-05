@@ -7,6 +7,8 @@ export const ContentWrapper = styled.section`
 	overflow-y: auto;
 	width: 100%;
 	padding: 4rem 2rem 2rem;
+	display: flex;
+	flex-direction: column;
 `;
 
 export const DashboardWrapper = styled.main`

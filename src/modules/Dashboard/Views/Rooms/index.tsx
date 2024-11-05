@@ -4,19 +4,17 @@ import RoomCard from './RoomCard';
 import { RoomsWrapper } from './styles';
 import Toolbar from '@/modules/_shared/components/Layout/Toolbar';
 import { Icon } from '@iconify/react/dist/iconify.js';
-import Modal, { ModalHandle } from '@/modules/_shared/components/Dialog';
-import { useRef } from 'react';
+import Modal from '@/modules/_shared/components/Dialog';
 import AddRoom from './AddRoom';
+import useModal from '@/modules/_shared/hooks/useModal';
 
 export default function Rooms() {
-	const modalRef = useRef<ModalHandle>(null);
-	const openModal = () => modalRef.current?.open();
-	const closeModal = () => modalRef.current?.close();
+	const { openModal, closeModal, modalRef } = useModal();
 
 	return (
 		<>
 			<Header title='Rooms' description='Here you can manage your rooms' />
-			<Toolbar items={[{ icon: <Icon icon='mdi:house-add' />, onClick: openModal, text: 'Add room' }]} />
+			<Toolbar items={[{ icon: <Icon icon='mdi:house-add-outline' />, onClick: openModal, text: 'Add room' }]} />
 			<RoomsWrapper>
 				{ROOMS.map(room => {
 					const { quantity, id, title } = room;

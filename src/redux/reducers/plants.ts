@@ -15,8 +15,9 @@ export interface PlantsState {
 
 export interface TCreatePlants {
 	roomId: string;
-	strainId: string;
 	quantity: number;
+	strainId?: string;
+	strainName?: string;
 }
 
 const initialState: PlantsState = {
@@ -94,6 +95,12 @@ export const plantsApi = baseApi.injectEndpoints({
 	}),
 });
 
-export const { useGetPlantsQuery, useGetPlantQuery, useCreatePlantsMutation, useEditPlantMutation } = plantsApi;
+export const {
+	useGetPlantsQuery,
+	useGetPlantQuery,
+	useLazyGetPlantQuery,
+	useCreatePlantsMutation,
+	useEditPlantMutation,
+} = plantsApi;
 export const { setPlants } = plantsSlice.actions;
 export default plantsSlice.reducer;

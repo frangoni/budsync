@@ -5,7 +5,7 @@ import AppTable from '@/modules/_shared/components/Table';
 import Toolbar from '@/modules/_shared/components/Layout/Toolbar';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import Modal from '@/modules/_shared/components/Dialog';
-import AddPlants from './AddPlants';
+import AddPlants from '../Plants/AddPlants';
 import useRoom from './useRoom';
 
 export default function Room() {
@@ -18,7 +18,11 @@ export default function Room() {
 			<Header title='Room' description={'Manage room name, add plants or search for active'} shouldGoBack />
 			<Toolbar
 				items={[
-					{ icon: <Icon icon='mdi:add' />, onClick: openModal, text: 'Create plants' },
+					{
+						icon: <Icon icon='material-symbols-light:potted-plant-outline' />,
+						onClick: openModal,
+						text: 'Grow plants',
+					},
 					{
 						icon: <Icon icon='mdi:qrcode' />,
 						onClick: reprintQR,

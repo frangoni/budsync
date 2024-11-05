@@ -1,13 +1,13 @@
-import { ModalHandle } from '@/modules/_shared/components/Dialog';
 import { generatePDF } from '@/modules/_shared/utilities/pdf';
 import { generateQRCodes } from '@/modules/_shared/utilities/qr';
 import { TPlant } from '@/redux/reducers/plants';
 import { useGetRoomQuery } from '@/redux/reducers/rooms';
 import { TableProps } from 'antd';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import PLANT_COLUMNS from './_columns';
 import AppButton from '@/modules/_shared/components/Button';
+import useModal from '@/modules/_shared/hooks/useModal';
 
 export default function useRoom() {
 	const { roomId } = useParams();
@@ -15,9 +15,8 @@ export default function useRoom() {
 	const [selectedRows, setSelectedRows] = useState<TPlant[]>([]);
 	const navigate = useNavigate();
 	const navigateToPlant = (plantId: string) => navigate(`/dashboard/plants/${plantId}`);
-	const modalRef = useRef<ModalHandle>(null);
-	const openModal = () => modalRef.current?.open();
-	const closeModal = () => modalRef.current?.close();
+	const { openModal, closeModal, modalRef } = useModal();
+
 	const COLUMNS = [
 		...PLANT_COLUMNS,
 		{

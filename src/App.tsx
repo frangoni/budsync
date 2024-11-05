@@ -10,6 +10,7 @@ import { useGetUserQuery } from './redux/reducers/user';
 function App() {
 	const { theme } = useTheme();
 	const { data } = useGetUserQuery(null);
+	console.log(data);
 
 	return (
 		<ThemeProvider theme={theme}>

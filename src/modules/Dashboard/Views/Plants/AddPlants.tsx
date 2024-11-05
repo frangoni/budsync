@@ -4,8 +4,9 @@ import useNotification from '@/modules/_shared/hooks/useNotification';
 import { generatePDF } from '@/modules/_shared/utilities/pdf';
 import { generateQRCodes } from '@/modules/_shared/utilities/qr';
 import { TCreatePlants, useCreatePlantsMutation } from '@/redux/reducers/plants';
+import { useGetRoomsQuery } from '@/redux/reducers/rooms';
 import { useGetStrainsQuery } from '@/redux/reducers/strains';
-import { FormProps, Select } from 'antd';
+import { FormProps } from 'antd';
 import { useState } from 'react';
 
 interface AddPlantsProps {
@@ -43,9 +44,10 @@ export default function AddPlants({ onSubmit, roomId }: AddPlantsProps) {
 	const notification = useNotification();
 	const [createPlants] = useCreatePlantsMutation();
 	const { data: strains, isLoading: loadingStrains } = useGetStrainsQuery();
+	const { data: rooms, isLoading: loadingRooms } = useGetRoomsQuery();
 	const [isCreatingStrain, setIsCreatingStrain] = useState(false);
 
-	const onFinish: FormProps<TCreatePlants>['onFinish'] = async values => {
+	const onFinish: FormProps<TCreatePlants>['onFinish'] = async (values: unknown) => {
 		const createdPlants = DUMMY_CREATED_PLANTS; /* await createPlants(values) */
 		notification.success({
 			message: 'Plants created!',
@@ -70,49 +72,72 @@ export default function AddPlants({ onSubmit, roomId }: AddPlantsProps) {
 		<AppForm layout='vertical' onFinish={onFinish} onFinishFailed={onFinishFailed}>
 			<h2>Create new plants</h2>
 			<div className='spacer-12' />
-			<AppForm.Item<TCreatePlants>
-				label='Room name'
-				name='roomId'
-				rules={[{ required: true, message: 'Please choose a room name!' }]}
-				initialValue={roomId}
-				style={{ display: 'none' }}
-			/>
 
 			<AppForm.Item<TCreatePlants>
 				label='How many plants?'
 				name='quantity'
 				rules={[{ required: true, message: 'Please choose a quantity!' }]}
 				initialValue={0}
-				style={{ display: 'none' }}
-			/>
-			<AppInput type='number' name='quantity' />
-			<AppForm.Item>
-				{/* Strain Selector */}
+			>
+				<AppInput type='number' name='quantity' min='1' step='1' />
+			</AppForm.Item>
+
+			{isCreatingStrain ? (
+				<AppForm.Item<TCreatePlants>
+					label='New strain'
+					name='strainName'
+					rules={[{ required: true, message: 'Please input the new Strain name!' }]}
+				>
+					<AppInput placeholder='New strain' />
+				</AppForm.Item>
+			) : (
 				<AppForm.Item
 					label='Strain'
 					name='strainId'
 					rules={[{ required: true, message: 'Please select or create a strain!' }]}
 				>
-					{!isCreatingStrain ? (
-						<AppSelect
-							loading={loadingStrains}
-							placeholder='Select an existing strain'
-							disabled={isCreatingStrain}
-							options={strains?.map(strain => ({ value: strain.id, label: strain.name }))}
-							showSearch
-						/>
-					) : (
-						<AppInput placeholder='Enter new strain name' />
-					)}
+					<AppSelect
+						loading={loadingStrains}
+						placeholder='Select an existing strain'
+						disabled={isCreatingStrain}
+						options={strains?.map(strain => ({ value: strain.id, label: strain.name }))}
+						showSearch
+					/>
 				</AppForm.Item>
+			)}
 
-				<AppButton
-					text={isCreatingStrain ? 'Choose from existing strains' : 'Create new strain'}
-					onClick={() => setIsCreatingStrain(!isCreatingStrain)}
-					style={{ marginBottom: '12px' }}
-					buttonType='secondary'
-				/>
+			{!roomId ? (
+				<AppForm.Item
+					label='Room '
+					name='roomId'
+					rules={[{ required: true, message: 'Please select a room!' }]}
+				>
+					<AppSelect
+						loading={loadingRooms}
+						placeholder='Select an existing room'
+						disabled={!!roomId}
+						options={rooms?.map(room => ({ value: room.id, label: room.name }))}
+						showSearch
+					/>
+				</AppForm.Item>
+			) : (
+				<AppForm.Item<TCreatePlants>
+					label='Room name'
+					name='roomId'
+					rules={[{ required: true, message: 'Please choose a room name!' }]}
+					initialValue={roomId}
+				>
+					<AppInput placeholder='Room name' disabled value={roomId} />
+				</AppForm.Item>
+			)}
 
+			<AppButton
+				text={isCreatingStrain ? 'Choose from existing strains' : 'Create new strain'}
+				onClick={() => setIsCreatingStrain(!isCreatingStrain)}
+				style={{ width: '100%' }}
+				buttonType='secondary'
+			/>
+			<AppForm.Item>
 				<AppButton text='Create plants' block type='primary' htmlType='submit' />
 			</AppForm.Item>
 		</AppForm>
