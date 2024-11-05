@@ -8,6 +8,10 @@ export const PlantsMainContainer = styled.div`
 	gap: 2rem;
 	width: 100%;
 	height: 100%;
+
+	@media (max-width: 768px) {
+		flex-direction: column;
+	}
 `;
 
 export const PlantScannerContainer = styled.div`
@@ -26,6 +30,14 @@ export const PlantScannerContainer = styled.div`
 			top: 1rem;
 			right: 1rem;
 			z-index: 1;
+		}
+	}
+
+	@media (max-width: 768px) {
+		width: 100%;
+
+		#scanner {
+			min-width: 90%;
 		}
 	}
 `;
@@ -49,4 +61,9 @@ export const PlantFinderContainer = styled.div`
 	justify-content: center;
 	width: 50%;
 	padding: 0 4rem;
+
+	@media (max-width: 768px) {
+		width: 100%;
+		padding: 0;
+	}
 `;

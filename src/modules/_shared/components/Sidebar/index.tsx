@@ -5,6 +5,7 @@ import { ROUTES } from '../../_routes';
 import { useState } from 'react';
 import {
 	CollapseButton,
+	MobileBackdrop,
 	SidebarFooter,
 	SidebarHeader,
 	SidebarLink,
@@ -38,50 +39,55 @@ export default function Sidebar() {
 	useKeyBindings([{ key: 'b', callback: () => setActive(!active), ctrlKey: true }]);
 
 	return (
-		<SidebarWrapper className={`${active ? 'active' : ''}`}>
-			<CollapseButton onClick={handleClick}>
-				<Icon icon='mdi:arrow-collapse-right' style={{ fontSize: '.8rem' }} />
-			</CollapseButton>
+		<>
+			<MobileBackdrop onClick={handleClick} className={`${active ? 'active' : ''}`} />
+			<SidebarWrapper className={`${active ? 'active' : ''}`}>
+				<CollapseButton onClick={handleClick}>
+					<Icon icon='mdi:arrow-collapse-right' style={{ fontSize: '.8rem' }} />
+				</CollapseButton>
 
-			<SidebarHeader>
-				<img src={NavLogo} alt='nav logo' />
-			</SidebarHeader>
-			<SidebarLinksWrapper>
-				<SidebarLink to={ROUTES.rooms}>
-					<Icon icon='mdi:house-outline' />
-					<p>Rooms</p>
-				</SidebarLink>
-				<SidebarLink to={ROUTES.plants}>
-					<Icon icon='mdi:plant-outline' />
-					<p>Plants</p>
-				</SidebarLink>
-				<SidebarLink to={ROUTES.reports}>
-					<Icon icon='mdi:report-finance' />
-					<p>Reports</p>
-				</SidebarLink>
-				<SidebarLink to={ROUTES.tasks}>
-					<Icon icon='mdi:subtasks' />
-					<p>Tasks</p>
-				</SidebarLink>
-				<SidebarLink to={ROUTES.users}>
-					<Icon icon='mdi:user-multiple-outline' />
-					<p>Users</p>
-				</SidebarLink>
-			</SidebarLinksWrapper>
+				<SidebarHeader>
+					<a href={ROUTES.dashboard}>
+						<img src={NavLogo} alt='nav logo' />
+					</a>
+				</SidebarHeader>
+				<SidebarLinksWrapper>
+					<SidebarLink to={ROUTES.rooms}>
+						<Icon icon='mdi:house-outline' />
+						<p>Rooms</p>
+					</SidebarLink>
+					<SidebarLink to={ROUTES.plants}>
+						<Icon icon='mdi:plant-outline' />
+						<p>Plants</p>
+					</SidebarLink>
+					<SidebarLink to={ROUTES.reports}>
+						<Icon icon='mdi:report-finance' />
+						<p>Reports</p>
+					</SidebarLink>
+					<SidebarLink to={ROUTES.tasks}>
+						<Icon icon='mdi:subtasks' />
+						<p>Tasks</p>
+					</SidebarLink>
+					<SidebarLink to={ROUTES.users}>
+						<Icon icon='mdi:user-multiple-outline' />
+						<p>Users</p>
+					</SidebarLink>
+				</SidebarLinksWrapper>
 
-			<SidebarFooter>
-				<SidebarLink to={''} onClick={handleToggleTheme}>
-					<Icon
-						icon={`${isDark ? 'mdi:moon-and-stars' : 'mdi:white-balance-sunny'}`}
-						style={{ fontSize: '1.5rem' }}
-					/>
-					<p>Theme</p>
-				</SidebarLink>
-				<SidebarLink to={''} onClick={handleLogout}>
-					<Icon icon='mdi:logout' style={{ fontSize: '1.5rem' }} />
-					<p>Logout</p>
-				</SidebarLink>
-			</SidebarFooter>
-		</SidebarWrapper>
+				<SidebarFooter>
+					<SidebarLink to={''} onClick={handleToggleTheme}>
+						<Icon
+							icon={`${isDark ? 'mdi:moon-and-stars' : 'mdi:white-balance-sunny'}`}
+							style={{ fontSize: '1.5rem' }}
+						/>
+						<p>Theme</p>
+					</SidebarLink>
+					<SidebarLink to={''} onClick={handleLogout}>
+						<Icon icon='mdi:logout' style={{ fontSize: '1.5rem' }} />
+						<p>Logout</p>
+					</SidebarLink>
+				</SidebarFooter>
+			</SidebarWrapper>
+		</>
 	);
 }

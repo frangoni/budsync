@@ -12,6 +12,11 @@ export const WelcomeContainer = styled.div`
 	img {
 		max-width: 250px;
 	}
+
+	@media (max-width: 768px) {
+		margin-top: 2rem;
+		flex-direction: column;
+	}
 `;
 
 export const WelcomeColumn = styled.div`
@@ -21,4 +26,8 @@ export const WelcomeColumn = styled.div`
 	justify-content: center;
 	width: 50%;
 	gap: 2rem;
+
+	@media (max-width: 768px) {
+		width: 100%;
+	}
 `;

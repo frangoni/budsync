@@ -112,4 +112,37 @@ export const SidebarWrapper = styled.aside`
 			}
 		}
 	}
+
+	@media (max-width: 768px) {
+		position: fixed;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		z-index: 100;
+		transition: all 0.3s ease-out;
+		transform: translateX(-90%);
+
+		&.active {
+			transform: translateX(0);
+		}
+	}
+`;
+
+export const MobileBackdrop = styled.div`
+	display: none;
+
+	@media (max-width: 768px) {
+		display: block;
+		transition: all 0.3s ease-out;
+		background-color: rgba(0, 0, 0, 0);
+		backdrop-filter: blur(0rem);
+		&.active {
+			z-index: 99;
+			position: fixed;
+			height: 100vh;
+			width: 100vw;
+			background-color: rgba(0, 0, 0, 0.5);
+			backdrop-filter: blur(0.5rem);
+		}
+	}
 `;

@@ -16,16 +16,17 @@ export default function PlantScanner({ onScan }: PlantScannerProps) {
 	const startScanner = () => {
 		setIsScanning(true);
 		scannerRef.current = new Html5Qrcode('scanner');
-		scannerRef.current
-			.start(
-				{ facingMode: 'environment' },
-				{ fps: 10, qrbox: { width: 250, height: 250 } },
-				decodedText => onScan(decodedText),
-				errorMessage => {
-					console.warn('QR Code scanning failed', errorMessage);
-				}
-			)
-			.then(() => {});
+		scannerRef.current.start(
+			{ facingMode: 'environment' },
+			{ fps: 10, qrbox: { width: 250, height: 250 } },
+			decodedText => {
+				onScan(decodedText);
+				stopScanner();
+			},
+			errorMessage => {
+				console.warn('QR Code scanning failed', errorMessage);
+			}
+		);
 	};
 
 	const stopScanner = () => {

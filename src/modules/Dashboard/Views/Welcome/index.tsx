@@ -22,6 +22,7 @@ export default function Welcome() {
 				</WelcomeColumn>
 				<h4>OR</h4>
 				<WelcomeColumn>
+					<h3>Look for a plant</h3>
 					<PlantScanner onScan={onScan} />
 				</WelcomeColumn>
 			</WelcomeContainer>
