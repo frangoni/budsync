@@ -6,12 +6,22 @@ import { Icon } from '@iconify/react/dist/iconify.js';
 import usePlant from './usePlant';
 import HarvestPlant from './HarvestPlant';
 import AddRecord from './AddRecord';
+import AppTable from '@/modules/_shared/components/Table';
+import { TRecord } from '@/redux/reducers/records';
+import { RECORDS_DATA } from './_dummy';
+import RECORDS_COLUMNS from './_columns';
+import PlantStatus from './PlantStatus';
 
 export default function Plant() {
 	const { setContentAndOpenModal, reprintQR, modalRef, modalContent, closeModal, currentPlant, plantId } = usePlant();
+
 	return (
 		<>
-			<Header title='Plant' description='Here you can manage your plant' />
+			<Header
+				title='Plant'
+				subtitle={<PlantStatus active={currentPlant?.active} />}
+				description='Here you can manage your plant'
+			/>
 			<Toolbar
 				items={[
 					{
@@ -32,6 +42,13 @@ export default function Plant() {
 				]}
 			/>
 			<PlantGallery imgUrls={[]} />
+
+			<AppTable<TRecord>
+				columns={RECORDS_COLUMNS}
+				title={() => 'Records'}
+				dataSource={RECORDS_DATA}
+				rowKey='id'
+			/>
 			<Modal ref={modalRef}>
 				{modalContent === 'record' ? (
 					<AddRecord onSubmit={closeModal} plantId={plantId} />

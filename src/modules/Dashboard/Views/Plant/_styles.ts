@@ -33,3 +33,21 @@ export const UploaderWrapper = styled.div`
 		max-width: 20rem;
 	}
 `;
+
+export const StatusContainer = styled.div`
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 8px;
+	border-radius: 8px;
+`;
+
+export const TrafficLight = styled.div<{ active: boolean }>`
+	width: 1.5rem;
+	height: 1.5rem;
+	border: 0.15rem solid ${({ theme }) => theme.colors.background.cards};
+	border-radius: 50%;
+	background: ${({ active }) =>
+		active ? 'radial-gradient(circle, #32cd32, #006400)' : 'radial-gradient(circle, #ff6347, #8b0000)'};
+	box-shadow: 0 0 15px ${({ active }) => (active ? '#32cd32' : '#ff6347')};
+`;

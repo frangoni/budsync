@@ -20,6 +20,14 @@ export const HeaderWrapper = styled.header`
 	align-items: center;
 	padding-bottom: 1rem;
 	border-bottom: 0.25rem groove ${({ theme }) => theme.colors.border.primary};
+
+	span {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: 1rem;
+		margin-bottom: 0.5rem;
+	}
 `;
 export const CenteredWrapper = styled.div`
 	display: flex;
