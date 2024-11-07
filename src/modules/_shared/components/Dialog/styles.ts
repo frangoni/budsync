@@ -43,3 +43,13 @@ export const StyledDialog = styled.dialog`
 		}
 	}
 `;
+
+export const DialogContent = styled.div`
+	max-width: 90vw;
+	max-height: 90svh;
+	overflow-y: auto;
+	overflow-x: hidden;
+	padding: 0 1rem;
+	margin-inline: -1rem;
+	box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+`;

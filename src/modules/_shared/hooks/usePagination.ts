@@ -1,4 +1,4 @@
-import { useCallback, useReducer } from 'react';
+/* import { useCallback, useReducer } from 'react';
 import { useSettings } from '../../../redux/hooks';
 import K from '../constants';
 import { Sort } from '../graphql/generated';
@@ -65,3 +65,4 @@ export default function usePagination({ orderBy, sort }: PaginationOptions = {})
 		pageSize: resultsPerPage,
 	};
 }
+ */

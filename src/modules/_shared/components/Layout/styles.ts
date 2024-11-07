@@ -36,4 +36,11 @@ export const ToolbarWrapper = styled.div`
 	gap: 2rem;
 	align-items: center;
 	padding: 1rem 0 2rem;
+	flex-flow: row wrap;
+
+	@media (max-width: 768px) {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 0.5rem;
+	}
 `;

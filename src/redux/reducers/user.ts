@@ -32,7 +32,7 @@ const userSlice = createSlice({
 			localforage.removeItem(K.JWT_LS_KEY);
 		},
 		getCurrentUser: state => {
-			state.user;
+			return state.user;
 		},
 	},
 });

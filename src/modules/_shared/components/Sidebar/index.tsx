@@ -23,15 +23,16 @@ export default function Sidebar() {
 	const handleClick = () => setActive(!active);
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
-	const handleLogout = async e => {
+
+	const handleLogout = async (e: React.MouseEvent<HTMLAnchorElement>) => {
 		e.preventDefault();
 		await clearStoredState();
 		await persistedStore.purge();
 		navigate(ROUTES.login);
-		dispatch(logout());
+		dispatch(logout(''));
 	};
 
-	const handleToggleTheme = e => {
+	const handleToggleTheme = (e: React.MouseEvent<HTMLAnchorElement>) => {
 		e.preventDefault();
 		toggleTheme();
 	};

@@ -6,7 +6,7 @@ import useModal from '@/modules/_shared/hooks/useModal';
 import Modal from '@/modules/_shared/components/Dialog';
 import PlantScanner from './PlantScanner';
 import { useNavigate } from 'react-router-dom';
-import { PlantsMainContainer } from './styles';
+import { PlantsMainContainer } from './_styles';
 import PlantFinder from './PlantFinder';
 
 export default function Plants() {

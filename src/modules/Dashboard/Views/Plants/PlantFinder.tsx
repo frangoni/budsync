@@ -1,4 +1,4 @@
-import { PlantFinderContainer } from './styles';
+import { PlantFinderContainer } from './_styles';
 import { useLazyGetPlantQuery } from '@/redux/reducers/plants';
 import { AppForm, AppInput } from '@/modules/_shared/components/Form/styles';
 import { useDebounce } from '@/modules/_shared/hooks/useDebounce';

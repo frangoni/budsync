@@ -2,7 +2,7 @@ import AppButton from '@/modules/_shared/components/Button';
 import { Card } from '@/modules/_shared/components/Layout/styles';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { useNavigate } from 'react-router-dom';
-import { RoomCardLayout } from './styles';
+import { RoomCardLayout } from './_styles';
 
 interface RoomCardProps {
 	title: string;

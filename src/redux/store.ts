@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { KEY_PREFIX, getStoredState, persistReducer, persistStore, purgeStoredState } from 'redux-persist';
 import localforage from 'localforage';
 import { CONSTANTS } from '@/modules/_shared/_constants';
-import { plants, rooms, theme, user, plantsApi, roomsApi, userApi } from './reducers/index';
+import { plants, rooms, theme, user, userApi } from './reducers/index';
+import { baseApi } from './baseApi';
 
 const persistConfig = {
 	key: CONSTANTS.PERSIST_REDUX_KEY,
@@ -16,9 +17,7 @@ const rootReducer = combineReducers({
 	user,
 	rooms,
 	plants,
-	[userApi.reducerPath]: userApi.reducer,
-	[roomsApi.reducerPath]: roomsApi.reducer,
-	[plantsApi.reducerPath]: plantsApi.reducer,
+	[baseApi.reducerPath]: baseApi.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

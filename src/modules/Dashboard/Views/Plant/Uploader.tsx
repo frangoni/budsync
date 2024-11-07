@@ -1,11 +1,16 @@
-import { useState } from 'react';
 import imageCompression from 'browser-image-compression';
+import { AppInput } from '@/modules/_shared/components/Form/styles';
+import { UploaderWrapper } from './_styles';
 
-export default function Uploader() {
-	const [compressedImage, setCompressedImage] = useState<string | null>(null);
+interface UploaderProps {
+	compressedImage: string | null;
+	setCompressedImage: React.Dispatch<React.SetStateAction<string | null>>;
+}
 
+export default function Uploader({ compressedImage, setCompressedImage }: UploaderProps) {
 	const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-		const imageFile = event.currentTarget?.files[0];
+		if (!event.currentTarget?.files) return;
+		const imageFile = event.currentTarget.files[0];
 		console.log('originalFile instanceof Blob', imageFile instanceof Blob); // true
 		console.log(`originalFile size ${imageFile.size / 1024 / 1024} MB`);
 
@@ -33,9 +38,9 @@ export default function Uploader() {
 	};
 
 	return (
-		<div>
-			<input type='file' capture='environment' accept='image/*' onChange={handleImageUpload} />
+		<UploaderWrapper>
+			<AppInput type='file' capture='environment' accept='image/*' onChange={handleImageUpload} />
 			{compressedImage && <img src={compressedImage} alt='Compressed Preview' />}
-		</div>
+		</UploaderWrapper>
 	);
 }

@@ -1,4 +1,4 @@
-import { StatusBadge } from './styles';
+import { StatusBadge } from './_styles';
 
 const PLANT_COLUMNS = [
 	{

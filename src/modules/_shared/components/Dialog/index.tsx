@@ -1,5 +1,5 @@
 import { ReactNode, forwardRef, useImperativeHandle, useRef } from 'react';
-import { StyledDialog } from './styles';
+import { DialogContent, StyledDialog } from './styles';
 import AppButton from '../Button';
 import { Card } from '../Layout/styles';
 import { Icon } from '@iconify/react/dist/iconify.js';
@@ -26,7 +26,9 @@ const Modal = forwardRef<ModalHandle, ModalProps>(({ children }, ref) => {
 
 	return (
 		<StyledDialog ref={dialogRef}>
-			<Card>{children}</Card>
+			<Card>
+				<DialogContent>{children}</DialogContent>
+			</Card>
 			<AppButton id='closeModal' onClick={() => dialogRef.current?.close()} icon={<Icon icon='mdi:close' />} />
 		</StyledDialog>
 	);

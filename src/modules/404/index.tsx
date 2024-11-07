@@ -8,10 +8,12 @@ export default function NotFound() {
 	const navigate = useNavigate();
 	return (
 		<CenteredWrapper>
-			<h1>404</h1>
+			<h1>Page not found</h1>
+			<div className='spacer-24' />
 			<StyledBud src={Bud} alt='Bud smoking joint' />
+			<div className='spacer-24' />
 			<p>The page you are looking is not available</p>
-			<div className='spacer-24'></div>
+			<div className='spacer-24' />
 			<AppButton text='Go back' onClick={() => navigate(-1)} />
 		</CenteredWrapper>
 	);

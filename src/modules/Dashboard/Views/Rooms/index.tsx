@@ -1,7 +1,7 @@
 import Header from '@/modules/_shared/components/Layout/Header';
 import { ROOMS } from './_dummy';
 import RoomCard from './RoomCard';
-import { RoomsWrapper } from './styles';
+import { RoomsWrapper } from './_styles';
 import Toolbar from '@/modules/_shared/components/Layout/Toolbar';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import Modal from '@/modules/_shared/components/Dialog';

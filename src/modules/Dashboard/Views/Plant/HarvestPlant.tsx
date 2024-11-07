@@ -1,27 +1,28 @@
 import AppButton from '@/modules/_shared/components/Button';
 import { AppForm, AppInput } from '@/modules/_shared/components/Form/styles';
 import useNotification from '@/modules/_shared/hooks/useNotification';
-import { useCreateRoomMutation } from '@/redux/reducers/rooms';
+import { TPlant, useEditPlantMutation } from '@/redux/reducers/plants';
 import { FormProps } from 'antd';
 
 type FieldType = {
-	roomName?: string;
+	totalQ?: number;
 };
 
-interface AddRoomProps {
+interface HarvestPlantProps {
 	onSubmit: () => void;
+	plant: TPlant | undefined;
 }
 
-export default function AddRoom({ onSubmit }: AddRoomProps) {
+export default function HarvestPlant({ onSubmit, plant }: HarvestPlantProps) {
 	const notification = useNotification();
-	const [createRoom] = useCreateRoomMutation();
+	const [harvestPlant] = useEditPlantMutation();
 
 	const onFinish: FormProps<FieldType>['onFinish'] = async values => {
-		const createdRoom = await createRoom(values);
-		console.log('createdRoom :', createdRoom);
+		const harvestedPlant = await harvestPlant([{ ...plant, totalQ: values.totalQ, active: false }]);
+		console.log('harvestedPlant :', harvestedPlant);
 		notification.success({
-			message: 'Room created!',
-			description: 'Successfull room creation: ' + values.roomName,
+			message: 'Plant harvested!',
+			description: 'Total quantity: ' + values.totalQ,
 		});
 		onSubmit();
 	};
@@ -29,24 +30,25 @@ export default function AddRoom({ onSubmit }: AddRoomProps) {
 	const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = errorInfo => {
 		const error = errorInfo.errorFields[0].errors[0];
 		notification.error({
-			message: 'Error on room creation',
+			message: 'Error on plant harvest',
 			description: `${error}`,
 		});
 	};
+
 	return (
 		// @ts-expect-error Antd Form component
 		<AppForm layout='vertical' onFinish={onFinish} onFinishFailed={onFinishFailed}>
-			<h2>Create a room</h2>
+			<h2>Harvest your plant</h2>
 			<div className='spacer-12' />
 			<AppForm.Item<FieldType>
-				label='Room name'
-				name='roomName'
-				rules={[{ required: true, message: 'Please choose a room name!' }]}
+				label='Total quantity (grams)'
+				name='totalQ'
+				rules={[{ required: true, message: 'Please select the total quantity!' }]}
 			>
-				<AppInput placeholder='Room name' />
+				<AppInput placeholder='Total quantity (grams)' type='number' min={1} />
 			</AppForm.Item>
 			<AppForm.Item>
-				<AppButton text='Create room' block type='primary' htmlType='submit' />
+				<AppButton text='Harvest plant' block type='primary' htmlType='submit' />
 			</AppForm.Item>
 		</AppForm>
 	);
