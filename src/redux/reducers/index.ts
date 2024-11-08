@@ -1,6 +1,9 @@
+import users, { usersApi } from './users';
 import theme from './theme';
-import plants, { plantsApi } from './plants';
-import rooms, { roomsApi } from './rooms';
-import user, { userApi } from './user';
+import plants from './plants';
+import rooms from './rooms';
+import records from './records';
+import tasks from './tasks';
+import strains from './strains';
 
-export { plants, rooms, theme, user, plantsApi, roomsApi, userApi };
+export { plants, rooms, records, tasks, strains, theme, users, usersApi };

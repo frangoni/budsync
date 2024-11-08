@@ -5,7 +5,7 @@ import { GlobalStyle } from './global';
 import { Suspense } from 'react';
 import { useTheme } from './modules/_shared/hooks/useTheme';
 import router from './modules/routes';
-import { useGetUserQuery } from './redux/reducers/user';
+import { useGetUserQuery } from './redux/reducers/users';
 
 function App() {
 	const { theme } = useTheme();

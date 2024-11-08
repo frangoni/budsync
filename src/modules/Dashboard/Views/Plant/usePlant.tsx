@@ -3,7 +3,10 @@ import { generatePDF } from '@/modules/_shared/utilities/pdf';
 import { generateQRCodes } from '@/modules/_shared/utilities/qr';
 import { useGetPlantQuery } from '@/redux/reducers/plants';
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import RECORDS_COLUMNS from './_columns';
+import AppButton from '@/modules/_shared/components/Button';
+import { TRecord } from '@/redux/reducers/records';
 
 type ModalContent = 'record' | 'crop';
 
@@ -12,6 +15,19 @@ export default function usePlant() {
 	const { plantId } = useParams();
 	const { data: currentPlant, isLoading, error } = useGetPlantQuery(plantId!);
 	const [modalContent, setModalContent] = useState<ModalContent>('record');
+	const navigate = useNavigate();
+	const navigateToRecord = (recordId: string) => navigate(`/dashboard/record/${recordId}`);
+
+	const COLUMNS = [
+		...RECORDS_COLUMNS,
+		{
+			title: 'Actions',
+			key: 'actions',
+			render: (_: any, record: TRecord) => (
+				<AppButton onClick={() => navigateToRecord(record.id)} buttonType='secondary' text='View details' />
+			),
+		},
+	];
 
 	const reprintQR = async () => {
 		if (!currentPlant) return;
@@ -35,5 +51,6 @@ export default function usePlant() {
 		setContentAndOpenModal,
 		modalContent,
 		plantId,
+		COLUMNS,
 	};
 }

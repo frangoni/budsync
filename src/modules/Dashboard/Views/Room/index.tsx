@@ -7,12 +7,13 @@ import { Icon } from '@iconify/react/dist/iconify.js';
 import Modal from '@/modules/_shared/components/Dialog';
 import AddPlants from '../Plants/AddPlants';
 import useRoom from './useRoom';
+import Loader from '@/modules/Loading';
 
 export default function Room() {
 	const { isLoading, openModal, reprintQR, selectedRows, rowSelection, modalRef, roomId, closeModal, COLUMNS } =
 		useRoom();
 
-	if (isLoading) return <div>Loading...</div>;
+	if (isLoading) return <Loader />;
 	return (
 		<>
 			<Header title='Room' description={'Manage room name, add plants or search for active'} shouldGoBack />

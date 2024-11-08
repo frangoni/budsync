@@ -4,7 +4,7 @@ import Leaf from '../_shared/assets/pngs/leaf-fill.png';
 import MainContainer from '../_shared/components/Layout/MainContainer';
 import type { FormProps } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { useLoginMutation } from '@/redux/reducers/user';
+import { useLoginMutation } from '@/redux/reducers/users';
 import useNotification from '../_shared/hooks/useNotification';
 import { Card } from '../_shared/components/Layout/styles';
 import AppButton from '../_shared/components/Button';

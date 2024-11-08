@@ -22,8 +22,8 @@ export default function useRoom() {
 		{
 			title: 'Actions',
 			key: 'actions',
-			render: (_: any, record: TPlant) => (
-				<AppButton onClick={() => navigateToPlant(record.id)} buttonType='secondary' text='View details' />
+			render: (_: any, plant: TPlant) => (
+				<AppButton onClick={() => navigateToPlant(plant.id)} buttonType='secondary' text='View details' />
 			),
 		},
 	];

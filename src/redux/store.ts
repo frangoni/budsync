@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { KEY_PREFIX, getStoredState, persistReducer, persistStore, purgeStoredState } from 'redux-persist';
 import localforage from 'localforage';
 import { CONSTANTS } from '@/modules/_shared/_constants';
-import { plants, rooms, theme, user, userApi } from './reducers/index';
+import { plants, records, rooms, strains, tasks, theme, users, usersApi } from './reducers/index';
 import { baseApi } from './baseApi';
 
 const persistConfig = {
@@ -14,9 +14,12 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
 	theme,
-	user,
+	users,
 	rooms,
 	plants,
+	records,
+	tasks,
+	strains,
 	[baseApi.reducerPath]: baseApi.reducer,
 });
 
@@ -25,7 +28,7 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 const store = configureStore({
 	reducer: persistedReducer,
 	devTools: process.env.NODE_ENV !== 'production',
-	middleware: getDefaultMiddleware => getDefaultMiddleware({ serializableCheck: false }).concat(userApi.middleware),
+	middleware: getDefaultMiddleware => getDefaultMiddleware({ serializableCheck: false }).concat(usersApi.middleware),
 });
 
 export const persistedStore = persistStore(store as any);

@@ -9,11 +9,11 @@ import AddRecord from './AddRecord';
 import AppTable from '@/modules/_shared/components/Table';
 import { TRecord } from '@/redux/reducers/records';
 import { RECORDS_DATA } from './_dummy';
-import RECORDS_COLUMNS from './_columns';
 import PlantStatus from './PlantStatus';
 
 export default function Plant() {
-	const { setContentAndOpenModal, reprintQR, modalRef, modalContent, closeModal, currentPlant, plantId } = usePlant();
+	const { setContentAndOpenModal, reprintQR, modalRef, modalContent, closeModal, currentPlant, plantId, COLUMNS } =
+		usePlant();
 
 	return (
 		<>
@@ -42,13 +42,7 @@ export default function Plant() {
 				]}
 			/>
 			<PlantGallery imgUrls={[]} />
-
-			<AppTable<TRecord>
-				columns={RECORDS_COLUMNS}
-				title={() => 'Records'}
-				dataSource={RECORDS_DATA}
-				rowKey='id'
-			/>
+			<AppTable<TRecord> columns={COLUMNS} title={() => 'Records'} dataSource={RECORDS_DATA} rowKey='id' />
 			<Modal ref={modalRef}>
 				{modalContent === 'record' ? (
 					<AddRecord onSubmit={closeModal} plantId={plantId} />

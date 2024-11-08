@@ -3,52 +3,67 @@ import { baseApi } from '../baseApi';
 import { createSlice } from '@reduxjs/toolkit';
 import localforage from 'localforage';
 
-export interface UserState {
-	user: User | null;
-	token: string | null;
-}
-export interface User {
+export interface TUser {
 	name: string;
 	email: string;
 	role: string;
+	id: string;
 }
 
-const initialState: UserState = {
+export interface UsersState {
+	currentUser: TUser | null;
+	token: string | null;
+	users: TUser[];
+}
+
+const initialState: UsersState = {
 	token: null,
-	user: null,
+	currentUser: null,
+	users: [],
 };
 
-const userSlice = createSlice({
+const usersSlice = createSlice({
 	name: 'user',
 	initialState,
 	reducers: {
 		setUser: (state, action) => {
-			state.user = action.payload.user;
+			state.currentUser = action.payload.user;
 			state.token = action.payload.token;
 		},
+		setUsers: (state, action) => {
+			state.users = action.payload.users;
+		},
 		logout: state => {
-			state.user = null;
+			state.currentUser = null;
 			state.token = null;
 			localforage.removeItem(K.JWT_LS_KEY);
-		},
-		getCurrentUser: state => {
-			return state.user;
 		},
 	},
 });
 
-export const userApi = baseApi.injectEndpoints({
+export const usersApi = baseApi.injectEndpoints({
 	endpoints: builder => ({
 		getUser: builder.query({
 			query: () => `/me`,
 			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
 				try {
 					/* const { data } = await queryFulfilled; */
-					const data = { user: { name: 'test', email: 'test@gmail.com' }, token: 'test' };
-					dispatch(setUser({ user: data.user, token: data.token }));
+					const data = { user: { id: '1', name: 'test', email: 'test@gmail.com' }, token: 'test' };
+					dispatch(setUser(data.user));
 					localforage.setItem(K.JWT_LS_KEY, data.token);
 				} catch (e) {
 					console.error(`Error fetching user:${e}`);
+				}
+			},
+		}),
+		getAllUsers: builder.query<TUser[], void>({
+			query: () => `/users`,
+			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
+				try {
+					const { data } = await queryFulfilled;
+					dispatch(setUsers({ users: data }));
+				} catch (e) {
+					console.error(`Error fetching users:${e}`);
 				}
 			},
 		}),
@@ -90,6 +105,6 @@ export const userApi = baseApi.injectEndpoints({
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useGetUserQuery, useLoginMutation, useRegisterMutation } = userApi;
-export const { setUser, logout } = userSlice.actions;
-export default userSlice.reducer;
+export const { useGetUserQuery, useLoginMutation, useRegisterMutation, useGetAllUsersQuery } = usersApi;
+export const { setUser, setUsers, logout } = usersSlice.actions;
+export default usersSlice.reducer;

@@ -5,7 +5,7 @@ import MainContainer from '../_shared/components/Layout/MainContainer';
 import type { FormProps } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Form } from 'antd';
-import { useRegisterMutation } from '@/redux/reducers/user';
+import { useRegisterMutation } from '@/redux/reducers/users';
 import useNotification from '../_shared/hooks/useNotification';
 import { Card } from '../_shared/components/Layout/styles';
 import { useParams } from 'react-router-dom';

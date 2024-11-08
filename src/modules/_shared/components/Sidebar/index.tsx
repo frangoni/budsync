@@ -13,7 +13,7 @@ import {
 	SidebarWrapper,
 } from './styles';
 import useKeyBindings from '../../hooks/useKeyBindings';
-import { logout } from '@/redux/reducers/user';
+import { logout } from '@/redux/reducers/users';
 import { clearStoredState, persistedStore, useAppDispatch } from '@/redux/store';
 import { useTheme } from '../../hooks/useTheme';
 

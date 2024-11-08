@@ -4,6 +4,7 @@ import Sidebar from '../_shared/components/Sidebar';
 import MainContainer from '../_shared/components/Layout/MainContainer';
 import { ContentWrapper, DashboardWrapper } from './_styles';
 import Welcome from './Views/Welcome';
+import Loader from '../Loading';
 
 export default function Dashboard() {
 	const hasOutlet = useOutlet();
@@ -13,7 +14,7 @@ export default function Dashboard() {
 			<DashboardWrapper>
 				<Sidebar />
 				<ContentWrapper>
-					<Suspense>{hasOutlet ? <Outlet /> : <Welcome />}</Suspense>
+					<Suspense fallback={<Loader />}>{hasOutlet ? <Outlet /> : <Welcome />}</Suspense>
 				</ContentWrapper>
 			</DashboardWrapper>
 		</MainContainer>

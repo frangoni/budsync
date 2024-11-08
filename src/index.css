@@ -18,9 +18,6 @@
 	outline: none;
 }
 
-html {
-	font-size: 1.125rem;
-}
 @media screen and (max-width: 1920px) {
 	html {
 		font-size: calc(0.3749999999999999rem + 0.6250000000000001vw);
@@ -59,7 +56,7 @@ button {
 h1 {
 	font-size: 4rem;
 	font-family: 'Outfit';
-	line-height: 1.2;
+	line-height: 1;
 
 	@media screen and (max-width: 768px) {
 		font-size: 3rem;
@@ -79,6 +76,7 @@ h2 {
 h3 {
 	font-size: 2rem;
 	font-family: 'Outfit';
+	line-height: 1.2;
 
 	@media screen and (max-width: 768px) {
 		font-size: 1.5rem;

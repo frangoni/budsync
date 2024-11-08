@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from './_shared/_routes';
-import { useGetUserQuery } from '@/redux/reducers/user';
+import { useGetUserQuery } from '@/redux/reducers/users';
 import { useEffect } from 'react';
 
-const Landing = () => {
+export default function Landing() {
 	const { data } = useGetUserQuery(null);
 	const navigate = useNavigate();
 
@@ -12,8 +12,5 @@ const Landing = () => {
 		navigate(redirectUrl);
 	}, [data, navigate]);
 
-	console.log('Landing');
 	return null;
-};
-
-export default Landing;
+}
