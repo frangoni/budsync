@@ -4,19 +4,19 @@ import Toolbar from '@/modules/_shared/components/Layout/Toolbar';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import AddTask from './AddTask';
 import Loader from '@/modules/Loading';
-import { ExpandedImage, ImageDetailsWrapper, PlantImgWrapper, RecordsWrapper } from './_styles';
+import { ImageDetailsWrapper, PlantImgWrapper, RecordsWrapper } from './_styles';
 import AppTable from '@/modules/_shared/components/Table';
 import { TTask } from '@/redux/reducers/tasks';
 import useRecord from './useRecord';
 import { TASKS_DATA } from './_dummy';
 import { Card } from '@/modules/_shared/components/Layout/styles';
-import Zoom from 'react-medium-image-zoom'; // Import the zoom library
-import 'react-medium-image-zoom/dist/styles.css'; // Import zoom
+import Zoom from 'react-medium-image-zoom';
+import 'react-medium-image-zoom/dist/styles.css';
 
 export default function Record() {
 	const { isLoading, COLUMNS, modalRef, recordID, closeModal, openModal } = useRecord();
 
-	if (isLoading) return <Loader />;
+	if (!isLoading) return <Loader />;
 	return (
 		<>
 			<Header title='Record' description='See and manage a record' />
@@ -35,7 +35,7 @@ export default function Record() {
 					<h3>Plant Image</h3>
 					<p>Click to expand</p>
 					<PlantImgWrapper>
-						<Zoom>
+						<Zoom classDialog='zoom-dialog'>
 							<img src='https://swiperjs.com/demos/images/nature-10.jpg' />
 						</Zoom>
 					</PlantImgWrapper>

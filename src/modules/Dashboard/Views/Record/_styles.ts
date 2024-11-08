@@ -33,9 +33,3 @@ export const RecordsWrapper = styled.div`
 		padding: 1rem;
 	}
 `;
-
-export const ExpandedImage = styled.img`
-	max-height: calc(100vh - 6rem);
-	border: 0.25rem solid ${({ theme }) => theme.colors.border.context};
-	border-radius: 1rem;
-`;
