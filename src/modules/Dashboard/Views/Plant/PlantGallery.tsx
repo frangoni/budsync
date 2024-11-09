@@ -4,6 +4,8 @@ import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
 import { EffectCoverflow, Pagination, Keyboard } from 'swiper/modules';
 import { SwipperWrapper } from './_styles';
+import Zoom from 'react-medium-image-zoom';
+import 'react-medium-image-zoom/dist/styles.css';
 
 interface PlantGalleryProps {
 	imgUrls: string[];
@@ -31,12 +33,16 @@ export default function PlantGallery({ imgUrls }: PlantGalleryProps) {
 			>
 				{imgUrls?.map(url => (
 					<SwiperSlide key={url}>
-						<img src={url} loading='lazy' />
+						<Zoom classDialog='zoom-dialog'>
+							<img src={url} loading='lazy' />{' '}
+						</Zoom>
 					</SwiperSlide>
 				))}
 
 				<SwiperSlide>
-					<img src='https://swiperjs.com/demos/images/nature-1.jpg' />
+					<Zoom classDialog='zoom-dialog'>
+						<img src='https://swiperjs.com/demos/images/nature-1.jpg' />
+					</Zoom>
 				</SwiperSlide>
 				<SwiperSlide>
 					<img src='https://swiperjs.com/demos/images/nature-2.jpg' />

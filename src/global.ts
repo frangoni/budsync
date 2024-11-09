@@ -53,7 +53,7 @@ export const GlobalStyle = createGlobalStyle`
     }
     .zoom-dialog [data-rmiz-btn-unzoom] {
       background-color: ${({ theme }) => theme.colors.background.main};
-      color: ${({ theme }) => theme.colors.text.primary};
+      color: ${({ theme }) => theme.colors.text.button.primary};
     }
     .zoom-dialog [data-rmiz-btn-unzoom]:focus-visible {
       outline-offset: 0.4rem;

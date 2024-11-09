@@ -16,7 +16,7 @@ import 'react-medium-image-zoom/dist/styles.css';
 export default function Record() {
 	const { isLoading, COLUMNS, modalRef, recordID, closeModal, openModal } = useRecord();
 
-	if (!isLoading) return <Loader />;
+	if (isLoading) return <Loader />;
 	return (
 		<>
 			<Header title='Record' description='See and manage a record' />

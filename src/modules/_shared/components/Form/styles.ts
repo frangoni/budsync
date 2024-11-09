@@ -76,6 +76,7 @@ export const AppForm = styled(Form)`
 	flex-direction: column;
 	gap: 1rem;
 	color: ${({ theme }) => theme.colors.text.primary};
+	background-color: transparent;
 
 	label {
 		font-size: 1.25rem !important;
