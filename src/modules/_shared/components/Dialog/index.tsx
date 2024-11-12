@@ -1,7 +1,7 @@
 import { ReactNode, forwardRef, useImperativeHandle, useRef } from 'react';
 import { DialogContent, StyledDialog } from './styles';
 import AppButton from '../Button';
-import { Card } from '../Layout/styles';
+import { Card } from '../Layout/_styles';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import useKeyBindings from '../../hooks/useKeyBindings';
 

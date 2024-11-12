@@ -6,7 +6,7 @@ import type { FormProps } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { useLoginMutation } from '@/redux/reducers/users';
 import useNotification from '../_shared/hooks/useNotification';
-import { Card } from '../_shared/components/Layout/styles';
+import { Card } from '../_shared/components/Layout/_styles';
 import AppButton from '../_shared/components/Button';
 import { AppInput, AppForm, PasswordInput } from '../_shared/components/Form/styles';
 

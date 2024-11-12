@@ -16,6 +16,7 @@ export interface ThemeInterface {
 			mainDimmer: string;
 			linear: string;
 			linear2: string;
+			leaf: string;
 			table: {
 				hover: string;
 			};
@@ -97,6 +98,7 @@ const appTheme: { dark: ThemeInterface; light: ThemeInterface } = {
 				mainDimmer: '#6EB5B74D',
 				linear: 'linear-gradient(180deg, #377E80 0%, #6EB5B7 100%)',
 				linear2: 'linear-gradient(96.31deg, #00B0EF 7.57%, #00BBA0 96.87%)',
+				leaf: 'linear-gradient(to bottom, #4CAF50,#388E3C,#2E7D32,#1B5E20)',
 				table: {
 					hover: '#4B4B4B',
 				},
@@ -168,6 +170,7 @@ const appTheme: { dark: ThemeInterface; light: ThemeInterface } = {
 				mainDimmer: '#377E804D',
 				linear: 'linear-gradient(180deg, #377E80 0%, #6EB5B7 100%)',
 				linear2: 'linear-gradient(96.31deg, #00B0EF 7.57%, #00BBA0 96.87%)',
+				leaf: 'linear-gradient(to bottom, #4CAF50,#388E3C,#2E7D32,#1B5E20)',
 				table: {
 					hover: '#E9ECEF',
 				},

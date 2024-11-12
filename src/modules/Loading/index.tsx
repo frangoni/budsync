@@ -1,4 +1,4 @@
-import { CenteredWrapper } from '../_shared/components/Layout/styles';
+import { CenteredWrapper } from '../_shared/components/Layout/_styles';
 import { LoaderWrapper } from './_styles';
 
 export default function Loader() {

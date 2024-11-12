@@ -8,6 +8,7 @@ import PlantScanner from './PlantScanner';
 import { useNavigate } from 'react-router-dom';
 import { PlantsMainContainer } from './_styles';
 import PlantFinder from './PlantFinder';
+import { SectionContainer } from '@/modules/_shared/components/Layout/_styles';
 
 export default function Plants() {
 	const { closeModal, modalRef, openModal } = useModal();
@@ -32,12 +33,13 @@ export default function Plants() {
 					},
 				]}
 			/>
-
-			<PlantsMainContainer>
-				<PlantScanner onScan={onScan} />
-				<h4>OR</h4>
-				<PlantFinder />
-			</PlantsMainContainer>
+			<SectionContainer>
+				<PlantsMainContainer>
+					<PlantScanner onScan={onScan} />
+					<h4>OR</h4>
+					<PlantFinder />
+				</PlantsMainContainer>
+			</SectionContainer>
 
 			<Modal ref={modalRef}>
 				<AddPlants onSubmit={() => closeModal()} />

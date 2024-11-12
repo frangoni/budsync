@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const SwipperWrapper = styled.div`
 	.swiper {
 		width: 100%;
-		margin-block: 2rem;
+		margin-bottom: 2rem;
 	}
 
 	.swiper-slide {

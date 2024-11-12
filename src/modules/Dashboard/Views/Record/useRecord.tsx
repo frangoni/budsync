@@ -1,7 +1,7 @@
 import useModal from '@/modules/_shared/hooks/useModal';
 import { useGetRecordQuery } from '@/redux/reducers/records';
 import { useNavigate, useParams } from 'react-router-dom';
-import TASKS_COLUMNS from './_columns';
+import TASKS_COLUMNS from '../Tasks/_columns';
 import AppButton from '@/modules/_shared/components/Button';
 import { TTask } from '@/redux/reducers/tasks';
 

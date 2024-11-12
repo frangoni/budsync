@@ -2,7 +2,7 @@ import AppButton from '@/modules/_shared/components/Button';
 import { Html5Qrcode } from 'html5-qrcode';
 import { useRef, useState } from 'react';
 import { PlantScannerContainer, QRCardLayout } from './_styles';
-import { Card } from '@/modules/_shared/components/Layout/styles';
+import { Card } from '@/modules/_shared/components/Layout/_styles';
 import { Icon } from '@iconify/react/dist/iconify.js';
 
 interface PlantScannerProps {

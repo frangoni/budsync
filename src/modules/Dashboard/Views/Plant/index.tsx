@@ -10,6 +10,7 @@ import AppTable from '@/modules/_shared/components/Table';
 import { TRecord } from '@/redux/reducers/records';
 import { RECORDS_DATA } from './_dummy';
 import PlantStatus from './PlantStatus';
+import { SectionContainer } from '@/modules/_shared/components/Layout/_styles';
 
 export default function Plant() {
 	const { setContentAndOpenModal, reprintQR, modalRef, modalContent, closeModal, currentPlant, plantId, COLUMNS } =
@@ -21,6 +22,7 @@ export default function Plant() {
 				title='Plant'
 				subtitle={<PlantStatus active={currentPlant?.active} />}
 				description='Here you can manage your plant'
+				shouldGoBack
 			/>
 			<Toolbar
 				items={[
@@ -41,8 +43,10 @@ export default function Plant() {
 					},
 				]}
 			/>
-			<PlantGallery imgUrls={[]} />
-			<AppTable<TRecord> columns={COLUMNS} title={() => 'Records'} dataSource={RECORDS_DATA} rowKey='id' />
+			<SectionContainer>
+				<PlantGallery imgUrls={[]} />
+				<AppTable<TRecord> columns={COLUMNS} title={() => 'Records'} dataSource={RECORDS_DATA} rowKey='id' />
+			</SectionContainer>
 			<Modal ref={modalRef}>
 				{modalContent === 'record' ? (
 					<AddRecord onSubmit={closeModal} plantId={plantId} />

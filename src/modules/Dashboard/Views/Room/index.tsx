@@ -8,6 +8,7 @@ import Modal from '@/modules/_shared/components/Dialog';
 import AddPlants from '../Plants/AddPlants';
 import useRoom from './useRoom';
 import Loader from '@/modules/Loading';
+import { SectionContainer } from '@/modules/_shared/components/Layout/_styles';
 
 export default function Room() {
 	const { isLoading, openModal, reprintQR, selectedRows, rowSelection, modalRef, roomId, closeModal, COLUMNS } =
@@ -32,13 +33,15 @@ export default function Room() {
 					},
 				]}
 			/>
-			<AppTable<TPlant>
-				columns={COLUMNS}
-				rowSelection={rowSelection}
-				title={() => 'Plants'}
-				dataSource={PLANTS_DATA}
-				rowKey='id'
-			/>
+			<SectionContainer>
+				<AppTable<TPlant>
+					columns={COLUMNS}
+					rowSelection={rowSelection}
+					title={() => 'Plants'}
+					dataSource={PLANTS_DATA}
+					rowKey='id'
+				/>
+			</SectionContainer>
 			<Modal ref={modalRef}>
 				<AddPlants roomId={roomId} onSubmit={() => closeModal()} />
 			</Modal>

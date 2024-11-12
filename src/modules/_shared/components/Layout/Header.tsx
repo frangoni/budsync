@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { HeaderWrapper } from './styles';
+import { HeaderWrapper } from './_styles';
 import AppButton from '../Button';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { ReactNode } from 'react';
@@ -18,7 +18,7 @@ export default function Header({ title, description, subtitle, shouldGoBack = fa
 	return (
 		<HeaderWrapper>
 			<div>
-				<span>
+				<span className='title-wrapper'>
 					<h1>{title}</h1>
 					{subtitle}
 				</span>

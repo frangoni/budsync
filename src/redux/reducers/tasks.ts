@@ -38,8 +38,36 @@ const tasksSlice = createSlice({
 
 export const tasksApi = baseApi.injectEndpoints({
 	endpoints: builder => ({
-		getTasks: builder.query<TTask[], void>({
+		getTask: builder.query<TTask, string>({
 			query: id => `/tasks/${id}`,
+			providesTags: ['Tasks'],
+			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
+				try {
+					const { data } = await queryFulfilled;
+					dispatch(setTasks({ tasks: data }));
+				} catch (e) {
+					console.error(`Error fetching tasks:${e}`);
+				}
+			},
+		}),
+		finishTask: builder.mutation({
+			query: (id: string) => ({
+				url: `/tasks/${id}`,
+				method: 'PATCH',
+				body: { active: false, dateFinished: new Date().toISOString() },
+			}),
+			invalidatesTags: ['Tasks'],
+			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
+				try {
+					const { data } = await queryFulfilled;
+					dispatch(setTasks({ tasks: data }));
+				} catch (e) {
+					console.error(`Error finishing task:${e}`);
+				}
+			},
+		}),
+		getMyTasks: builder.query<TTask[], void>({
+			query: () => '/tasks',
 			providesTags: ['Tasks'],
 			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
 				try {
@@ -69,6 +97,6 @@ export const tasksApi = baseApi.injectEndpoints({
 	}),
 });
 
-export const { useGetTasksQuery, useCreateTaskMutation } = tasksApi;
+export const { useGetTaskQuery, useCreateTaskMutation, useFinishTaskMutation, useGetMyTasksQuery } = tasksApi;
 export const { setTasks } = tasksSlice.actions;
 export default tasksSlice.reducer;

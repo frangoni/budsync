@@ -7,7 +7,7 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Form } from 'antd';
 import { useRegisterMutation } from '@/redux/reducers/users';
 import useNotification from '../_shared/hooks/useNotification';
-import { Card } from '../_shared/components/Layout/styles';
+import { Card } from '../_shared/components/Layout/_styles';
 import { useParams } from 'react-router-dom';
 import AppButton from '../_shared/components/Button';
 import { AppInput, PasswordInput } from '../_shared/components/Form/styles';

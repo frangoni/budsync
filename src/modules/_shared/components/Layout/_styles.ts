@@ -21,7 +21,7 @@ export const HeaderWrapper = styled.header`
 	padding-bottom: 1rem;
 	border-bottom: 0.25rem groove ${({ theme }) => theme.colors.border.primary};
 
-	span {
+	.title-wrapper {
 		display: flex;
 		flex-direction: row;
 		align-items: center;
@@ -43,7 +43,7 @@ export const ToolbarWrapper = styled.div`
 	display: flex;
 	gap: 2rem;
 	align-items: center;
-	padding: 1rem 0 2rem;
+	padding-top: 1rem;
 	flex-flow: row wrap;
 
 	@media (max-width: 768px) {
@@ -51,4 +51,26 @@ export const ToolbarWrapper = styled.div`
 		grid-template-columns: repeat(2, 1fr);
 		gap: 0.5rem;
 	}
+`;
+
+export const ConfirmationWrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1rem;
+
+	svg {
+		color: ${({ theme }) => theme.colors.text.warning};
+		font-size: 5rem;
+		margin-bottom: 1rem;
+	}
+`;
+
+export const ButtonGroup = styled.div`
+	display: flex;
+	gap: 1rem;
+`;
+
+export const SectionContainer = styled.article`
+	margin-top: 2rem;
 `;

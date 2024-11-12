@@ -1,5 +1,5 @@
 import AppButton from '../Button';
-import { ToolbarWrapper } from './styles';
+import { ToolbarWrapper } from './_styles';
 
 interface ToolbarItem {
 	icon: React.ReactNode;

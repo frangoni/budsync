@@ -1,5 +1,5 @@
 import AppButton from '@/modules/_shared/components/Button';
-import { Card } from '@/modules/_shared/components/Layout/styles';
+import { Card } from '@/modules/_shared/components/Layout/_styles';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { useNavigate } from 'react-router-dom';
 import { RoomCardLayout } from './_styles';

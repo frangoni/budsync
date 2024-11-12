@@ -1,6 +1,6 @@
 import Bud from '../_shared/assets/pngs/leafy-joint.png';
 import { StyledBud } from './styles';
-import { CenteredWrapper } from '../_shared/components/Layout/styles';
+import { CenteredWrapper } from '../_shared/components/Layout/_styles';
 import { useNavigate } from 'react-router-dom';
 import AppButton from '../_shared/components/Button';
 
