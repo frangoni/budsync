@@ -1,3 +1,9 @@
+import Header from '@/modules/_shared/components/Layout/Header';
+
 export default function Reports() {
-	return <h1>Reports</h1>;
+	return (
+		<>
+			<Header title='Reports' />
+		</>
+	);
 }

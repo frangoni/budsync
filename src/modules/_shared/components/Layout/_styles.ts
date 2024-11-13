@@ -28,6 +28,11 @@ export const HeaderWrapper = styled.header`
 		gap: 1rem;
 		margin-bottom: 0.5rem;
 	}
+
+	h1,
+	p {
+		font-family: 'Grandstander', cursive;
+	}
 `;
 export const CenteredWrapper = styled.div`
 	display: flex;
@@ -58,6 +63,7 @@ export const ConfirmationWrapper = styled.div`
 	flex-direction: column;
 	align-items: center;
 	gap: 1rem;
+	text-align: center;
 
 	svg {
 		color: ${({ theme }) => theme.colors.text.warning};

@@ -10,12 +10,16 @@ const InputBaseStyles = css`
 	color: ${({ theme }) => theme.colors.text.primary};
 	background-color: ${({ theme }) => theme.colors.background.primary} !important;
 
-	.ant-input::placeholder {
-		color: ${({ theme }) => theme.colors.text.secondary} !important;
+	&::placeholder {
+		color: ${({ theme }) => theme.colors.text.secondary};
 	}
-
 	.ant-input-status-error {
 		background-color: ${({ theme }) => theme.colors.background.primary};
+	}
+
+	&:disabled {
+		color: ${({ theme }) => theme.colors.text.secondary};
+		border: 0.2rem solid ${({ theme }) => theme.colors.border.active};
 	}
 
 	&:hover,

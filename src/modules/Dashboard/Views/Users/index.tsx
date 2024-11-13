@@ -1,3 +1,9 @@
+import Header from '@/modules/_shared/components/Layout/Header';
+
 export default function Users() {
-	return <h1>Users</h1>;
+	return (
+		<>
+			<Header title='Users' />
+		</>
+	);
 }

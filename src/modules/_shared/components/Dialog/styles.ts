@@ -51,5 +51,6 @@ export const DialogContent = styled.div`
 	overflow-x: hidden;
 	padding: 0 1rem;
 	margin-inline: -1rem;
-	box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+
+	color: ${({ theme }) => theme.colors.text.primary};
 `;

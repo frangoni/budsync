@@ -4,7 +4,7 @@ import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import 'react-medium-image-zoom/dist/styles.css';
-import { EffectCoverflow, Pagination, Keyboard, Lazy } from 'swiper/modules';
+import { EffectCoverflow, Pagination, Keyboard } from 'swiper/modules';
 import { SwipperWrapper } from './_styles';
 import Zoom from 'react-medium-image-zoom';
 
@@ -29,7 +29,6 @@ export default function PlantGallery({ imgUrls }: PlantGalleryProps) {
 				}}
 				pagination={true}
 				keyboard={true}
-				lazy={true}
 				modules={[EffectCoverflow, Pagination, Keyboard]}
 				className='mySwiper'
 			>

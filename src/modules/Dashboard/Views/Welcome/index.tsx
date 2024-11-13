@@ -16,7 +16,7 @@ export default function Welcome() {
 			<Header title='Welcome to BudSync!' />
 			<WelcomeContainer>
 				<WelcomeColumn>
-					<h3>Hi user! My name is buddy</h3>
+					<h3>Hi user! My name is Buddy</h3>
 					<StyledBud src={Bud} alt='Buddy' />
 					<p>Click on the sidebar to navigate through the app</p>
 				</WelcomeColumn>

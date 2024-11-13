@@ -37,9 +37,7 @@ export const UploaderWrapper = styled.div`
 export const StatusContainer = styled.div`
 	display: flex;
 	align-items: center;
-	gap: 12px;
-	padding: 8px;
-	border-radius: 8px;
+	gap: 0.75rem;
 `;
 
 export const TrafficLight = styled.div<{ active: boolean }>`

@@ -39,6 +39,8 @@ export default function Sidebar() {
 
 	useKeyBindings([{ key: 'b', callback: () => setActive(!active), ctrlKey: true }]);
 
+	const closeSidebar = () => setActive(false);
+
 	return (
 		<>
 			<MobileBackdrop onClick={handleClick} className={`${active ? 'active' : ''}`} />
@@ -53,23 +55,23 @@ export default function Sidebar() {
 					</Link>
 				</SidebarHeader>
 				<SidebarLinksWrapper>
-					<SidebarLink to={ROUTES.rooms}>
+					<SidebarLink to={ROUTES.rooms} onClick={closeSidebar}>
 						<Icon icon='mdi:house-outline' />
 						<p>Rooms</p>
 					</SidebarLink>
-					<SidebarLink to={ROUTES.plants}>
+					<SidebarLink to={ROUTES.plants} onClick={closeSidebar}>
 						<Icon icon='mdi:plant-outline' />
 						<p>Plants</p>
 					</SidebarLink>
-					<SidebarLink to={ROUTES.tasks}>
+					<SidebarLink to={ROUTES.tasks} onClick={closeSidebar}>
 						<Icon icon='mdi:subtasks' />
 						<p>Tasks</p>
 					</SidebarLink>
-					<SidebarLink to={ROUTES.reports}>
+					<SidebarLink to={ROUTES.reports} onClick={closeSidebar}>
 						<Icon icon='mdi:report-finance' />
 						<p>Reports</p>
 					</SidebarLink>
-					<SidebarLink to={ROUTES.users}>
+					<SidebarLink to={ROUTES.users} onClick={closeSidebar}>
 						<Icon icon='mdi:user-multiple-outline' />
 						<p>Users</p>
 					</SidebarLink>
