@@ -13,8 +13,17 @@ import PlantStatus from './PlantStatus';
 import { SectionContainer } from '@/modules/_shared/components/Layout/_styles';
 
 export default function Plant() {
-	const { setContentAndOpenModal, reprintQR, modalRef, modalContent, closeModal, currentPlant, plantId, COLUMNS } =
-		usePlant();
+	const {
+		setContentAndOpenModal,
+		reprintQR,
+		modalRef,
+		modalContent,
+		closeModal,
+		currentPlant,
+		plantId,
+		COLUMNS,
+		isLoading,
+	} = usePlant();
 
 	return (
 		<>
@@ -45,7 +54,13 @@ export default function Plant() {
 			/>
 			<SectionContainer>
 				<PlantGallery imgUrls={[]} />
-				<AppTable<TRecord> columns={COLUMNS} title={() => 'Records'} dataSource={RECORDS_DATA} rowKey='id' />
+				<AppTable<TRecord>
+					columns={COLUMNS}
+					title={() => 'Records'}
+					dataSource={RECORDS_DATA}
+					rowKey='id'
+					loading={isLoading}
+				/>
 			</SectionContainer>
 			<Modal ref={modalRef}>
 				{modalContent === 'record' ? (

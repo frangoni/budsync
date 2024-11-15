@@ -21,6 +21,7 @@ export default function useRecord() {
 			render: (_: any, task: TTask) => (
 				<AppButton onClick={() => navigateToTask(task.id)} buttonType='secondary' text='View details' />
 			),
+			width: 1,
 		},
 	];
 

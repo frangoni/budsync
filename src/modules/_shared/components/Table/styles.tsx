@@ -7,6 +7,14 @@ export const StyledTable = styled(Table)`
 		color: ${({ theme }) => theme.colors.text.primary};
 		overflow-x: auto;
 
+		.ant-table-placeholder {
+			background-color: ${({ theme }) => theme.colors.background.secondary} !important;
+
+			.ant-empty-description {
+				color: ${({ theme }) => theme.colors.text.primary} !important;
+			}
+		}
+
 		th,
 		td,
 		.ant-table-title,

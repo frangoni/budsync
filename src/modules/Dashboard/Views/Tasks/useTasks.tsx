@@ -14,9 +14,10 @@ export default function useTasks() {
 			title: 'Actions',
 			dataIndex: 'actions',
 			key: 'actions',
-			render: (_: any, task: TTask) => (
+			render: (_: string, task: TTask) => (
 				<AppButton onClick={() => navigateToTask(task.id)} buttonType='secondary' text='View details' />
 			),
+			width: 1,
 		},
 	];
 

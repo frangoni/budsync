@@ -12,4 +12,5 @@ export const ROUTES = {
 	record: '/dashboard/record/:recordId',
 	reports: '/dashboard/reports',
 	users: '/dashboard/users',
+	settings: '/dashboard/settings',
 };

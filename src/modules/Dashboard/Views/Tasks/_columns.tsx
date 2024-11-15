@@ -3,6 +3,7 @@ const TASKS_COLUMNS = [
 		title: '#',
 		dataIndex: 'id',
 		key: 'id',
+		width: 1,
 	},
 	{
 		title: 'Description',

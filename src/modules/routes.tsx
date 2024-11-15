@@ -5,6 +5,7 @@ import { CONSTANTS } from './_shared/_constants';
 import localforage from 'localforage';
 import Reports from './Dashboard/Views/Reports';
 import Users from './Dashboard/Views/Users';
+const Settings = lazy(() => import('./Dashboard/Views/Settings'));
 const Landing = lazy(() => import('./Landing'));
 const Login = lazy(() => import('./Login'));
 const Register = lazy(() => import('./Register'));
@@ -84,6 +85,10 @@ const router = createBrowserRouter([
 			{
 				path: ROUTES.users,
 				element: <Users />,
+			},
+			{
+				path: ROUTES.settings,
+				element: <Settings />,
 			},
 			{
 				path: '*',

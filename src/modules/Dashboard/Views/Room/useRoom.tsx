@@ -25,6 +25,7 @@ export default function useRoom() {
 			render: (_: any, plant: TPlant) => (
 				<AppButton onClick={() => navigateToPlant(plant.id)} buttonType='secondary' text='View details' />
 			),
+			width: 1,
 		},
 	];
 

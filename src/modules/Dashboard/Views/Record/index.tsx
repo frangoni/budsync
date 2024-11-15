@@ -50,7 +50,13 @@ export default function Record() {
 						</RecordsWrapper>
 					</span>
 				</ImageDetailsWrapper>
-				<AppTable<TTask> columns={COLUMNS} title={() => 'Tasks'} dataSource={TASKS_DATA} rowKey='id' />
+				<AppTable<TTask>
+					columns={COLUMNS}
+					title={() => 'Tasks'}
+					dataSource={TASKS_DATA}
+					rowKey='id'
+					loading={isLoading}
+				/>
 			</SectionContainer>
 			<Modal ref={modalRef}>
 				<AddTask onSubmit={() => closeModal()} recordId={recordID} />

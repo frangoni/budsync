@@ -6,7 +6,6 @@ export const SidebarHeader = styled.div`
 	justify-content: center;
 	align-items: center;
 	margin-top: 1rem;
-	margin-bottom: 1rem;
 	padding-bottom: 1rem;
 	border-bottom: 1px solid ${({ theme }) => theme.colors.border.primary};
 
@@ -52,9 +51,14 @@ export const SidebarLink = styled(Link)`
 export const SidebarLinksWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
-	gap: 1rem;
+	gap: 0.5rem;
 	flex-grow: 1;
 	border-bottom: 1px solid ${({ theme }) => theme.colors.border.primary};
+	padding-block: 1rem;
+
+	#settings {
+		margin-top: auto;
+	}
 `;
 
 export const CollapseButton = styled.div`
@@ -96,6 +100,10 @@ export const SidebarWrapper = styled.aside`
 		color: inherit;
 	}
 
+	p {
+		pointer-events: none;
+	}
+
 	&.active {
 		color: ${({ theme }) => theme.colors.text.primary};
 		max-width: 15rem;
@@ -103,6 +111,7 @@ export const SidebarWrapper = styled.aside`
 		${SidebarLink} p {
 			opacity: 1;
 			transform: translateY(0);
+			pointer-events: all;
 		}
 
 		${CollapseButton} {

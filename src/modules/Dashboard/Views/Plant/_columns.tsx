@@ -1,8 +1,9 @@
 const RECORDS_COLUMNS = [
 	{
-		title: 'Plant Id',
+		title: '#',
 		dataIndex: 'plantId',
 		key: 'number',
+		width: 1,
 	},
 	{
 		title: 'Date',

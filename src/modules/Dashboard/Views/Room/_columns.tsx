@@ -5,6 +5,7 @@ const PLANT_COLUMNS = [
 		title: '#',
 		dataIndex: 'id',
 		key: 'number',
+		width: 1,
 	},
 	{
 		title: 'Strain',

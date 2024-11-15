@@ -75,6 +75,11 @@ export default function Sidebar() {
 						<Icon icon='mdi:user-multiple-outline' />
 						<p>Users</p>
 					</SidebarLink>
+
+					<SidebarLink id='settings' to={ROUTES.settings} onClick={closeSidebar}>
+						<Icon icon='mdi:cog-outline' />
+						<p>Settings</p>
+					</SidebarLink>
 				</SidebarLinksWrapper>
 
 				<SidebarFooter>

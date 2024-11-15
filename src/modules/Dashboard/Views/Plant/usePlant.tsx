@@ -26,6 +26,7 @@ export default function usePlant() {
 			render: (_: any, record: TRecord) => (
 				<AppButton onClick={() => navigateToRecord(record.id)} buttonType='secondary' text='View details' />
 			),
+			width: 1,
 		},
 	];
 
