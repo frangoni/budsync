@@ -28,8 +28,8 @@ export default function Sidebar() {
 		e.preventDefault();
 		await clearStoredState();
 		await persistedStore.purge();
-		navigate(ROUTES.login);
 		dispatch(logout(''));
+		navigate(ROUTES.login);
 	};
 
 	const handleToggleTheme = (e: React.MouseEvent<HTMLAnchorElement>) => {

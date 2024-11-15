@@ -3,11 +3,13 @@ import { baseApi } from '../baseApi';
 import { createSlice } from '@reduxjs/toolkit';
 import localforage from 'localforage';
 
+export type Role = 'Admin' | 'User';
 export interface TUser {
 	name: string;
 	email: string;
-	role: string;
+	role: Role;
 	id: string;
+	active: boolean;
 }
 
 export interface UsersState {
@@ -95,7 +97,38 @@ export const usersApi = baseApi.injectEndpoints({
 					dispatch(setUser({ user: data.user, token: data.token }));
 					localforage.setItem(K.JWT_LS_KEY, data.token);
 				} catch (e) {
-					console.error(`RTegister failed: ${e}`);
+					console.error(`Register failed: ${e}`);
+				}
+			},
+		}),
+
+		addUser: builder.mutation<void, { email: string }>({
+			query: credentials => ({
+				url: `/user/invite`,
+				method: 'POST',
+				body: credentials,
+			}),
+			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
+				try {
+					const { data } = await queryFulfilled;
+					return data;
+				} catch (e) {
+					console.error(`Error on user add: ${e}`);
+				}
+			},
+		}),
+		editUser: builder.mutation<void, { role: Role; active: boolean }>({
+			query: credentials => ({
+				url: `/user`,
+				method: 'PUT',
+				body: credentials,
+			}),
+			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
+				try {
+					const { data } = await queryFulfilled;
+					return data;
+				} catch (e) {
+					console.error(`Error on user edit: ${e}`);
 				}
 			},
 		}),
@@ -105,6 +138,13 @@ export const usersApi = baseApi.injectEndpoints({
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useGetUserQuery, useLoginMutation, useRegisterMutation, useGetAllUsersQuery } = usersApi;
+export const {
+	useGetUserQuery,
+	useLoginMutation,
+	useRegisterMutation,
+	useEditUserMutation,
+	useGetAllUsersQuery,
+	useAddUserMutation,
+} = usersApi;
 export const { setUser, setUsers, logout } = usersSlice.actions;
 export default usersSlice.reducer;

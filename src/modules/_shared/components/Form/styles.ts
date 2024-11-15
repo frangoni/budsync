@@ -1,4 +1,4 @@
-import { Form, Input, Select } from 'antd';
+import { Form, Input, Select, Switch } from 'antd';
 import { css, styled } from 'styled-components';
 
 const InputBaseStyles = css`
@@ -84,5 +84,19 @@ export const AppForm = styled(Form)`
 
 	label {
 		font-size: 1.25rem !important;
+	}
+`;
+
+export const AppSwitch = styled(Switch)`
+	.ant-switch-handle::before {
+		background-color: ${({ theme }) => theme.colors.background.secondary};
+	}
+
+	&.ant-switch.ant-switch-checked {
+		background-color: ${({ theme }) => theme.colors.background.main};
+
+		&:hover {
+			background-color: ${({ theme }) => theme.colors.background.mainDimmer};
+		}
 	}
 `;

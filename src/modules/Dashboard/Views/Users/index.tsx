@@ -7,9 +7,12 @@ import Loader from '@/modules/Loading';
 import Modal from '@/modules/_shared/components/Dialog';
 import Toolbar from '@/modules/_shared/components/Layout/Toolbar';
 import { Icon } from '@iconify/react/dist/iconify.js';
+import AddUser from './AddUser';
+import EditUser from './EditUser';
 
 export default function Users() {
-	const { data, isLoading, isError, COLUMNS, modalRef, handleAddUser, modalContent } = useUsers();
+	const { data, isLoading, isError, COLUMNS, modalRef, handleAddUser, modalContent, closeModal, selectedUser } =
+		useUsers();
 
 	if (isLoading) return <Loader />;
 	return (
@@ -27,7 +30,10 @@ export default function Users() {
 			<SectionContainer>
 				<AppTable<TUser>
 					columns={COLUMNS}
-					dataSource={[{ id: '1', name: 'John Doe', email: '', role: 'Admin' }]}
+					dataSource={[
+						{ id: '1', name: 'John Doe', email: '', role: 'User', active: true },
+						{ id: '2', name: 'John Dos', email: 'asdasdasd', role: 'Admin', active: false },
+					]}
 					title={() => 'Users'}
 					rowKey={'id'}
 					loading={isLoading}
@@ -35,8 +41,8 @@ export default function Users() {
 			</SectionContainer>
 
 			<Modal ref={modalRef}>
-				{modalContent === 'add' && <></>}
-				{modalContent === 'edit' && <></>}
+				{modalContent === 'add' && <AddUser onSubmit={closeModal} />}
+				{modalContent === 'edit' && <EditUser onSubmit={closeModal} selectedUser={selectedUser} />}
 			</Modal>
 		</>
 	);
