@@ -1,35 +1,32 @@
 import appTheme from '../appTheme';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
-import { toggleTheme } from '@/redux/reducers/theme';
-import { useEffect, useState } from 'react';
+import { setAppThemeMode, ThemeMode, toggleTheme } from '@/redux/reducers/theme';
+import { useEffect } from 'react';
 
 const prefersDarkTheme = window.matchMedia('(prefers-color-scheme: dark)');
-
 function getThemeModeFromDeviceTheme(matchesDarkTheme: boolean) {
 	return matchesDarkTheme ? 'dark' : 'light';
 }
 
 export function useTheme() {
-	const [deviceTheme, setDeviceTheme] = useState<'light' | 'dark'>(() =>
-		getThemeModeFromDeviceTheme(prefersDarkTheme.matches)
-	);
-	const themeMode = useAppSelector(({ theme }) => theme.theme);
+	const themeMode = useAppSelector(({ theme }) => theme.themeMode);
+	const theme = useAppSelector(({ theme }) => theme.theme);
 	const dispatch = useAppDispatch();
-
-	const colors = appTheme[deviceTheme];
 
 	useEffect(() => {
 		prefersDarkTheme.addEventListener('change', event =>
-			setDeviceTheme(getThemeModeFromDeviceTheme(event.matches))
+			dispatch(setAppThemeMode(getThemeModeFromDeviceTheme(event.matches)))
 		);
 	}, []);
 	const toggleAppTheme = () => dispatch(toggleTheme());
+	const setThemeMode = (themeMode: ThemeMode) => dispatch(setAppThemeMode(themeMode));
 
 	return {
 		themeMode,
-		theme: appTheme[themeMode],
-		isDark: themeMode !== 'light',
-		isLight: themeMode !== 'dark',
+		theme: appTheme[theme],
+		isDark: theme !== 'light',
+		isLight: theme !== 'dark',
 		toggleTheme: toggleAppTheme,
+		setThemeMode,
 	};
 }
