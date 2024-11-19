@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { KEY_PREFIX, getStoredState, persistReducer, persistStore, purgeStoredState } from 'redux-persist';
 import localforage from 'localforage';
 import { CONSTANTS } from '@/modules/_shared/_constants';
-import { plants, records, rooms, strains, tasks, theme, users, usersApi } from './reducers/index';
+import { parameters, plants, records, rooms, strains, tasks, theme, users, usersApi } from './reducers/index';
 import { baseApi } from './baseApi';
 
 const persistConfig = {
@@ -20,6 +20,7 @@ const rootReducer = combineReducers({
 	records,
 	tasks,
 	strains,
+	parameters,
 	[baseApi.reducerPath]: baseApi.reducer,
 });
 

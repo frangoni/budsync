@@ -14,6 +14,14 @@ export const Card = styled.div`
 	padding: 2rem;
 `;
 
+export const GlassCard = styled(Card)`
+	background-color: ${({ theme }) => theme.colors.background.glass};
+	border: 0.015rem solid ${({ theme }) => theme.colors.border.primary};
+	backdrop-filter: blur(0.5rem);
+	-webkit-backdrop-filter: blur(0.5rem);
+	border-radius: 1rem;
+`;
+
 export const HeaderWrapper = styled.header`
 	display: flex;
 	justify-content: space-between;

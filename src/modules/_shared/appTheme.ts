@@ -24,6 +24,7 @@ export interface ThemeInterface {
 			success: string;
 			lightDanger: string;
 			overlay: string;
+			glass: string;
 		};
 		border: {
 			primary: string;
@@ -107,6 +108,7 @@ const appTheme: { dark: ThemeInterface; light: ThemeInterface } = {
 				danger: '#FCECEA',
 				lightDanger: 'rgba(234, 84, 85, 0.12)',
 				overlay: 'rgba(1, 1, 11, 0.4)',
+				glass: 'rgba( 3, 3, 3, 0.25 )',
 			},
 			border: {
 				primary: '#E9ECEF33',
@@ -179,6 +181,7 @@ const appTheme: { dark: ThemeInterface; light: ThemeInterface } = {
 				danger: 'rgba(234,84,85,0.12)',
 				lightDanger: 'rgba(234, 84, 85, 0.12)',
 				overlay: 'rgba(51, 51, 51, 0.35)',
+				glass: 'rgba( 238, 238, 238, 0.05 )',
 			},
 			border: {
 				primary: '#aeaeae',

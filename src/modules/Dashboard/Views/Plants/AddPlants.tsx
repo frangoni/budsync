@@ -133,6 +133,7 @@ export default function AddPlants({ onSubmit, roomId }: AddPlantsProps) {
 				style={{ width: '100%' }}
 				buttonType='secondary'
 			/>
+			<div className='spacer-16' />
 			<AppForm.Item>
 				<AppButton text='Create plants' block type='primary' htmlType='submit' />
 			</AppForm.Item>

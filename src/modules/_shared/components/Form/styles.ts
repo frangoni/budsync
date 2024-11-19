@@ -78,7 +78,6 @@ export const AppForm = styled(Form)`
 	width: 100%;
 	display: flex;
 	flex-direction: column;
-	gap: 1rem;
 	color: ${({ theme }) => theme.colors.text.primary};
 	background-color: transparent;
 
