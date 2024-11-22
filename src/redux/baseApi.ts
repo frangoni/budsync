@@ -2,7 +2,7 @@ import { CONSTANTS } from '@/modules/_shared/_constants';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import localforage from 'localforage';
 
-const baseUrl = process.env.NODE_ENV === 'production' ? 'https://budsync.io/api/' : 'http://localhost:5432/api';
+const baseUrl = process.env.NODE_ENV === 'production' ? 'https://budsync.io/api/' : 'http://localhost:8080/';
 const getToken = () => localforage.getItem(CONSTANTS.JWT_LS_KEY) || '';
 
 export const baseApi = createApi({

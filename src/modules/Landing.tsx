@@ -1,16 +1,16 @@
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from './_shared/_routes';
-import { useGetUserQuery } from '@/redux/reducers/users';
 import { useEffect } from 'react';
+import { useAppSelector } from '@/redux/store';
 
 export default function Landing() {
-	const { data } = useGetUserQuery(null);
 	const navigate = useNavigate();
+	const { token } = useAppSelector(({ users }) => users);
 
 	useEffect(() => {
-		const redirectUrl = data?.user ? ROUTES.dashboard : ROUTES.login;
+		const redirectUrl = token ? ROUTES.dashboard : ROUTES.login;
 		navigate(redirectUrl);
-	}, [data, navigate]);
+	}, [token]);
 
 	return null;
 }

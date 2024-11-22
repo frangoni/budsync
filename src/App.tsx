@@ -5,13 +5,11 @@ import { GlobalStyle } from './global';
 import { Suspense } from 'react';
 import { useTheme } from './modules/_shared/hooks/useTheme';
 import router from './modules/routes';
-import { useGetUserQuery } from './redux/reducers/users';
-import LeafBG from './modules/_shared/assets/svgs/leaf-pattern.svg';
 
 function App() {
 	const { theme } = useTheme();
-	const { data } = useGetUserQuery(null);
-	console.log(data);
+
+	//create logic to listen to token on redux store and redirect the user to /dashboard or /login
 
 	return (
 		<ThemeProvider theme={theme}>
@@ -37,7 +35,4 @@ const AppContainer = styled.div`
 	background-color: ${({ theme }) => theme.colors.background.primary};
 	color: ${({ theme }) => theme.colors.text.primary};
 	transition: background-color 0.3s ease;
-	/* 	background-image: url(${LeafBG});
-	background-repeat: repeat;
-	background-size: 3rem; */
 `;

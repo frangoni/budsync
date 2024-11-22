@@ -9,22 +9,32 @@ import useNotification from '../_shared/hooks/useNotification';
 import { Card } from '../_shared/components/Layout/_styles';
 import AppButton from '../_shared/components/Button';
 import { AppInput, AppForm, PasswordInput } from '../_shared/components/Form/styles';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '../_shared/_routes';
 
 type FieldType = {
-	username?: string;
-	password?: string;
+	username: string;
+	password: string;
 };
 
 export default function Login() {
 	const [login] = useLoginMutation();
 	const notification = useNotification();
+	const navigate = useNavigate();
 
 	const onFinish: FormProps<FieldType>['onFinish'] = async values => {
 		const logUser = await login(values);
+		if (logUser.error) {
+			return notification.error({
+				message: 'Error on login',
+				description: `Invalid credentials`,
+			});
+		}
 		notification.success({
 			message: 'User login!',
 			description: 'Welcome',
 		});
+		navigate(ROUTES.dashboard);
 	};
 	const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = errorInfo => {
 		const error = errorInfo.errorFields[0].errors[0];

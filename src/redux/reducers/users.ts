@@ -35,6 +35,9 @@ const usersSlice = createSlice({
 		setUsers: (state, action) => {
 			state.users = action.payload.users;
 		},
+		setToken: (state, action) => {
+			state.token = action.payload;
+		},
 		logout: state => {
 			state.currentUser = null;
 			state.token = null;
@@ -46,11 +49,15 @@ const usersSlice = createSlice({
 export const usersApi = baseApi.injectEndpoints({
 	endpoints: builder => ({
 		getUser: builder.query({
-			query: () => `/me`,
+			query: () => `/refreshToken`,
 			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
 				try {
-					/* const { data } = await queryFulfilled; */
-					const data = { user: { id: '1', name: 'test', email: 'test@gmail.com' }, token: 'test' };
+					const { data } = await queryFulfilled;
+
+					/* const data = {
+						user: { id: '1', name: 'test', email: 'test@gmail.com' },
+						token: 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB1c2VyLmNvbSIsInJvbGUiOiJBZG1pbiIsImNsaWVudElkIjoxLCJyb2xlSWQiOiIxIiwicGVybWlzc2lvbnMiOltdLCJpZCI6MSwiaXNVc2VyIjp0cnVlLCJleHAiOjE3MzM0MzIyOTUsImlhdCI6MTczMjIzMjI5NX0.zxWF_mKOUI6OqejJkvlfz329dOp0rnhshKpUMOOEGTg',
+					}; */
 					dispatch(setUser(data.user));
 					localforage.setItem(K.JWT_LS_KEY, data.token);
 				} catch (e) {
@@ -69,25 +76,27 @@ export const usersApi = baseApi.injectEndpoints({
 				}
 			},
 		}),
-		login: builder.mutation({
+		login: builder.mutation<string, { username: string; password: string }>({
 			query: credentials => ({
-				url: `/user/login`,
+				url: `/login`,
 				method: 'POST',
 				body: credentials,
+				responseHandler: 'text',
 			}),
 			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
 				try {
-					const { data } = await queryFulfilled;
-					dispatch(setUser({ user: data.user, token: data.token }));
-					localforage.setItem(K.JWT_LS_KEY, data.token);
+					const { data: token } = await queryFulfilled;
+					dispatch(setToken(token));
+					localforage.setItem(K.JWT_LS_KEY, token);
 				} catch (e) {
-					console.error(`Login failed: ${e}`);
+					console.error(`Login failed: ${JSON.stringify(e)}`);
 				}
 			},
 		}),
+
 		register: builder.mutation({
 			query: credentials => ({
-				url: `/user/register`,
+				url: `/user`,
 				method: 'POST',
 				body: credentials,
 			}),
@@ -101,7 +110,6 @@ export const usersApi = baseApi.injectEndpoints({
 				}
 			},
 		}),
-
 		addUser: builder.mutation<void, { email: string }>({
 			query: credentials => ({
 				url: `/user/invite`,
@@ -146,5 +154,5 @@ export const {
 	useGetAllUsersQuery,
 	useAddUserMutation,
 } = usersApi;
-export const { setUser, setUsers, logout } = usersSlice.actions;
+export const { setUser, setUsers, logout, setToken } = usersSlice.actions;
 export default usersSlice.reducer;
