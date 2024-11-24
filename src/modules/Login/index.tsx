@@ -18,7 +18,7 @@ type FieldType = {
 };
 
 export default function Login() {
-	const [login] = useLoginMutation();
+	const [login, { isLoading }] = useLoginMutation();
 	const notification = useNotification();
 	const navigate = useNavigate();
 
@@ -82,7 +82,7 @@ export default function Login() {
 							</AppForm.Item>
 
 							<AppForm.Item>
-								<AppButton block text='Submit' htmlType='submit' />
+								<AppButton block text='Submit' htmlType='submit' loading={isLoading} />
 							</AppForm.Item>
 						</AppForm>
 					</Card>

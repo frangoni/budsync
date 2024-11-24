@@ -5,7 +5,7 @@ import { useCreateRoomMutation } from '@/redux/reducers/rooms';
 import { FormProps } from 'antd';
 
 type FieldType = {
-	roomName?: string;
+	name?: string;
 };
 
 interface AddRoomProps {
@@ -21,7 +21,7 @@ export default function AddRoom({ onSubmit }: AddRoomProps) {
 		console.log('createdRoom :', createdRoom);
 		notification.success({
 			message: 'Room created!',
-			description: 'Successfull room creation: ' + values.roomName,
+			description: 'Successfull room creation: ' + values.name,
 		});
 		onSubmit();
 	};
@@ -40,7 +40,7 @@ export default function AddRoom({ onSubmit }: AddRoomProps) {
 			<div className='spacer-12' />
 			<AppForm.Item<FieldType>
 				label='Room name'
-				name='roomName'
+				name='name'
 				rules={[{ required: true, message: 'Please choose a room name!' }]}
 			>
 				<AppInput placeholder='Room name' />

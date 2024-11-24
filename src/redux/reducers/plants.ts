@@ -1,12 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { baseApi } from '../baseApi';
+import { TStrain } from './strains';
 
 export interface TPlant {
-	id: string;
+	id: number;
 	active: boolean;
+	number: number;
 	totalQ: number;
 	roomId: string;
-	strainId: string;
+	strain: TStrain;
 }
 
 export interface PlantsState {
@@ -15,9 +17,8 @@ export interface PlantsState {
 
 export interface TCreatePlants {
 	roomId: string;
-	quantity: number;
-	strainId?: string;
-	strainName?: string;
+	amountOfPlants: number;
+	strainName: string;
 }
 
 const initialState: PlantsState = {
@@ -49,7 +50,7 @@ export const plantsApi = baseApi.injectEndpoints({
 			},
 		}),
 		getPlant: builder.query<TPlant, string>({
-			query: id => `/plants/${id}`,
+			query: id => `/plant/${id}`,
 			providesTags: ['Plants'],
 			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
 				try {
@@ -62,7 +63,7 @@ export const plantsApi = baseApi.injectEndpoints({
 		}),
 		createPlants: builder.mutation({
 			query: (plants: TCreatePlants) => ({
-				url: '/plants',
+				url: '/plant/createAll',
 				method: 'POST',
 				body: plants,
 			}),

@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { baseApi } from '../baseApi';
+import { PaginationOptions } from './pagination';
 
 export interface TRecord {
 	id: string;
@@ -35,8 +36,8 @@ const recordsSlice = createSlice({
 
 export const recordsApi = baseApi.injectEndpoints({
 	endpoints: builder => ({
-		getRecords: builder.query<TRecord[], void>({
-			query: plantId => `/records/${plantId}`,
+		getRecords: builder.query<TRecord[], PaginationOptions & { plantId: string }>({
+			query: params => `/record/plant/${params.plantId}/${params.page}/${params.size}`,
 			providesTags: ['Records'],
 			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
 				try {

@@ -6,14 +6,16 @@ import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import RECORDS_COLUMNS from './_columns';
 import AppButton from '@/modules/_shared/components/Button';
-import { TRecord } from '@/redux/reducers/records';
+import { TRecord, useGetRecordsQuery } from '@/redux/reducers/records';
 
 type ModalContent = 'record' | 'crop';
 
 export default function usePlant() {
 	const { openModal, closeModal, modalRef } = useModal();
 	const { plantId } = useParams();
-	const { data: currentPlant, isLoading, error } = useGetPlantQuery(plantId!);
+	if (!plantId) throw new Error('Plant ID is required');
+	const { data: currentPlant, isLoading, error } = useGetPlantQuery(plantId);
+	const { data: plantRecords } = useGetRecordsQuery({ plantId: plantId, page: 1, size: 10 });
 	const [modalContent, setModalContent] = useState<ModalContent>('record');
 	const navigate = useNavigate();
 	const navigateToRecord = (recordId: string) => navigate(`/dashboard/record/${recordId}`);
@@ -53,5 +55,6 @@ export default function usePlant() {
 		modalContent,
 		plantId,
 		COLUMNS,
+		plantRecords,
 	};
 }

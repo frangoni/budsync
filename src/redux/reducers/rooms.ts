@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { baseApi } from '../baseApi';
+import { PaginationOptions } from './pagination';
 
 export interface Room {
 	id: string;
 	name: string;
-	farmId: string;
 }
 
 export interface RoomsState {
@@ -31,8 +31,8 @@ const roomsSlice = createSlice({
 
 export const roomsApi = baseApi.injectEndpoints({
 	endpoints: builder => ({
-		getRooms: builder.query<Room[], void>({
-			query: () => `/rooms`,
+		getRooms: builder.query<Room[], PaginationOptions>({
+			query: params => `/room/${params.page}/${params.size}`,
 			providesTags: ['Rooms'],
 			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
 				try {
@@ -45,7 +45,7 @@ export const roomsApi = baseApi.injectEndpoints({
 		}),
 		createRoom: builder.mutation({
 			query: room => ({
-				url: `/rooms`,
+				url: `/room`,
 				method: 'POST',
 				body: room,
 			}),
@@ -61,7 +61,7 @@ export const roomsApi = baseApi.injectEndpoints({
 		}),
 		editRoom: builder.mutation({
 			query: room => ({
-				url: `/rooms/${room.id}`,
+				url: `/room/${room.id}`,
 				method: 'PUT',
 				body: room,
 			}),
@@ -77,7 +77,7 @@ export const roomsApi = baseApi.injectEndpoints({
 		}),
 		deleteRoom: builder.mutation({
 			query: id => ({
-				url: `/rooms/${id}`,
+				url: `/room/${id}`,
 				method: 'DELETE',
 			}),
 			invalidatesTags: ['Rooms'],
@@ -91,7 +91,7 @@ export const roomsApi = baseApi.injectEndpoints({
 			},
 		}),
 		getRoom: builder.query<Room, string>({
-			query: id => `/rooms/${id}`,
+			query: id => `/room/${id}`,
 			providesTags: ['Rooms'],
 			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
 				try {
@@ -102,10 +102,20 @@ export const roomsApi = baseApi.injectEndpoints({
 				}
 			},
 		}),
+		getAllPlants: builder.query<Room, PaginationOptions & { id: string }>({
+			query: params => `/room/${params.id}/plants/${params.page}/${params.size}`,
+			providesTags: ['Rooms'],
+		}),
 	}),
 });
 
-export const { useGetRoomsQuery, useGetRoomQuery, useCreateRoomMutation, useEditRoomMutation, useDeleteRoomMutation } =
-	roomsApi;
+export const {
+	useGetRoomsQuery,
+	useGetRoomQuery,
+	useCreateRoomMutation,
+	useEditRoomMutation,
+	useDeleteRoomMutation,
+	useGetAllPlantsQuery,
+} = roomsApi;
 export const { setRooms } = roomsSlice.actions;
 export default roomsSlice.reducer;

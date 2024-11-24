@@ -1,6 +1,6 @@
 import { jsPDF } from 'jspdf';
 
-export const generatePDF = (qrCodes: { id: string; qrUrl: string; strainId: string }[]) => {
+export const generatePDF = (qrCodes: { id: number; qrUrl: string; strain: string }[]) => {
 	const doc = new jsPDF();
 	const qrWidth = 120;
 
@@ -14,7 +14,7 @@ export const generatePDF = (qrCodes: { id: string; qrUrl: string; strainId: stri
 
 		doc.addImage(qrData.qrUrl, 'JPEG', 0, yOffset + 8, qrWidth, qrWidth);
 
-		const bottomText = `Strain name: ${qrData.strainId}`;
+		const bottomText = `Strain name: ${qrData.strain}`;
 		doc.text(bottomText, xOffset, yOffset + qrWidth + 5);
 
 		if (!isTopHalf && index !== qrCodes.length - 1) {

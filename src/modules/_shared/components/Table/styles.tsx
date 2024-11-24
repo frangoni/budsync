@@ -13,6 +13,12 @@ export const StyledTable = styled(Table)`
 			.ant-empty-description {
 				color: ${({ theme }) => theme.colors.text.primary} !important;
 			}
+
+			&:hover {
+				.ant-table-cell {
+					background: ${({ theme }) => theme.colors.background.secondary} !important;
+				}
+			}
 		}
 
 		th,

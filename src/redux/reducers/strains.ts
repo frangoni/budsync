@@ -31,7 +31,7 @@ const strainsSlice = createSlice({
 export const strainsApi = baseApi.injectEndpoints({
 	endpoints: builder => ({
 		getStrains: builder.query<TStrain[], void>({
-			query: () => `/strains`,
+			query: () => `/strain`,
 			providesTags: ['Strains'],
 			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
 				try {

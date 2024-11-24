@@ -8,7 +8,6 @@ import HarvestPlant from './HarvestPlant';
 import AddRecord from './AddRecord';
 import AppTable from '@/modules/_shared/components/Table';
 import { TRecord } from '@/redux/reducers/records';
-import { RECORDS_DATA } from './_dummy';
 import PlantStatus from './PlantStatus';
 import { SectionContainer } from '@/modules/_shared/components/Layout/_styles';
 
@@ -23,6 +22,7 @@ export default function Plant() {
 		plantId,
 		COLUMNS,
 		isLoading,
+		plantRecords,
 	} = usePlant();
 
 	return (
@@ -30,7 +30,7 @@ export default function Plant() {
 			<Header
 				title='Plant'
 				subtitle={<PlantStatus active={currentPlant?.active} />}
-				description='Here you can manage your plant'
+				description={`Strain: ${currentPlant?.strain.name}`}
 				shouldGoBack
 			/>
 			<Toolbar
@@ -57,7 +57,7 @@ export default function Plant() {
 				<AppTable<TRecord>
 					columns={COLUMNS}
 					title={() => 'Records'}
-					dataSource={RECORDS_DATA}
+					dataSource={plantRecords}
 					rowKey='id'
 					loading={isLoading}
 				/>

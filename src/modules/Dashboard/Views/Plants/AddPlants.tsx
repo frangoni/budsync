@@ -14,41 +14,15 @@ interface AddPlantsProps {
 	roomId?: string;
 }
 
-const DUMMY_CREATED_PLANTS = {
-	data: [
-		{
-			id: '1',
-			active: true,
-			totalQ: 10,
-			roomId: '1',
-			strainId: '1',
-		},
-		{
-			id: '2',
-			active: true,
-			totalQ: 10,
-			roomId: '1',
-			strainId: '1',
-		},
-		{
-			id: '3',
-			active: true,
-			totalQ: 10,
-			roomId: '1',
-			strainId: '1',
-		},
-	],
-};
-
 export default function AddPlants({ onSubmit, roomId }: AddPlantsProps) {
 	const notification = useNotification();
-	const [createPlants] = useCreatePlantsMutation();
 	const { data: strains, isLoading: loadingStrains } = useGetStrainsQuery();
-	const { data: rooms, isLoading: loadingRooms } = useGetRoomsQuery();
+	const [createPlants] = useCreatePlantsMutation();
+	const { data: rooms, isLoading: loadingRooms } = useGetRoomsQuery({ page: 1, size: 100000000 });
 	const [isCreatingStrain, setIsCreatingStrain] = useState(false);
 
-	const onFinish: FormProps<TCreatePlants>['onFinish'] = async (values: unknown) => {
-		const createdPlants = DUMMY_CREATED_PLANTS; /* await createPlants(values) */
+	const onFinish: FormProps<TCreatePlants>['onFinish'] = async (values: TCreatePlants) => {
+		const createdPlants = await createPlants(values);
 		notification.success({
 			message: 'Plants created!',
 			description: 'Successfull created plants: ',
@@ -74,7 +48,7 @@ export default function AddPlants({ onSubmit, roomId }: AddPlantsProps) {
 			<div className='spacer-12' />
 			<AppForm.Item<TCreatePlants>
 				label='How many plants?'
-				name='quantity'
+				name='amountOfPlants'
 				rules={[{ required: true, message: 'Please choose a quantity!' }]}
 				initialValue={0}
 			>
@@ -103,7 +77,7 @@ export default function AddPlants({ onSubmit, roomId }: AddPlantsProps) {
 				>
 					<AppInput placeholder='Room name' disabled value={roomId} />
 				</AppForm.Item>
-			)}{' '}
+			)}
 			{isCreatingStrain ? (
 				<AppForm.Item<TCreatePlants>
 					label='New strain'
@@ -115,14 +89,14 @@ export default function AddPlants({ onSubmit, roomId }: AddPlantsProps) {
 			) : (
 				<AppForm.Item
 					label='Strain'
-					name='strainId'
+					name='strainName'
 					rules={[{ required: true, message: 'Please select or create a strain!' }]}
 				>
 					<AppSelect
 						loading={loadingStrains}
 						placeholder='Select an existing strain'
 						disabled={isCreatingStrain}
-						options={strains?.map(strain => ({ value: strain.id, label: strain.name }))}
+						options={strains?.map(strain => ({ value: strain.name, label: strain.name }))}
 						showSearch
 					/>
 				</AppForm.Item>

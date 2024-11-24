@@ -11,8 +11,18 @@ import Loader from '@/modules/Loading';
 import { SectionContainer } from '@/modules/_shared/components/Layout/_styles';
 
 export default function Room() {
-	const { isLoading, openModal, reprintQR, selectedRows, rowSelection, modalRef, roomId, closeModal, COLUMNS } =
-		useRoom();
+	const {
+		isLoading,
+		openModal,
+		reprintQR,
+		selectedRows,
+		rowSelection,
+		modalRef,
+		roomId,
+		closeModal,
+		COLUMNS,
+		allPlants,
+	} = useRoom();
 
 	if (isLoading) return <Loader />;
 	return (

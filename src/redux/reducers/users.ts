@@ -6,8 +6,9 @@ import localforage from 'localforage';
 export type Role = 'Admin' | 'User';
 export interface TUser {
 	name: string;
-	email: string;
-	role: Role;
+	lastName: string;
+	username: string;
+	userRole: Role;
 	id: string;
 	active: boolean;
 }
@@ -29,6 +30,8 @@ const usersSlice = createSlice({
 	initialState,
 	reducers: {
 		setUser: (state, action) => {
+			console.log('action :', action);
+			console.log('state :', state);
 			state.currentUser = action.payload.user;
 			state.token = action.payload.token;
 		},
@@ -53,11 +56,6 @@ export const usersApi = baseApi.injectEndpoints({
 			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
 				try {
 					const { data } = await queryFulfilled;
-
-					/* const data = {
-						user: { id: '1', name: 'test', email: 'test@gmail.com' },
-						token: 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB1c2VyLmNvbSIsInJvbGUiOiJBZG1pbiIsImNsaWVudElkIjoxLCJyb2xlSWQiOiIxIiwicGVybWlzc2lvbnMiOltdLCJpZCI6MSwiaXNVc2VyIjp0cnVlLCJleHAiOjE3MzM0MzIyOTUsImlhdCI6MTczMjIzMjI5NX0.zxWF_mKOUI6OqejJkvlfz329dOp0rnhshKpUMOOEGTg',
-					}; */
 					dispatch(setUser(data.user));
 					localforage.setItem(K.JWT_LS_KEY, data.token);
 				} catch (e) {
@@ -76,7 +74,7 @@ export const usersApi = baseApi.injectEndpoints({
 				}
 			},
 		}),
-		login: builder.mutation<string, { username: string; password: string }>({
+		login: builder.mutation<TUser & { token: string }, { username: string; password: string }>({
 			query: credentials => ({
 				url: `/login`,
 				method: 'POST',
@@ -85,9 +83,10 @@ export const usersApi = baseApi.injectEndpoints({
 			}),
 			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
 				try {
-					const { data: token } = await queryFulfilled;
-					dispatch(setToken(token));
-					localforage.setItem(K.JWT_LS_KEY, token);
+					const { data } = await queryFulfilled;
+					dispatch(setUser(data));
+					localforage.setItem(K.JWT_LS_KEY, data.token);
+					console.log('data :', data);
 				} catch (e) {
 					console.error(`Login failed: ${JSON.stringify(e)}`);
 				}
@@ -144,8 +143,6 @@ export const usersApi = baseApi.injectEndpoints({
 	overrideExisting: false,
 });
 
-// Export hooks for usage in functional components, which are
-// auto-generated based on the defined endpoints
 export const {
 	useGetUserQuery,
 	useLoginMutation,

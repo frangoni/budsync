@@ -1,7 +1,7 @@
 import { generatePDF } from '@/modules/_shared/utilities/pdf';
 import { generateQRCodes } from '@/modules/_shared/utilities/qr';
 import { TPlant } from '@/redux/reducers/plants';
-import { useGetRoomQuery } from '@/redux/reducers/rooms';
+import { useGetAllPlantsQuery } from '@/redux/reducers/rooms';
 import { TableProps } from 'antd';
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -11,7 +11,8 @@ import useModal from '@/modules/_shared/hooks/useModal';
 
 export default function useRoom() {
 	const { roomId } = useParams();
-	const { data, isLoading, error } = useGetRoomQuery(roomId!, { skip: !roomId });
+	if (!roomId) throw new Error('Room ID is required');
+	const { data: allPlants, isLoading, isError } = useGetAllPlantsQuery({ id: roomId, page: 1, size: 10 });
 	const [selectedRows, setSelectedRows] = useState<TPlant[]>([]);
 	const navigate = useNavigate();
 	const navigateToPlant = (plantId: string) => navigate(`/dashboard/plants/${plantId}`);
@@ -45,9 +46,9 @@ export default function useRoom() {
 	};
 
 	return {
-		data,
 		isLoading,
-		error,
+		isError,
+		allPlants,
 		selectedRows,
 		rowSelection,
 		reprintQR,
