@@ -6,6 +6,7 @@ export interface TParameter {
 	maxHumidity: number;
 	minNutrient: number;
 	medium: string;
+	id: number;
 }
 
 const initialState: TParameter = {
@@ -13,6 +14,7 @@ const initialState: TParameter = {
 	maxHumidity: 0,
 	minNutrient: 0,
 	medium: '',
+	id: 0,
 };
 
 const parametersSlice = createSlice({
@@ -42,11 +44,11 @@ export const parametersApi = baseApi.injectEndpoints({
 				}
 			},
 		}),
-		editParameters: builder.mutation<TParameter, Partial<TParameter>>({
+		editParameters: builder.mutation<TParameter, TParameter>({
 			query: parameters => ({
 				url: '/parameters',
 				method: 'POST',
-				body: { id: 0, ...parameters },
+				body: parameters,
 			}),
 			invalidatesTags: ['Parameters'],
 		}),

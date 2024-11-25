@@ -1,6 +1,5 @@
 import Header from '@/modules/_shared/components/Layout/Header';
 import { TPlant } from '@/redux/reducers/plants';
-import { PLANTS_DATA } from './_dummy';
 import AppTable from '@/modules/_shared/components/Table';
 import Toolbar from '@/modules/_shared/components/Layout/Toolbar';
 import { Icon } from '@iconify/react/dist/iconify.js';

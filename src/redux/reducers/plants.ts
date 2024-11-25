@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { baseApi } from '../baseApi';
 import { TStrain } from './strains';
+import { PaginationOptions } from './pagination';
 
 export interface TPlant {
 	id: number;
 	active: boolean;
-	number: number;
 	totalQ: number;
 	roomId: string;
 	strain: TStrain;
@@ -46,6 +46,19 @@ export const plantsApi = baseApi.injectEndpoints({
 					dispatch(setPlants({ plants: data }));
 				} catch (e) {
 					console.error(`Error fetching plants:${e}`);
+				}
+			},
+		}),
+		getPlantsByRoom: builder.query<TPlant[], PaginationOptions & { id: string }>({
+			query: params => `/room/${params.id}/plants/${params.page}/${params.size}`,
+			providesTags: ['Plants'],
+			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
+				try {
+					const { data } = await queryFulfilled;
+					console.log('data :', data);
+					dispatch(setPlants({ plants: data }));
+				} catch (e) {
+					console.error(`Error fetching room:${e}`);
 				}
 			},
 		}),
@@ -102,6 +115,7 @@ export const {
 	useLazyGetPlantQuery,
 	useCreatePlantsMutation,
 	useEditPlantMutation,
+	useGetPlantsByRoomQuery,
 } = plantsApi;
 export const { setPlants } = plantsSlice.actions;
 export const initialPlantsState = initialState;

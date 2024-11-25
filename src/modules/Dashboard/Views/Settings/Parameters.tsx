@@ -11,6 +11,7 @@ interface FieldType {
 	maxHumidity: number;
 	minNutrient: number;
 	medium: string;
+	id: number;
 }
 
 export default function Parameters() {
@@ -24,7 +25,8 @@ export default function Parameters() {
 	if (appParams) form.setFieldsValue(appParams);
 
 	const onFinish: FormProps<FieldType>['onFinish'] = async values => {
-		const editedParameters = await editParameters(values);
+		console.log('values :', values);
+		const editedParameters = await editParameters({ ...values, id: appParams?.id || 1 });
 		console.log('editedParameters :', editedParameters);
 
 		if (editedParameters.error) {
@@ -54,6 +56,7 @@ export default function Parameters() {
 			<div className='spacer-24' />
 			{/* @ts-expect-error Antd Form component */}
 			<AppForm form={form} layout='vertical' onFinish={onFinish} onFinishFailed={onFinishFailed}>
+				{/* add hidden id field */}
 				<AppForm.Item
 					label='Minimum Humidity'
 					name='minHumidity'

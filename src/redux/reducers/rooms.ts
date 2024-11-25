@@ -103,21 +103,11 @@ export const roomsApi = baseApi.injectEndpoints({
 				}
 			},
 		}),
-		getAllPlants: builder.query<Room, PaginationOptions & { id: string }>({
-			query: params => `/room/${params.id}/plants/${params.page}/${params.size}`,
-			providesTags: ['Rooms'],
-		}),
 	}),
 });
 
-export const {
-	useGetRoomsQuery,
-	useGetRoomQuery,
-	useCreateRoomMutation,
-	useEditRoomMutation,
-	useDeleteRoomMutation,
-	useGetAllPlantsQuery,
-} = roomsApi;
+export const { useGetRoomsQuery, useGetRoomQuery, useCreateRoomMutation, useEditRoomMutation, useDeleteRoomMutation } =
+	roomsApi;
 export const { setRooms } = roomsSlice.actions;
 export const initialRoomsState = initialState;
 export default roomsSlice.reducer;

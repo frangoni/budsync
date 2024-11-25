@@ -1,7 +1,6 @@
 import { generatePDF } from '@/modules/_shared/utilities/pdf';
 import { generateQRCodes } from '@/modules/_shared/utilities/qr';
-import { TPlant } from '@/redux/reducers/plants';
-import { useGetAllPlantsQuery, useGetRoomQuery } from '@/redux/reducers/rooms';
+import { TPlant, useGetPlantsByRoomQuery } from '@/redux/reducers/plants';
 import { TableProps } from 'antd';
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -12,8 +11,12 @@ import useModal from '@/modules/_shared/hooks/useModal';
 export default function useRoom() {
 	const { roomId } = useParams();
 	if (!roomId) throw new Error('Room ID is required');
-	/* 	const { data: room } = useGetRoomQuery({ id: roomId }); */
-	const { data: allPlants, isLoading, isError } = useGetAllPlantsQuery({ id: roomId, page: 1, size: 10 });
+	const {
+		data: allPlants,
+		isLoading,
+		isError,
+	} = useGetPlantsByRoomQuery({ id: roomId, page: 1, size: 10 }, { refetchOnMountOrArgChange: true });
+	console.log('allPlants :', allPlants);
 	const [selectedRows, setSelectedRows] = useState<TPlant[]>([]);
 	const navigate = useNavigate();
 	const navigateToPlant = (plantId: number) => navigate(`/dashboard/plants/${plantId}`);

@@ -15,10 +15,7 @@ export default function Plants() {
 	const navigate = useNavigate();
 
 	const onScan = (result: string | null) => {
-		console.log('Scanned:', result);
-		if (result) {
-			navigate(`/dashboard/plants/${result}`);
-		}
+		if (result) navigate(`/dashboard/plants/${result}`);
 	};
 
 	return (
