@@ -2,12 +2,13 @@ import { createSlice } from '@reduxjs/toolkit';
 import { baseApi } from '../baseApi';
 import { TStrain } from './strains';
 import { PaginationOptions } from './pagination';
+import { TRoom } from './rooms';
 
 export interface TPlant {
 	id: number;
 	active: boolean;
 	totalQ: number;
-	roomId: string;
+	room: TRoom;
 	strain: TStrain;
 }
 
@@ -55,7 +56,6 @@ export const plantsApi = baseApi.injectEndpoints({
 			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
 				try {
 					const { data } = await queryFulfilled;
-					console.log('data :', data);
 					dispatch(setPlants({ plants: data }));
 				} catch (e) {
 					console.error(`Error fetching room:${e}`);

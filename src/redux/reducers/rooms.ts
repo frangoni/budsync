@@ -2,14 +2,14 @@ import { createSlice } from '@reduxjs/toolkit';
 import { baseApi } from '../baseApi';
 import { PaginationOptions } from './pagination';
 
-export interface Room {
+export interface TRoom {
 	id: string;
 	name: string;
 }
 
 export interface RoomsState {
-	rooms: Room[];
-	currentRoom?: Room;
+	rooms: TRoom[];
+	currentRoom?: TRoom;
 }
 const initialState: RoomsState = {
 	rooms: [],
@@ -31,7 +31,7 @@ const roomsSlice = createSlice({
 
 export const roomsApi = baseApi.injectEndpoints({
 	endpoints: builder => ({
-		getRooms: builder.query<Room[], PaginationOptions>({
+		getRooms: builder.query<TRoom[], PaginationOptions>({
 			query: params => `/room/${params.page}/${params.size}`,
 			providesTags: ['Rooms'],
 			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
@@ -91,7 +91,7 @@ export const roomsApi = baseApi.injectEndpoints({
 				}
 			},
 		}),
-		getRoom: builder.query<Room, string>({
+		getRoom: builder.query<TRoom, string>({
 			query: id => `/room/${id}`,
 			providesTags: ['Rooms'],
 			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {

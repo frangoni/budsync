@@ -7,7 +7,7 @@ import { TCreatePlants, useCreatePlantsMutation } from '@/redux/reducers/plants'
 import { useGetRoomsQuery } from '@/redux/reducers/rooms';
 import { useGetStrainsQuery } from '@/redux/reducers/strains';
 import { FormProps } from 'antd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface AddPlantsProps {
 	onSubmit: () => void;
@@ -16,9 +16,10 @@ interface AddPlantsProps {
 
 export default function AddPlants({ onSubmit, roomId }: AddPlantsProps) {
 	const notification = useNotification();
+	const [form] = AppForm.useForm<TCreatePlants>();
 	const { data: strains, isLoading: loadingStrains } = useGetStrainsQuery();
 	const [createPlants] = useCreatePlantsMutation();
-	const { data: rooms, isLoading: loadingRooms } = useGetRoomsQuery({ page: 1, size: 100000000 });
+	const { data: rooms, isLoading: loadingRooms } = useGetRoomsQuery({ page: 0, size: 100000000 });
 	const [isCreatingStrain, setIsCreatingStrain] = useState(false);
 
 	const onFinish: FormProps<TCreatePlants>['onFinish'] = async (values: TCreatePlants) => {
@@ -42,16 +43,19 @@ export default function AddPlants({ onSubmit, roomId }: AddPlantsProps) {
 		});
 	};
 
+	useEffect(() => {
+		form.setFieldsValue({ strainName: '' });
+	}, [isCreatingStrain]);
+
 	return (
 		// @ts-expect-error Antd Form component
-		<AppForm layout='vertical' onFinish={onFinish} onFinishFailed={onFinishFailed}>
+		<AppForm form={form} layout='vertical' onFinish={onFinish} onFinishFailed={onFinishFailed}>
 			<h2>Create new plants</h2>
 			<div className='spacer-24' />
 			<AppForm.Item<TCreatePlants>
 				label='How many plants?'
 				name='amountOfPlants'
 				rules={[{ required: true, message: 'Please choose a quantity!' }]}
-				initialValue={0}
 			>
 				<AppInput type='number' name='quantity' min='1' step='1' />
 			</AppForm.Item>

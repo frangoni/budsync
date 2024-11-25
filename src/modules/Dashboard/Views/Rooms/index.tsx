@@ -10,6 +10,7 @@ import useRooms from './useRooms';
 
 export default function Rooms() {
 	const { rooms, modalRef, closeModal, openModal } = useRooms();
+	console.log('rooms :', rooms);
 
 	return (
 		<>

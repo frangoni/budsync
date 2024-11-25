@@ -7,16 +7,18 @@ import { useNavigate, useParams } from 'react-router-dom';
 import PLANT_COLUMNS from './_columns';
 import AppButton from '@/modules/_shared/components/Button';
 import useModal from '@/modules/_shared/hooks/useModal';
+import usePagination from '@/modules/_shared/hooks/usePagination';
 
 export default function useRoom() {
 	const { roomId } = useParams();
 	if (!roomId) throw new Error('Room ID is required');
+	const { page, size } = usePagination();
 	const {
 		data: allPlants,
 		isLoading,
 		isError,
-	} = useGetPlantsByRoomQuery({ id: roomId, page: 1, size: 10 }, { refetchOnMountOrArgChange: true });
-	console.log('allPlants :', allPlants);
+	} = useGetPlantsByRoomQuery({ id: roomId, page, size }, { refetchOnMountOrArgChange: true });
+
 	const [selectedRows, setSelectedRows] = useState<TPlant[]>([]);
 	const navigate = useNavigate();
 	const navigateToPlant = (plantId: number) => navigate(`/dashboard/plants/${plantId}`);

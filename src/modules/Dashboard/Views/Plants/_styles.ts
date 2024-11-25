@@ -3,11 +3,15 @@ import styled from 'styled-components';
 export const PlantsMainContainer = styled.div`
 	display: flex;
 	flex-direction: row;
-	align-items: center;
+	align-items: flex-start;
 	justify-content: space-between;
 	gap: 2rem;
 	width: 100%;
 	height: 100%;
+
+	h4 {
+		align-self: center;
+	}
 
 	@media (max-width: 768px) {
 		flex-direction: column;
@@ -61,9 +65,18 @@ export const PlantFinderContainer = styled.div`
 	justify-content: center;
 	width: 50%;
 	padding: 0 4rem;
+	gap: 2rem;
 
 	@media (max-width: 768px) {
 		width: 100%;
 		padding: 0;
 	}
+`;
+
+export const PlantInfo = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+	justify-content: center;
+	gap: 0.5rem;
 `;

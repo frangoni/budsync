@@ -23,6 +23,7 @@ export default function Room() {
 		allPlants,
 	} = useRoom();
 
+	console.log('allPlants :', allPlants);
 	if (isLoading) return <Loader />;
 	return (
 		<>

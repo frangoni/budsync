@@ -1,3 +1,4 @@
+import { TPlant } from '@/redux/reducers/plants';
 import { StatusBadge } from './_styles';
 
 const PLANT_COLUMNS = [
@@ -9,8 +10,9 @@ const PLANT_COLUMNS = [
 	},
 	{
 		title: 'Strain',
-		dataIndex: 'strainId',
+		dataIndex: 'strain',
 		key: 'strain',
+		render: (_, plant: TPlant) => <p>{plant.strain.name}</p>,
 	},
 	{
 		title: 'Status',

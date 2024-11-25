@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 export type PaginationOptions = { page: number; size: number };
 
 const initialState: PaginationOptions = {
-	page: 1,
+	page: 0,
 	size: 10,
 };
 

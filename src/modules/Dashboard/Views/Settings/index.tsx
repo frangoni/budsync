@@ -10,8 +10,8 @@ export default function Settings() {
 			<Header title='Settings' description='Manage app settings' />
 			<SectionContainer>
 				<SettingsWrapper>
-					<ThemeSelector />
 					<Parameters />
+					<ThemeSelector />
 				</SettingsWrapper>
 			</SectionContainer>
 		</>

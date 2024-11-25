@@ -13,7 +13,7 @@ export default function AppTable<T extends object>({ columns, dataSource, ...res
 			columns={columns}
 			dataSource={dataSource}
 			pagination={{
-				current: page,
+				current: page + 1,
 				pageSize: size,
 				showSizeChanger: true,
 				onChange(page, pageSize) {

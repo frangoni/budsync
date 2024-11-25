@@ -87,4 +87,5 @@ export const ButtonGroup = styled.div`
 
 export const SectionContainer = styled.article`
 	margin-top: 2rem;
+	height: 100%;
 `;
