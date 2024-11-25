@@ -94,4 +94,5 @@ export const {
 	useDeleteRecordMutation,
 } = recordsApi;
 export const { setRecords } = recordsSlice.actions;
+export const initialRecordsState = initialState;
 export default recordsSlice.reducer;

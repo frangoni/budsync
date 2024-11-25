@@ -11,8 +11,7 @@ import AddUser from './AddUser';
 import EditUser from './EditUser';
 
 export default function Users() {
-	const { data, isLoading, isError, COLUMNS, modalRef, handleAddUser, modalContent, closeModal, selectedUser } =
-		useUsers();
+	const { data, isLoading, COLUMNS, modalRef, handleAddUser, modalContent, closeModal, selectedUser } = useUsers();
 
 	if (isLoading) return <Loader />;
 	return (
@@ -30,9 +29,20 @@ export default function Users() {
 			<SectionContainer>
 				<AppTable<TUser>
 					columns={COLUMNS}
+					/* 	dataSource={data} */
 					dataSource={[
 						{ id: '1', name: 'John Doe', email: '', role: 'User', active: true },
 						{ id: '2', name: 'John Dos', email: 'asdasdasd', role: 'Admin', active: false },
+						{ id: '3', name: 'John Dres', email: 'asdasdasd', role: 'User', active: true },
+						{ id: '4', name: 'John Dres', email: 'asdasdasd', role: 'User', active: true },
+						{ id: '5', name: 'John Dres', email: 'asdasdasd', role: 'User', active: true },
+						{ id: '6', name: 'John Dres', email: 'asdasdasd', role: 'User', active: true },
+						{ id: '7', name: 'John Dres', email: 'asdasdasd', role: 'User', active: true },
+						{ id: '8', name: 'John Dres', email: 'asdasdasd', role: 'User', active: true },
+						{ id: '9', name: 'John Dres', email: 'asdasdasd', role: 'User', active: true },
+						{ id: '10', name: 'John Dres', email: 'asdasdasd', role: 'User', active: true },
+						{ id: '11', name: 'John Dres', email: 'asdasdasd', role: 'User', active: true },
+						{ id: '12', name: 'John Dres', email: 'asdasdasd', role: 'User', active: true },
 					]}
 					title={() => 'Users'}
 					rowKey={'id'}

@@ -5,13 +5,11 @@ import Toolbar from '@/modules/_shared/components/Layout/Toolbar';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import Modal from '@/modules/_shared/components/Dialog';
 import AddRoom from './AddRoom';
-import useModal from '@/modules/_shared/hooks/useModal';
 import { SectionContainer } from '@/modules/_shared/components/Layout/_styles';
-import { useGetRoomsQuery } from '@/redux/reducers/rooms';
+import useRooms from './useRooms';
 
 export default function Rooms() {
-	const { data: rooms } = useGetRoomsQuery({ page: 1, size: 10 });
-	const { openModal, closeModal, modalRef } = useModal();
+	const { rooms, modalRef, closeModal, openModal } = useRooms();
 
 	return (
 		<>

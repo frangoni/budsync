@@ -18,7 +18,7 @@ type FieldType = {
 };
 
 export default function Register() {
-	const [register] = useRegisterMutation();
+	const [register, { isLoading }] = useRegisterMutation();
 	const notification = useNotification();
 	const { uuid } = useParams();
 
@@ -74,7 +74,7 @@ export default function Register() {
 							</Form.Item>
 
 							<Form.Item>
-								<AppButton block text='Submit' htmlType='submit' />
+								<AppButton block text='Submit' htmlType='submit' loading={isLoading} />
 							</Form.Item>
 						</Form>
 					</Card>

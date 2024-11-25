@@ -1,7 +1,7 @@
 import { generatePDF } from '@/modules/_shared/utilities/pdf';
 import { generateQRCodes } from '@/modules/_shared/utilities/qr';
 import { TPlant } from '@/redux/reducers/plants';
-import { useGetAllPlantsQuery } from '@/redux/reducers/rooms';
+import { useGetAllPlantsQuery, useGetRoomQuery } from '@/redux/reducers/rooms';
 import { TableProps } from 'antd';
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -12,10 +12,11 @@ import useModal from '@/modules/_shared/hooks/useModal';
 export default function useRoom() {
 	const { roomId } = useParams();
 	if (!roomId) throw new Error('Room ID is required');
+	/* 	const { data: room } = useGetRoomQuery({ id: roomId }); */
 	const { data: allPlants, isLoading, isError } = useGetAllPlantsQuery({ id: roomId, page: 1, size: 10 });
 	const [selectedRows, setSelectedRows] = useState<TPlant[]>([]);
 	const navigate = useNavigate();
-	const navigateToPlant = (plantId: string) => navigate(`/dashboard/plants/${plantId}`);
+	const navigateToPlant = (plantId: number) => navigate(`/dashboard/plants/${plantId}`);
 	const { openModal, closeModal, modalRef } = useModal();
 
 	const COLUMNS = [
@@ -36,7 +37,7 @@ export default function useRoom() {
 			setSelectedRows(selectedRows);
 		},
 		getCheckboxProps: (record: TPlant) => ({
-			name: record.id,
+			name: record.id.toString(),
 		}),
 	};
 

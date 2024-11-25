@@ -63,4 +63,5 @@ export const strainsApi = baseApi.injectEndpoints({
 
 export const { useCreateStrainMutation, useGetStrainsQuery } = strainsApi;
 export const { setStrains } = strainsSlice.actions;
+export const initialStrainsState = initialState;
 export default strainsSlice.reducer;

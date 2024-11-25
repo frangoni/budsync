@@ -51,7 +51,7 @@ export default function EditUser({ onSubmit, selectedUser }: EditUserProps) {
 		// @ts-expect-error Antd Form component
 		<AppForm form={form} layout='vertical' onFinish={onFinish} onFinishFailed={onFinishFailed}>
 			<h2>Edit an user</h2>
-			<div className='spacer-12' />
+			<div className='spacer-24' />
 			<AppForm.Item<FieldType>
 				label='Role'
 				name='role'

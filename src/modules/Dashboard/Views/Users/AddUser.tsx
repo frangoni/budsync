@@ -1,11 +1,12 @@
 import AppButton from '@/modules/_shared/components/Button';
-import { AppForm, AppInput } from '@/modules/_shared/components/Form/styles';
+import { AppForm, AppInput, AppSelect } from '@/modules/_shared/components/Form/styles';
 import useNotification from '@/modules/_shared/hooks/useNotification';
-import { useAddUserMutation } from '@/redux/reducers/users';
+import { useAddUserMutation, useGetRolesQuery } from '@/redux/reducers/users';
 import { FormProps } from 'antd';
 
 interface FieldType {
-	email: string;
+	username: string;
+	userRole: number;
 }
 
 interface AddUserProps {
@@ -14,15 +15,21 @@ interface AddUserProps {
 
 export default function AddUser({ onSubmit }: AddUserProps) {
 	const notification = useNotification();
-	const [addUser] = useAddUserMutation();
+	const [addUser, { isLoading }] = useAddUserMutation();
+	const { data: roles, isLoading: loadingRoles } = useGetRolesQuery();
 
 	const onFinish: FormProps<FieldType>['onFinish'] = async values => {
-		if (!values.email) return;
+		if (!values.username) return;
 		const newUser = await addUser(values);
-		console.log('newUser :', newUser);
+		if (newUser.error) {
+			return notification.error({
+				message: 'Error on user invite',
+				description: newUser.error.data.message,
+			});
+		}
 		notification.success({
 			message: 'User invited!',
-			description: 'Successfully invited: ' + values.email,
+			description: 'Successfully invited: ' + values.username,
 		});
 		onSubmit();
 	};
@@ -39,16 +46,25 @@ export default function AddUser({ onSubmit }: AddUserProps) {
 		// @ts-expect-error Antd Form component
 		<AppForm layout='vertical' onFinish={onFinish} onFinishFailed={onFinishFailed}>
 			<h2>Invite a new user</h2>
-			<div className='spacer-12' />
+			<div className='spacer-24' />
 			<AppForm.Item<FieldType>
 				label='Email'
-				name='email'
+				name='username'
 				rules={[{ required: true, message: 'Please type an email!' }]}
 			>
 				<AppInput type='email' placeholder='Invite email' />
 			</AppForm.Item>
+			<AppForm.Item label='Role' name='userRole' rules={[{ required: true, message: 'Please select a role!' }]}>
+				<AppSelect
+					loading={loadingRoles}
+					placeholder='Select a role'
+					options={roles?.map(role => ({ value: role.id, label: role.name }))}
+					showSearch
+				/>
+			</AppForm.Item>
+
 			<AppForm.Item>
-				<AppButton text='Add user' block type='primary' htmlType='submit' />
+				<AppButton text='Add user' block type='primary' htmlType='submit' loading={isLoading} />
 			</AppForm.Item>
 		</AppForm>
 	);

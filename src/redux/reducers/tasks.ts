@@ -99,4 +99,5 @@ export const tasksApi = baseApi.injectEndpoints({
 
 export const { useGetTaskQuery, useCreateTaskMutation, useFinishTaskMutation, useGetMyTasksQuery } = tasksApi;
 export const { setTasks } = tasksSlice.actions;
+export const initialTasksState = initialState;
 export default tasksSlice.reducer;

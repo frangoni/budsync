@@ -47,7 +47,7 @@ export default function AddRecord({ onSubmit, plantId }: AddRecordProps) {
 		// @ts-expect-error Antd Form component
 		<AppForm layout='vertical' onFinish={onFinish} onFinishFailed={onFinishFailed}>
 			<h2>Add a record</h2>
-			<div className='spacer-12' />
+			<div className='spacer-24' />
 			<AppForm.Item<FieldType>
 				label='Humidity'
 				name='humidity'

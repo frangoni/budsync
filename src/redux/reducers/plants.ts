@@ -62,7 +62,7 @@ export const plantsApi = baseApi.injectEndpoints({
 			},
 		}),
 		createPlants: builder.mutation({
-			query: (plants: TCreatePlants) => ({
+			query: (plants: TCreatePlants[]) => ({
 				url: '/plant/createAll',
 				method: 'POST',
 				body: plants,
@@ -104,4 +104,5 @@ export const {
 	useEditPlantMutation,
 } = plantsApi;
 export const { setPlants } = plantsSlice.actions;
+export const initialPlantsState = initialState;
 export default plantsSlice.reducer;

@@ -9,7 +9,7 @@ export type Theme = 'light' | 'dark';
 export type ThemeMode = Theme | 'device';
 
 const initialState: ThemeState = {
-	theme: 'light',
+	theme: 'dark',
 	themeMode: 'device',
 };
 
@@ -38,5 +38,5 @@ const themeSlice = createSlice({
 });
 
 export const { toggleTheme, setAppThemeMode } = themeSlice.actions;
-
+export const initialThemeState = initialState;
 export default themeSlice.reducer;

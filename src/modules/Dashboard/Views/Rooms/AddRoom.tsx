@@ -14,14 +14,14 @@ interface AddRoomProps {
 
 export default function AddRoom({ onSubmit }: AddRoomProps) {
 	const notification = useNotification();
-	const [createRoom] = useCreateRoomMutation();
+	const [createRoom, { isLoading }] = useCreateRoomMutation();
 
 	const onFinish: FormProps<FieldType>['onFinish'] = async values => {
 		const createdRoom = await createRoom(values);
-		console.log('createdRoom :', createdRoom);
+		if (!createdRoom.data) return;
 		notification.success({
 			message: 'Room created!',
-			description: 'Successfull room creation: ' + values.name,
+			description: 'Successfull room creation: ' + createdRoom.data.name,
 		});
 		onSubmit();
 	};
@@ -37,7 +37,7 @@ export default function AddRoom({ onSubmit }: AddRoomProps) {
 		// @ts-expect-error Antd Form component
 		<AppForm layout='vertical' onFinish={onFinish} onFinishFailed={onFinishFailed}>
 			<h2>Create a room</h2>
-			<div className='spacer-12' />
+			<div className='spacer-24' />
 			<AppForm.Item<FieldType>
 				label='Room name'
 				name='name'
@@ -46,7 +46,7 @@ export default function AddRoom({ onSubmit }: AddRoomProps) {
 				<AppInput placeholder='Room name' />
 			</AppForm.Item>
 			<AppForm.Item>
-				<AppButton text='Create room' block type='primary' htmlType='submit' />
+				<AppButton text='Create room' block type='primary' htmlType='submit' loading={isLoading} />
 			</AppForm.Item>
 		</AppForm>
 	);

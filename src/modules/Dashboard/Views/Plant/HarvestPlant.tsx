@@ -39,7 +39,7 @@ export default function HarvestPlant({ onSubmit, plant }: HarvestPlantProps) {
 		// @ts-expect-error Antd Form component
 		<AppForm layout='vertical' onFinish={onFinish} onFinishFailed={onFinishFailed}>
 			<h2>Harvest your plant</h2>
-			<div className='spacer-12' />
+			<div className='spacer-24' />
 			<AppForm.Item<FieldType>
 				label='Total quantity (grams)'
 				name='totalQ'

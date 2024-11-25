@@ -6,5 +6,6 @@ import records from './records';
 import tasks from './tasks';
 import strains from './strains';
 import parameters from './parameters';
+import pagination from './pagination';
 
-export { plants, rooms, records, tasks, strains, theme, users, usersApi, parameters };
+export { plants, rooms, records, tasks, strains, theme, users, usersApi, parameters, pagination };

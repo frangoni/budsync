@@ -37,6 +37,7 @@ export const roomsApi = baseApi.injectEndpoints({
 			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
 				try {
 					const { data } = await queryFulfilled;
+					console.log('data :', data);
 					dispatch(setRooms({ rooms: data }));
 				} catch (e) {
 					console.error(`Error fetching rooms:${e}`);
@@ -118,4 +119,5 @@ export const {
 	useGetAllPlantsQuery,
 } = roomsApi;
 export const { setRooms } = roomsSlice.actions;
+export const initialRoomsState = initialState;
 export default roomsSlice.reducer;

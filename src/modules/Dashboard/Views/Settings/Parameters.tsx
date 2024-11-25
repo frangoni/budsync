@@ -5,35 +5,34 @@ import { FormProps } from 'antd';
 import { ParametersWrapper } from './styles';
 import { useEditParametersMutation, useGetParametersQuery } from '@/redux/reducers/parameters';
 import { useForm } from 'antd/es/form/Form';
-import { useEffect } from 'react';
 
 interface FieldType {
-	curentMinHumidity: number;
-	currentMaxHumidity: number;
-	currentMinNutrient: number;
+	minHumidity: number;
+	maxHumidity: number;
+	minNutrient: number;
 	medium: string;
 }
 
 export default function Parameters() {
 	const notification = useNotification();
-	const { data: parameters } = useGetParametersQuery();
 	const [editParameters] = useEditParametersMutation();
+	const { data: parametersData, isLoading } = useGetParametersQuery(undefined, { refetchOnMountOrArgChange: true });
+	const appParams = parametersData?.[parametersData.length - 1];
+
 	const [form] = useForm<FieldType>();
 
-	useEffect(() => {
-		if (parameters) {
-			form.setFieldsValue({
-				curentMinHumidity: parameters.minHumidity,
-				currentMaxHumidity: parameters.maxHumidity,
-				currentMinNutrient: parameters.minNutrient,
-				medium: parameters.medium,
-			});
-		}
-	}, [parameters, form]);
+	if (appParams) form.setFieldsValue(appParams);
 
 	const onFinish: FormProps<FieldType>['onFinish'] = async values => {
 		const editedParameters = await editParameters(values);
 		console.log('editedParameters :', editedParameters);
+
+		if (editedParameters.error) {
+			return notification.error({
+				message: 'Error',
+				description: `We couldn't update your parameters. Try again later!`,
+			});
+		}
 		notification.success({
 			message: 'Parameters edited!',
 			description: 'Successfully updated parameters',
@@ -53,6 +52,7 @@ export default function Parameters() {
 			<h4>Parameters</h4>
 			<p>Manage app parameters</p>
 			<div className='spacer-24' />
+			{/* @ts-expect-error Antd Form component */}
 			<AppForm form={form} layout='vertical' onFinish={onFinish} onFinishFailed={onFinishFailed}>
 				<AppForm.Item
 					label='Minimum Humidity'
@@ -83,7 +83,13 @@ export default function Parameters() {
 					<AppInput />
 				</AppForm.Item>
 				<AppForm.Item>
-					<AppButton text='Update parameters user' block type='primary' htmlType='submit' />
+					<AppButton
+						text='Update parameters user'
+						block
+						type='primary'
+						htmlType='submit'
+						loading={isLoading}
+					/>
 				</AppForm.Item>
 			</AppForm>
 		</ParametersWrapper>

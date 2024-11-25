@@ -48,7 +48,7 @@ export default function Room() {
 					columns={COLUMNS}
 					rowSelection={rowSelection}
 					title={() => 'Plants'}
-					dataSource={PLANTS_DATA}
+					dataSource={allPlants}
 					rowKey='id'
 				/>
 			</SectionContainer>

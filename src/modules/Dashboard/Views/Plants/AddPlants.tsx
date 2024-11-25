@@ -22,7 +22,8 @@ export default function AddPlants({ onSubmit, roomId }: AddPlantsProps) {
 	const [isCreatingStrain, setIsCreatingStrain] = useState(false);
 
 	const onFinish: FormProps<TCreatePlants>['onFinish'] = async (values: TCreatePlants) => {
-		const createdPlants = await createPlants(values);
+		const createdPlants = await createPlants([values]);
+		console.log('createdPlants :', createdPlants);
 		notification.success({
 			message: 'Plants created!',
 			description: 'Successfull created plants: ',
@@ -45,7 +46,7 @@ export default function AddPlants({ onSubmit, roomId }: AddPlantsProps) {
 		// @ts-expect-error Antd Form component
 		<AppForm layout='vertical' onFinish={onFinish} onFinishFailed={onFinishFailed}>
 			<h2>Create new plants</h2>
-			<div className='spacer-12' />
+			<div className='spacer-24' />
 			<AppForm.Item<TCreatePlants>
 				label='How many plants?'
 				name='amountOfPlants'
