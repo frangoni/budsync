@@ -18,7 +18,7 @@ export default function AddPlants({ onSubmit, roomId }: AddPlantsProps) {
 	const notification = useNotification();
 	const [form] = AppForm.useForm<TCreatePlants>();
 	const { data: strains, isLoading: loadingStrains } = useGetStrainsQuery();
-	const [createPlants] = useCreatePlantsMutation();
+	const [createPlants, { isLoading }] = useCreatePlantsMutation();
 	const { data: rooms, isLoading: loadingRooms } = useGetRoomsQuery({ page: 0, size: 100000000 });
 	const [isCreatingStrain, setIsCreatingStrain] = useState(false);
 
@@ -114,7 +114,7 @@ export default function AddPlants({ onSubmit, roomId }: AddPlantsProps) {
 			/>
 			<div className='spacer-16' />
 			<AppForm.Item>
-				<AppButton text='Create plants' block type='primary' htmlType='submit' />
+				<AppButton text='Create plants' block type='primary' htmlType='submit' loading={isLoading} />
 			</AppForm.Item>
 		</AppForm>
 	);

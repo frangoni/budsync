@@ -5,7 +5,7 @@ import { useDebounce } from '@/modules/_shared/hooks/useDebounce';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AppButton from '@/modules/_shared/components/Button';
-import Loader from '@/modules/Loading';
+import Loader from '@/modules/_shared/components/Loading';
 
 export default function PlantFinder() {
 	const [triggerGetPlant, { data: plant, status }] = useLazyGetPlantQuery();

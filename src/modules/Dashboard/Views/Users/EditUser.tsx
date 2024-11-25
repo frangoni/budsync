@@ -7,8 +7,8 @@ import { useForm } from 'antd/es/form/Form';
 import { useEffect } from 'react';
 
 interface FieldType {
-	active: boolean;
-	role: Role;
+	deleted: boolean;
+	role: string;
 }
 
 interface EditUserProps {
@@ -18,14 +18,14 @@ interface EditUserProps {
 
 export default function EditUser({ onSubmit, selectedUser }: EditUserProps) {
 	const notification = useNotification();
-	const [editUser] = useEditUserMutation();
+	const [editUser, { isLoading }] = useEditUserMutation();
 	const [form] = useForm<FieldType>();
 
 	useEffect(() => {
 		if (selectedUser) {
 			form.setFieldsValue({
-				role: selectedUser.role,
-				active: selectedUser.active,
+				role: selectedUser.userRole.name,
+				deleted: selectedUser.deleted,
 			});
 		}
 	}, [selectedUser, form]);
@@ -63,15 +63,15 @@ export default function EditUser({ onSubmit, selectedUser }: EditUserProps) {
 				</AppSelect>
 			</AppForm.Item>
 			<AppForm.Item<FieldType>
-				label='Active?'
-				name='active'
+				label='Archived?'
+				name='deleted'
 				rules={[{ required: true, message: 'Please set status!' }]}
 				valuePropName='checked'
 			>
-				<AppSwitch checked={form.getFieldValue('active')} />
+				<AppSwitch checked={form.getFieldValue('deleted')} />
 			</AppForm.Item>
 			<AppForm.Item>
-				<AppButton text='Edit user' block type='primary' htmlType='submit' />
+				<AppButton text='Edit user' block type='primary' htmlType='submit' loading={isLoading} />
 			</AppForm.Item>
 		</AppForm>
 	);

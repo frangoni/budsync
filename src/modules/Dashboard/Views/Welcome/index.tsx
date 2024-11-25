@@ -4,9 +4,11 @@ import PlantScanner from '../Plants/PlantScanner';
 import { useNavigate } from 'react-router-dom';
 import Header from '@/modules/_shared/components/Layout/Header';
 import { StyledBud } from '@/modules/404/styles';
+import { useAppSelector } from '@/redux/store';
 
 export default function Welcome() {
 	const navigate = useNavigate();
+	const { currentUser } = useAppSelector(({ users }) => users);
 	const onScan = (result: string | null) => {
 		if (result) navigate(`/dashboard/plants/${result}`);
 	};
@@ -16,7 +18,7 @@ export default function Welcome() {
 			<Header title='Welcome to BudSync!' />
 			<WelcomeContainer>
 				<WelcomeColumn>
-					<h3>Hi user! My name is Buddy</h3>
+					<h3>Hi {currentUser?.name}! My name is Buddy</h3>
 					<StyledBud src={Bud} alt='Buddy' />
 					<p>Click on the sidebar to navigate through the app</p>
 				</WelcomeColumn>

@@ -3,7 +3,7 @@ import Header from '@/modules/_shared/components/Layout/Header';
 import Toolbar from '@/modules/_shared/components/Layout/Toolbar';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import AddTask from './AddTask';
-import Loader from '@/modules/Loading';
+import Loader from '@/modules/_shared/components/Loading';
 import { ImageDetailsWrapper, PlantImgWrapper, RecordsWrapper } from './_styles';
 import AppTable from '@/modules/_shared/components/Table';
 import { TTask } from '@/redux/reducers/tasks';

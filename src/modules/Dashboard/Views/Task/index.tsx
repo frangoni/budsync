@@ -1,6 +1,6 @@
 import Header from '@/modules/_shared/components/Layout/Header';
 import { TaskDetailsWrapper, TaskMainWrapper } from './_styles';
-import Loader from '@/modules/Loading';
+import Loader from '@/modules/_shared/components/Loading';
 import PlantStatus from '../Plant/PlantStatus';
 import AppButton from '@/modules/_shared/components/Button';
 import Modal from '@/modules/_shared/components/Dialog';

@@ -5,13 +5,20 @@ import localforage from 'localforage';
 import { PaginationOptions } from './pagination';
 
 export type Role = { id: number; name: 'Admin' | 'User' };
+export interface TRegisterUser {
+	token: string;
+	name: string;
+	lastName: string;
+	password: string;
+}
 export interface TUser {
 	name: string;
 	lastName: string;
 	username: string;
 	userRole: Role;
 	id: number;
-	active: boolean;
+	deleted: boolean;
+	verifiedAt: string;
 }
 export interface UsersState {
 	currentUser: TUser | null;
@@ -89,7 +96,23 @@ export const usersApi = baseApi.injectEndpoints({
 				}
 			},
 		}),
-		getRoles: builder.query<Role[], void>({
+		register: builder.mutation<TUser & { token: string }, TRegisterUser>({
+			query: params => ({
+				url: `/user/${params.token}`,
+				method: 'POST',
+				body: params,
+			}),
+			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
+				try {
+					const { data } = await queryFulfilled;
+					dispatch(setUser(data));
+					localforage.setItem(K.JWT_LS_KEY, data.token);
+				} catch (e) {
+					console.error(`Register failed: ${e}`);
+				}
+			},
+		}),
+		getRoles: builder.query<void, Role[]>({
 			query: () => `/userRole`,
 			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
 				try {
@@ -97,22 +120,6 @@ export const usersApi = baseApi.injectEndpoints({
 					return data;
 				} catch (e) {
 					console.error(`Error fetching roles:${e}`);
-				}
-			},
-		}),
-		register: builder.mutation({
-			query: credentials => ({
-				url: `/user`,
-				method: 'POST',
-				body: credentials,
-			}),
-			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
-				try {
-					const { data } = await queryFulfilled;
-					dispatch(setUser({ user: data.user, token: data.token }));
-					localforage.setItem(K.JWT_LS_KEY, data.token);
-				} catch (e) {
-					console.error(`Register failed: ${e}`);
 				}
 			},
 		}),
@@ -131,7 +138,7 @@ export const usersApi = baseApi.injectEndpoints({
 				}
 			},
 		}),
-		editUser: builder.mutation<void, { role: Role; active: boolean }>({
+		editUser: builder.mutation<void, { role: Role; deleted: boolean }>({
 			query: credentials => ({
 				url: `/user`,
 				method: 'PUT',

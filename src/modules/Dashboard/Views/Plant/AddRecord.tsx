@@ -24,7 +24,6 @@ export default function AddRecord({ onSubmit, plantId }: AddRecordProps) {
 	const [compressedImage, setCompressedImage] = useState<string | null>(null);
 
 	const onFinish: FormProps<FieldType>['onFinish'] = async values => {
-		console.log('values :', values);
 		const timestamp = new Date().toISOString();
 		const newRecord = await addRecord({ ...values, plantId, timestamp, imageUrl: compressedImage! });
 		console.log('newRecord :', newRecord);

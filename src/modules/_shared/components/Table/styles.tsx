@@ -71,5 +71,24 @@ export const StyledTable = styled(Table)`
 				cursor: not-allowed;
 			}
 		}
+
+		.ant-select-selector {
+			background-color: ${({ theme }) => theme.colors.background.secondary};
+			color: ${({ theme }) => theme.colors.text.primary};
+			border: 1px solid ${({ theme }) => theme.colors.border.context};
+		}
+
+		.ant-select-arrow {
+			color: ${({ theme }) => theme.colors.text.primary};
+		}
+		.ant-select-dropdown {
+			background-color: ${({ theme }) => theme.colors.background.secondary};
+			color: ${({ theme }) => theme.colors.text.primary};
+			border: 1px solid ${({ theme }) => theme.colors.border.context};
+
+			.ant-select-item-option-active {
+				background-color: ${({ theme }) => theme.colors.background.main};
+			}
+		}
 	}
 `;

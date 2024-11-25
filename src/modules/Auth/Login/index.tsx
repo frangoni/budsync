@@ -1,16 +1,16 @@
-import { BgImage, FormHeader, FormWrapper, ImageWrapper, LoginContainer } from './styles';
-import LoginBG from '../_shared/assets/webp/login-bg.webp';
-import Leaf from '../_shared/assets/pngs/leaf-fill.png';
-import MainContainer from '../_shared/components/Layout/MainContainer';
+import { BgImage, FormHeader, FormWrapper, ImageWrapper, LoginContainer } from '../styles';
+import LoginBG from '@/modules/_shared/assets/webp/login-bg.webp';
+import Leaf from '@/modules/_shared/assets/pngs/leaf-fill.png';
 import type { FormProps } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { useLoginMutation } from '@/redux/reducers/users';
-import useNotification from '../_shared/hooks/useNotification';
-import { Card } from '../_shared/components/Layout/_styles';
-import AppButton from '../_shared/components/Button';
-import { AppInput, AppForm, PasswordInput } from '../_shared/components/Form/styles';
 import { useNavigate } from 'react-router-dom';
-import { ROUTES } from '../_shared/_routes';
+import useNotification from '@/modules/_shared/hooks/useNotification';
+import { ROUTES } from '@/modules/_shared/_routes';
+import MainContainer from '@/modules/_shared/components/Layout/MainContainer';
+import { AppForm, AppInput, PasswordInput } from '@/modules/_shared/components/Form/styles';
+import AppButton from '@/modules/_shared/components/Button';
+import { Card } from '@/modules/_shared/components/Layout/_styles';
 
 type FieldType = {
 	username: string;

@@ -10,7 +10,7 @@ type ModalContent = 'add' | 'edit';
 
 export default function useUsers() {
 	const { page, size } = usePagination();
-	const { data, isLoading, isError } = useGetAllUsersQuery({ page, size });
+	const { data, isLoading, isError } = useGetAllUsersQuery({ page, size }, { refetchOnMountOrArgChange: true });
 	const [modalContent, setModalContent] = useState<ModalContent>('add');
 	const [selectedUser, setSelectedUser] = useState<TUser | null>(null);
 	const { closeModal, modalRef, openModal } = useModal();

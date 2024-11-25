@@ -6,7 +6,7 @@ import { Icon } from '@iconify/react/dist/iconify.js';
 import Modal from '@/modules/_shared/components/Dialog';
 import AddPlants from '../Plants/AddPlants';
 import useRoom from './useRoom';
-import Loader from '@/modules/Loading';
+import Loader from '@/modules/_shared/components/Loading';
 import { SectionContainer } from '@/modules/_shared/components/Layout/_styles';
 
 export default function Room() {
