@@ -18,7 +18,13 @@ export default function HarvestPlant({ onSubmit, plant }: HarvestPlantProps) {
 	const [harvestPlant] = useEditPlantMutation();
 
 	const onFinish: FormProps<FieldType>['onFinish'] = async values => {
-		const harvestedPlant = await harvestPlant([{ ...plant, totalQ: values.totalQ, active: false }]);
+		const harvestedPlant = await harvestPlant({
+			totalQ: values.totalQ,
+			active: false,
+			id: plant?.id,
+			strainId: plant?.strain.id,
+			roomId: plant?.room.id,
+		});
 		console.log('harvestedPlant :', harvestedPlant);
 		notification.success({
 			message: 'Plant harvested!',

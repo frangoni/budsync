@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AppButton from '@/modules/_shared/components/Button';
 import Loader from '@/modules/_shared/components/Loading';
+import { Card } from '@/modules/_shared/components/Layout/_styles';
 
 export default function PlantFinder() {
 	const [triggerGetPlant, { data: plant, status }] = useLazyGetPlantQuery();
@@ -28,18 +29,20 @@ export default function PlantFinder() {
 		if (status === 'pending' || isTyping) return <Loader />;
 		if (status === 'fulfilled' && plant)
 			return (
-				<PlantInfo>
-					<h2>Plant info</h2>
-					<p>Plant number: {plant.id}</p>
-					<p>Strain: {plant.strain.name}</p>
-					<p>Room: {plant.room.name}</p>
-					<p>Total quantity: {plant.totalQ}</p>
-					<AppButton
-						buttonType='secondary'
-						text='View plant'
-						onClick={() => navigate(`/dashboard/plants/${plant.id}`)}
-					/>
-				</PlantInfo>
+				<Card>
+					<PlantInfo>
+						<h2>Plant info</h2>
+						<p>Plant number: {plant.id}</p>
+						<p>Strain: {plant.strain.name}</p>
+						<p>Room: {plant.room.name}</p>
+						<p>Total quantity: {plant.totalQ}</p>
+						<AppButton
+							buttonType='secondary'
+							text='View plant'
+							onClick={() => navigate(`/dashboard/plants/${plant.id}`)}
+						/>
+					</PlantInfo>
+				</Card>
 			);
 		if (status === 'rejected') return <p>Plant not found</p>;
 	};

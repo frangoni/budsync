@@ -1,10 +1,10 @@
 import { CONSTANTS as K } from '@/modules/_shared/_constants';
-import { baseApi } from '../baseApi';
+import { baseApi, PaginationResponse } from '../baseApi';
 import { createSlice } from '@reduxjs/toolkit';
 import localforage from 'localforage';
 import { PaginationOptions } from './pagination';
 
-export type Role = { id: number; name: 'Admin' | 'User' };
+export type Role = { id: number; name: 'Admin' | 'Trabajador' };
 export interface TRegisterUser {
 	token: string;
 	name: string;
@@ -68,16 +68,17 @@ export const usersApi = baseApi.injectEndpoints({
 				}
 			},
 		}),
-		getAllUsers: builder.query<TUser[], PaginationOptions>({
+		getAllUsers: builder.query<PaginationResponse<TUser>, PaginationOptions>({
 			query: params => `/user/${params.page}/${params.size}`,
 			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
 				try {
 					const { data } = await queryFulfilled;
-					dispatch(setUsers({ users: data }));
+					dispatch(setUsers({ users: data.content }));
 				} catch (e) {
 					console.error(`Error fetching users:${e}`);
 				}
 			},
+			providesTags: ['Users'],
 		}),
 		login: builder.mutation<TUser & { token: string }, { username: string; password: string }>({
 			query: credentials => ({
@@ -88,7 +89,6 @@ export const usersApi = baseApi.injectEndpoints({
 			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
 				try {
 					const { data } = await queryFulfilled;
-					console.log('data :', data);
 					dispatch(setUser(data));
 					localforage.setItem(K.JWT_LS_KEY, data.token);
 				} catch (e) {
@@ -112,16 +112,8 @@ export const usersApi = baseApi.injectEndpoints({
 				}
 			},
 		}),
-		getRoles: builder.query<void, Role[]>({
+		getRoles: builder.query<Role[], void>({
 			query: () => `/userRole`,
-			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
-				try {
-					const { data } = await queryFulfilled;
-					return data;
-				} catch (e) {
-					console.error(`Error fetching roles:${e}`);
-				}
-			},
 		}),
 		addUser: builder.mutation<void, { username: string; userRole: number }>({
 			query: credentials => ({
@@ -129,29 +121,21 @@ export const usersApi = baseApi.injectEndpoints({
 				method: 'POST',
 				body: credentials,
 			}),
-			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
-				try {
-					const { data } = await queryFulfilled;
-					return data;
-				} catch (e) {
-					console.error(`Error on user add: ${e}`);
-				}
-			},
 		}),
-		editUser: builder.mutation<void, { role: Role; deleted: boolean }>({
+		editUser: builder.mutation<void, Partial<Omit<TUser, 'userRole'>> & { userRole?: number }>({
 			query: credentials => ({
 				url: `/user`,
 				method: 'PUT',
 				body: credentials,
 			}),
-			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
-				try {
-					const { data } = await queryFulfilled;
-					return data;
-				} catch (e) {
-					console.error(`Error on user edit: ${e}`);
-				}
-			},
+			invalidatesTags: ['Users'],
+		}),
+		deleteUser: builder.mutation<void, number>({
+			query: id => ({
+				url: `/user/${id}`,
+				method: 'DELETE',
+			}),
+			invalidatesTags: ['Users'],
 		}),
 	}),
 	overrideExisting: false,
@@ -165,6 +149,7 @@ export const {
 	useGetAllUsersQuery,
 	useAddUserMutation,
 	useGetRolesQuery,
+	useDeleteUserMutation,
 } = usersApi;
 export const { setUser, setUsers, logout, setToken } = usersSlice.actions;
 export const initialUserState = initialState;

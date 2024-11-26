@@ -5,8 +5,9 @@ import { useState } from 'react';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import AppButton from '@/modules/_shared/components/Button';
 import usePagination from '@/modules/_shared/hooks/usePagination';
+import { ActionsCell } from '@/modules/_shared/components/Table/styles';
 
-type ModalContent = 'add' | 'edit';
+type ModalContent = 'add' | 'edit' | 'delete';
 
 export default function useUsers() {
 	const { page, size } = usePagination();
@@ -26,13 +27,26 @@ export default function useUsers() {
 		openModal();
 	};
 
+	const handleDeleteUser = (user: TUser) => {
+		setSelectedUser(user);
+		setModalContent('delete');
+		openModal();
+	};
+
 	const COLUMNS = [
 		...USERS_COLUMNS,
 		{
 			title: 'Action',
 			key: 'action',
 			render: (_: string, user: TUser) => (
-				<AppButton icon={<Icon icon='mdi:pencil' />} onClick={() => handleEditUser(user)} />
+				<ActionsCell>
+					<AppButton icon={<Icon icon='mdi:pencil' />} onClick={() => handleEditUser(user)} />
+					<AppButton
+						icon={<Icon icon='mdi:delete' />}
+						onClick={() => handleDeleteUser(user)}
+						buttonType='danger'
+					/>
+				</ActionsCell>
 			),
 			width: 1,
 		},

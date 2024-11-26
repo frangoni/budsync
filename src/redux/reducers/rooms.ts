@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { baseApi } from '../baseApi';
+import { baseApi, PaginationResponse } from '../baseApi';
 import { PaginationOptions } from './pagination';
 
 export interface TRoom {
@@ -31,7 +31,7 @@ const roomsSlice = createSlice({
 
 export const roomsApi = baseApi.injectEndpoints({
 	endpoints: builder => ({
-		getRooms: builder.query<TRoom[], PaginationOptions>({
+		getRooms: builder.query<PaginationResponse<TRoom>, PaginationOptions>({
 			query: params => `/room/${params.page}/${params.size}`,
 			providesTags: ['Rooms'],
 			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {

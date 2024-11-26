@@ -1,14 +1,16 @@
 import AppButton from '@/modules/_shared/components/Button';
-import { AppForm, AppSelect, AppSwitch } from '@/modules/_shared/components/Form/styles';
+import { AppForm, AppInput, AppSelect } from '@/modules/_shared/components/Form/styles';
 import useNotification from '@/modules/_shared/hooks/useNotification';
-import { Role, TUser, useEditUserMutation } from '@/redux/reducers/users';
+import { TUser, useEditUserMutation, useGetRolesQuery } from '@/redux/reducers/users';
 import { FormProps } from 'antd';
 import { useForm } from 'antd/es/form/Form';
 import { useEffect } from 'react';
 
 interface FieldType {
-	deleted: boolean;
-	role: string;
+	name: string;
+	password: string;
+	lastName: string;
+	userRole: number;
 }
 
 interface EditUserProps {
@@ -19,23 +21,33 @@ interface EditUserProps {
 export default function EditUser({ onSubmit, selectedUser }: EditUserProps) {
 	const notification = useNotification();
 	const [editUser, { isLoading }] = useEditUserMutation();
+	const { data: roles, isLoading: loadingRoles } = useGetRolesQuery();
+	console.log('roles :', roles);
 	const [form] = useForm<FieldType>();
 
 	useEffect(() => {
 		if (selectedUser) {
 			form.setFieldsValue({
-				role: selectedUser.userRole.name,
-				deleted: selectedUser.deleted,
+				userRole: selectedUser.userRole.id,
+				name: selectedUser.name,
+				lastName: selectedUser.lastName,
 			});
 		}
 	}, [selectedUser, form]);
 
 	const onFinish: FormProps<FieldType>['onFinish'] = async values => {
-		const editedUser = await editUser(values);
+		const editedUser = await editUser({ ...selectedUser, ...values });
+		if (editedUser.error) {
+			notification.error({
+				message: 'Error on user edit',
+			});
+			return;
+		}
 		notification.success({
 			message: 'User edited!',
 			description: 'Successfully edited user',
 		});
+		form.resetFields();
 		onSubmit();
 	};
 
@@ -53,23 +65,38 @@ export default function EditUser({ onSubmit, selectedUser }: EditUserProps) {
 			<h2>Edit an user</h2>
 			<div className='spacer-24' />
 			<AppForm.Item<FieldType>
-				label='Role'
-				name='role'
-				rules={[{ required: true, message: 'Please select a role!' }]}
+				label='Name'
+				name='name'
+				rules={[{ required: true, message: 'Please type a name!' }]}
 			>
-				<AppSelect value={form.getFieldValue('role')}>
-					<AppSelect.Option value='Admin'>Admin</AppSelect.Option>
-					<AppSelect.Option value='User'>User</AppSelect.Option>
-				</AppSelect>
+				<AppInput placeholder='Name' />
 			</AppForm.Item>
+
 			<AppForm.Item<FieldType>
-				label='Archived?'
-				name='deleted'
-				rules={[{ required: true, message: 'Please set status!' }]}
-				valuePropName='checked'
+				label='Last name'
+				name='lastName'
+				rules={[{ required: true, message: 'Please type a last name!' }]}
 			>
-				<AppSwitch checked={form.getFieldValue('deleted')} />
+				<AppInput placeholder='Last name' />
 			</AppForm.Item>
+
+			<AppForm.Item<FieldType>
+				label='New password'
+				name='password'
+				rules={[{ required: false, message: 'Please type a password!' }]}
+			>
+				<AppInput type='password' placeholder='Password' />
+			</AppForm.Item>
+
+			<AppForm.Item label='Role' name='userRole' rules={[{ required: true, message: 'Please select a role!' }]}>
+				<AppSelect
+					loading={loadingRoles}
+					placeholder='Select a role'
+					options={roles?.map(role => ({ value: role.id, label: role.name }))}
+					showSearch
+				/>
+			</AppForm.Item>
+
 			<AppForm.Item>
 				<AppButton text='Edit user' block type='primary' htmlType='submit' loading={isLoading} />
 			</AppForm.Item>

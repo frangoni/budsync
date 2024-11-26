@@ -23,7 +23,6 @@ export default function Room() {
 		allPlants,
 	} = useRoom();
 
-	console.log('allPlants :', allPlants);
 	if (isLoading) return <Loader />;
 	return (
 		<>
@@ -48,8 +47,9 @@ export default function Room() {
 					columns={COLUMNS}
 					rowSelection={rowSelection}
 					title={() => 'Plants'}
-					dataSource={allPlants}
+					dataSource={allPlants?.content}
 					rowKey='id'
+					totalCount={allPlants?.totalElements}
 				/>
 			</SectionContainer>
 			<Modal ref={modalRef}>

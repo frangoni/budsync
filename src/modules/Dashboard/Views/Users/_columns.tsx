@@ -1,4 +1,5 @@
 import { Role, TUser } from '@/redux/reducers/users';
+import { UserStatus } from './_styles';
 
 const USERS_COLUMNS = [
 	{
@@ -33,9 +34,11 @@ const USERS_COLUMNS = [
 		dataIndex: 'deleted',
 		key: 'deleted',
 		render: (deleted: boolean, record: TUser) => {
-			if (deleted) return 'Archived';
-			if (record.verifiedAt) return 'Active';
-			return 'Pending';
+			let status;
+			status = record.verifiedAt ? 'Active' : 'Pending';
+			if (deleted) status = 'Archived';
+
+			return <UserStatus status={status}>{status}</UserStatus>;
 		},
 	},
 ];

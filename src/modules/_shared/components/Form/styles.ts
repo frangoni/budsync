@@ -81,6 +81,10 @@ export const AppForm = styled(Form)`
 	color: ${({ theme }) => theme.colors.text.primary};
 	background-color: transparent;
 
+	h4 {
+		color: ${({ theme }) => theme.colors.text.primary};
+	}
+
 	label {
 		font-size: 1.25rem !important;
 	}

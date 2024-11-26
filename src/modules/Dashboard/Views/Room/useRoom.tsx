@@ -38,7 +38,6 @@ export default function useRoom() {
 
 	const rowSelection: TableProps<TPlant>['rowSelection'] = {
 		onChange: (selectedRowKeys: React.Key[], selectedRows: TPlant[]) => {
-			console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
 			setSelectedRows(selectedRows);
 		},
 		getCheckboxProps: (record: TPlant) => ({

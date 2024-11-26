@@ -2,7 +2,11 @@ import usePagination from '../../hooks/usePagination';
 import { StyledTable } from './styles';
 import { TableProps } from 'antd';
 
-export default function AppTable<T extends object>({ columns, dataSource, ...rest }: TableProps<T>) {
+interface AppTableProps<T> extends TableProps<T> {
+	totalCount?: number;
+}
+
+export default function AppTable<T extends object>({ columns, dataSource, totalCount, ...rest }: AppTableProps<T>) {
 	const { page, size, handlePaginationChange } = usePagination();
 
 	return (
@@ -16,8 +20,9 @@ export default function AppTable<T extends object>({ columns, dataSource, ...res
 				current: page + 1,
 				pageSize: size,
 				showSizeChanger: true,
+				total: totalCount,
 				onChange(page, pageSize) {
-					handlePaginationChange({ page, size: pageSize });
+					handlePaginationChange({ page: page - 1, size: pageSize });
 				},
 			}}
 			{...rest}

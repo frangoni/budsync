@@ -30,6 +30,7 @@ export interface ThemeInterface {
 			primary: string;
 			success: string;
 			danger: string;
+			warning: string;
 			active: string;
 			stepper: {
 				bar: string;
@@ -115,6 +116,7 @@ const appTheme: { dark: ThemeInterface; light: ThemeInterface } = {
 				success: '#46C740',
 				danger: '#EA5455',
 				active: '#6EB5B7',
+				warning: '#FF9F43',
 				stepper: {
 					circle: '#6E6B7B',
 					bar: 'rgba(233, 236, 239, 0.2)',
@@ -187,6 +189,7 @@ const appTheme: { dark: ThemeInterface; light: ThemeInterface } = {
 				primary: '#aeaeae',
 				success: '#46C740',
 				danger: '#EA5455',
+				warning: '#FF9F43',
 				active: '#377E80',
 				stepper: {
 					circle: '#E9ECEF',

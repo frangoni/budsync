@@ -92,3 +92,10 @@ export const StyledTable = styled(Table)`
 		}
 	}
 `;
+
+export const ActionsCell = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 0.5rem;
+`;

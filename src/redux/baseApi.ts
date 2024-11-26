@@ -18,3 +18,15 @@ export const baseApi = createApi({
 	}),
 	endpoints: () => ({}),
 });
+
+export type PaginationResponse<T> = {
+	content: T[];
+	totalElements: number;
+	totalPages: number;
+	size: number;
+	number: number;
+	last: boolean;
+	numberOfElements: number;
+	first: boolean;
+	empty: boolean;
+};

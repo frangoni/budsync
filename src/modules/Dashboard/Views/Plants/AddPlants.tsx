@@ -16,15 +16,23 @@ interface AddPlantsProps {
 
 export default function AddPlants({ onSubmit, roomId }: AddPlantsProps) {
 	const notification = useNotification();
+	const [isCreatingStrain, setIsCreatingStrain] = useState(false);
 	const [form] = AppForm.useForm<TCreatePlants>();
 	const { data: strains, isLoading: loadingStrains } = useGetStrainsQuery();
-	const [createPlants, { isLoading }] = useCreatePlantsMutation();
 	const { data: rooms, isLoading: loadingRooms } = useGetRoomsQuery({ page: 0, size: 100000000 });
-	const [isCreatingStrain, setIsCreatingStrain] = useState(false);
+	const [createPlants, { isLoading }] = useCreatePlantsMutation();
+
+	const roomName = rooms?.content.find(room => room.id == roomId)?.name;
 
 	const onFinish: FormProps<TCreatePlants>['onFinish'] = async (values: TCreatePlants) => {
 		const createdPlants = await createPlants([values]);
-		console.log('createdPlants :', createdPlants);
+		if (createdPlants.error) {
+			return notification.error({
+				message: 'Error on plants creation',
+				description: `Please try again later!`,
+			});
+		}
+
 		notification.success({
 			message: 'Plants created!',
 			description: 'Successfull created plants: ',
@@ -32,6 +40,7 @@ export default function AddPlants({ onSubmit, roomId }: AddPlantsProps) {
 
 		const qrCode = await generateQRCodes(createdPlants.data);
 		generatePDF(qrCode);
+		form.resetFields();
 		onSubmit();
 	};
 
@@ -69,7 +78,7 @@ export default function AddPlants({ onSubmit, roomId }: AddPlantsProps) {
 						loading={loadingRooms}
 						placeholder='Select an existing room'
 						disabled={!!roomId}
-						options={rooms?.map(room => ({ value: room.id, label: room.name }))}
+						options={rooms?.content.map(room => ({ value: room.id, label: room.name }))}
 						showSearch
 					/>
 				</AppForm.Item>
@@ -80,7 +89,7 @@ export default function AddPlants({ onSubmit, roomId }: AddPlantsProps) {
 					rules={[{ required: true, message: 'Please choose a room name!' }]}
 					initialValue={roomId}
 				>
-					<AppInput placeholder='Room name' disabled value={roomId} />
+					<h4>{roomName}</h4>
 				</AppForm.Item>
 			)}
 			{isCreatingStrain ? (

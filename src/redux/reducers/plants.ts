@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { baseApi } from '../baseApi';
+import { baseApi, PaginationResponse } from '../baseApi';
 import { TStrain } from './strains';
 import { PaginationOptions } from './pagination';
 import { TRoom } from './rooms';
@@ -50,7 +50,7 @@ export const plantsApi = baseApi.injectEndpoints({
 				}
 			},
 		}),
-		getPlantsByRoom: builder.query<TPlant[], PaginationOptions & { id: string }>({
+		getPlantsByRoom: builder.query<PaginationResponse<TPlant>, PaginationOptions & { id: string }>({
 			query: params => `/room/${params.id}/plants/${params.page}/${params.size}`,
 			providesTags: ['Plants'],
 			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
@@ -92,19 +92,11 @@ export const plantsApi = baseApi.injectEndpoints({
 		}),
 		editPlant: builder.mutation({
 			query: plant => ({
-				url: `/plants/${plant.id}`,
+				url: `/plant`,
 				method: 'PUT',
 				body: plant,
 			}),
 			invalidatesTags: ['Plants'],
-			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
-				try {
-					const { data } = await queryFulfilled;
-					dispatch(setPlants({ plants: data }));
-				} catch (e) {
-					console.error(`Error editing plant:${e}`);
-				}
-			},
 		}),
 	}),
 });

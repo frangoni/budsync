@@ -9,6 +9,7 @@ import Toolbar from '@/modules/_shared/components/Layout/Toolbar';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import AddUser from './AddUser';
 import EditUser from './EditUser';
+import DeleteUser from './DeleteUser';
 
 export default function Users() {
 	const { data, isLoading, COLUMNS, modalRef, handleAddUser, modalContent, closeModal, selectedUser } = useUsers();
@@ -29,16 +30,18 @@ export default function Users() {
 			<SectionContainer>
 				<AppTable<TUser>
 					columns={COLUMNS}
-					dataSource={data}
+					dataSource={data?.content}
 					title={() => 'Users'}
 					rowKey={'id'}
 					loading={isLoading}
+					totalCount={data?.totalElements}
 				/>
 			</SectionContainer>
 
 			<Modal ref={modalRef}>
 				{modalContent === 'add' && <AddUser onSubmit={closeModal} />}
 				{modalContent === 'edit' && <EditUser onSubmit={closeModal} selectedUser={selectedUser} />}
+				{modalContent === 'delete' && <DeleteUser onSubmit={closeModal} selectedUser={selectedUser} />}
 			</Modal>
 		</>
 	);
