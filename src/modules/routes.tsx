@@ -8,6 +8,7 @@ import Users from './Dashboard/Views/Users';
 const Settings = lazy(() => import('./Dashboard/Views/Settings'));
 const Landing = lazy(() => import('./Landing'));
 const Login = lazy(() => import('./Auth/Login'));
+const Forgot = lazy(() => import('./Auth/Forgot'));
 const Register = lazy(() => import('./Auth/Register'));
 const Dashboard = lazy(() => import('./Dashboard'));
 const Rooms = lazy(() => import('./Dashboard/Views/Rooms'));
@@ -42,6 +43,15 @@ const router = createBrowserRouter([
 		},
 		element: <Register />,
 	},
+	{
+		path: ROUTES.forgot,
+		async loader() {
+			const token = await getToken();
+			return token ? redirect(ROUTES.dashboard) : null;
+		},
+		element: <Forgot />,
+	},
+	{},
 	{
 		path: ROUTES.dashboard,
 		async loader() {

@@ -1,39 +1,36 @@
 import { FormHeader, FormWrapper } from '../styles';
 import Leaf from '@/modules/_shared/assets/pngs/leaf-fill.png';
 import type { FormProps } from 'antd';
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { useLoginMutation } from '@/redux/reducers/users';
-import { Link, useNavigate } from 'react-router-dom';
+import { UserOutlined } from '@ant-design/icons';
+import { useLazyForgotPasswordQuery } from '@/redux/reducers/users';
+import { Link } from 'react-router-dom';
 import useNotification from '@/modules/_shared/hooks/useNotification';
 import { ROUTES } from '@/modules/_shared/_routes';
-import { AppForm, AppInput, PasswordInput } from '@/modules/_shared/components/Form/styles';
+import { AppForm, AppInput } from '@/modules/_shared/components/Form/styles';
 import AppButton from '@/modules/_shared/components/Button';
 import { Card } from '@/modules/_shared/components/Layout/_styles';
 import AuthContainer from '..';
 
 type FieldType = {
 	username: string;
-	password: string;
 };
 
-export default function Login() {
-	const [login, { isLoading }] = useLoginMutation();
+export default function Forgot() {
+	const [forgotPass, { isLoading }] = useLazyForgotPasswordQuery();
 	const notification = useNotification();
-	const navigate = useNavigate();
 
 	const onFinish: FormProps<FieldType>['onFinish'] = async values => {
-		const logUser = await login(values);
-		if (logUser.error) {
+		const forgottenPassword = await forgotPass(values.username);
+		if (forgottenPassword.error) {
 			return notification.error({
-				message: 'Error on login',
+				message: 'Error on recover password',
 				description: `Invalid credentials`,
 			});
 		}
 		notification.success({
-			message: 'User login!',
-			description: 'Welcome',
+			message: 'Email sent!',
+			description: 'Check your inbox to recover password',
 		});
-		navigate(ROUTES.dashboard);
 	};
 	const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = errorInfo => {
 		const error = errorInfo.errorFields[0].errors[0];
@@ -49,8 +46,8 @@ export default function Login() {
 				<Card>
 					<FormHeader>
 						<img className='logo' src={Leaf} alt='Marihuana Leaf' />
-						<h2>Login</h2>
-						<p>Login with credentials</p>
+						<h2>Recover your password</h2>
+						<p>Submit username and reset your password</p>
 					</FormHeader>
 					{/* @ts-expect-error Form extend */}
 					<AppForm
@@ -68,16 +65,8 @@ export default function Login() {
 							<AppInput prefix={<UserOutlined />} placeholder='Username' />
 						</AppForm.Item>
 
-						<AppForm.Item<FieldType>
-							label='Password'
-							name='password'
-							rules={[{ required: true, message: 'Please input your password!' }]}
-						>
-							<PasswordInput prefix={<LockOutlined />} type='password' placeholder='Password' />
-						</AppForm.Item>
-
 						<p>
-							Forgot your password? <Link to={ROUTES.forgot}>Recover</Link>
+							Already have an account? <Link to={ROUTES.login}>Login</Link>
 						</p>
 						<div className='spacer-24' />
 						<AppForm.Item>

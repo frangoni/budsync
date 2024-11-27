@@ -1,39 +1,52 @@
 import { FormHeader, FormWrapper } from '../styles';
 import Leaf from '@/modules/_shared/assets/pngs/leaf-fill.png';
 import type { FormProps } from 'antd';
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { useLoginMutation } from '@/redux/reducers/users';
-import { Link, useNavigate } from 'react-router-dom';
+import { LockOutlined } from '@ant-design/icons';
+import { useRecoverPasswordMutation } from '@/redux/reducers/users';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import useNotification from '@/modules/_shared/hooks/useNotification';
 import { ROUTES } from '@/modules/_shared/_routes';
-import { AppForm, AppInput, PasswordInput } from '@/modules/_shared/components/Form/styles';
+import { AppForm, PasswordInput } from '@/modules/_shared/components/Form/styles';
 import AppButton from '@/modules/_shared/components/Button';
 import { Card } from '@/modules/_shared/components/Layout/_styles';
 import AuthContainer from '..';
 
 type FieldType = {
-	username: string;
 	password: string;
+	confirmPassword: string;
 };
 
-export default function Login() {
-	const [login, { isLoading }] = useLoginMutation();
+export default function Recover() {
+	const [recoverPass, { isLoading }] = useRecoverPasswordMutation();
 	const notification = useNotification();
+	const { uuid } = useParams<{ uuid: string }>();
 	const navigate = useNavigate();
 
 	const onFinish: FormProps<FieldType>['onFinish'] = async values => {
-		const logUser = await login(values);
-		if (logUser.error) {
+		if (values.password !== values.confirmPassword) {
 			return notification.error({
-				message: 'Error on login',
+				message: 'Error on recover password',
+				description: `Passwords do not match`,
+			});
+		}
+		if (!uuid) {
+			return notification.error({
+				message: 'Error on recover password',
+				description: `Invalid token`,
+			});
+		}
+		const forgottenPassword = await recoverPass({ ...values, token: uuid });
+		if (forgottenPassword.error) {
+			return notification.error({
+				message: 'Error on recover password',
 				description: `Invalid credentials`,
 			});
 		}
 		notification.success({
-			message: 'User login!',
-			description: 'Welcome',
+			message: 'Password recovered',
+			description: 'Successfully recovered password. Login now!',
 		});
-		navigate(ROUTES.dashboard);
+		navigate(ROUTES.login);
 	};
 	const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = errorInfo => {
 		const error = errorInfo.errorFields[0].errors[0];
@@ -49,8 +62,8 @@ export default function Login() {
 				<Card>
 					<FormHeader>
 						<img className='logo' src={Leaf} alt='Marihuana Leaf' />
-						<h2>Login</h2>
-						<p>Login with credentials</p>
+						<h2>Create a new password</h2>
+						<p>Submit a new password to reset</p>
 					</FormHeader>
 					{/* @ts-expect-error Form extend */}
 					<AppForm
@@ -61,23 +74,22 @@ export default function Login() {
 						autoComplete='off'
 					>
 						<AppForm.Item<FieldType>
-							label='User name'
-							name='username'
-							rules={[{ required: true, message: 'Please input your User name!' }]}
-						>
-							<AppInput prefix={<UserOutlined />} placeholder='Username' />
-						</AppForm.Item>
-
-						<AppForm.Item<FieldType>
-							label='Password'
+							label='New password'
 							name='password'
-							rules={[{ required: true, message: 'Please input your password!' }]}
+							rules={[{ required: true, message: 'Please input your new password!' }]}
+						>
+							<PasswordInput prefix={<LockOutlined />} placeholder='Password' />
+						</AppForm.Item>
+						<AppForm.Item<FieldType>
+							label='Confirm Password'
+							name='confirmPassword'
+							rules={[{ required: true, message: 'Confirm your new password!' }]}
 						>
 							<PasswordInput prefix={<LockOutlined />} type='password' placeholder='Password' />
 						</AppForm.Item>
 
 						<p>
-							Forgot your password? <Link to={ROUTES.forgot}>Recover</Link>
+							Already have an account? <Link to={ROUTES.login}>Login</Link>
 						</p>
 						<div className='spacer-24' />
 						<AppForm.Item>

@@ -129,6 +129,16 @@ export const usersApi = baseApi.injectEndpoints({
 			}),
 			invalidatesTags: ['Users'],
 		}),
+		recoverPassword: builder.mutation<void, { token: string; password: string }>({
+			query: params => ({
+				url: `/user/recover-password/${params.token}`,
+				method: 'POST',
+				body: { password: params.password },
+			}),
+		}),
+		forgotPassword: builder.query<void, string>({
+			query: email => `/user/forgot-password/${email}`,
+		}),
 	}),
 	overrideExisting: false,
 });
@@ -142,6 +152,8 @@ export const {
 	useAddUserMutation,
 	useGetRolesQuery,
 	useDeleteUserMutation,
+	useLazyForgotPasswordQuery,
+	useRecoverPasswordMutation,
 } = usersApi;
 export const { setUser, setUsers, logout, setToken } = usersSlice.actions;
 export const initialUserState = initialState;

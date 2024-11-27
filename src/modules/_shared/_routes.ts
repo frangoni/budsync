@@ -1,7 +1,9 @@
 export const ROUTES = {
 	home: '/',
 	login: '/login',
+	forgot: '/forgot',
 	register: '/register/:uuid',
+	recover: '/recover/:uuid',
 	dashboard: '/dashboard',
 	rooms: '/dashboard/rooms',
 	room: '/dashboard/rooms/:roomId',
