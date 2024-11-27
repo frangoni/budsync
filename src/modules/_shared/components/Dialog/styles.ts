@@ -46,6 +46,7 @@ export const StyledDialog = styled.dialog`
 
 export const DialogContent = styled.div`
 	max-width: 90vw;
+	min-width: 30vw;
 	max-height: 90svh;
 	overflow-y: auto;
 	overflow-x: hidden;

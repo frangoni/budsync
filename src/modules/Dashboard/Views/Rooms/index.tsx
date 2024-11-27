@@ -7,10 +7,12 @@ import Modal from '@/modules/_shared/components/Dialog';
 import AddRoom from './AddRoom';
 import { SectionContainer } from '@/modules/_shared/components/Layout/_styles';
 import useRooms from './useRooms';
+import Loader from '@/modules/_shared/components/Loading';
 
 export default function Rooms() {
-	const { rooms, modalRef, closeModal, openModal } = useRooms();
+	const { rooms, modalRef, openModal, isLoading, addRoomSuccess } = useRooms();
 
+	if (isLoading) return <Loader />;
 	return (
 		<>
 			<Header title='Rooms' description='Here you can manage your rooms' />
@@ -25,7 +27,7 @@ export default function Rooms() {
 			</SectionContainer>
 
 			<Modal ref={modalRef}>
-				<AddRoom onSubmit={() => closeModal()} />
+				<AddRoom onSubmit={addRoomSuccess} />
 			</Modal>
 		</>
 	);

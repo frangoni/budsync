@@ -17,7 +17,7 @@ interface FieldType {
 export default function Parameters() {
 	const notification = useNotification();
 	const [editParameters] = useEditParametersMutation();
-	const { data: parametersData, isLoading } = useGetParametersQuery(undefined, { refetchOnMountOrArgChange: true });
+	const { data: parametersData, isLoading, refetch } = useGetParametersQuery(undefined);
 	const appParams = parametersData?.[parametersData.length - 1];
 
 	const [form] = useForm<FieldType>();
@@ -25,9 +25,7 @@ export default function Parameters() {
 	if (appParams) form.setFieldsValue(appParams);
 
 	const onFinish: FormProps<FieldType>['onFinish'] = async values => {
-		console.log('values :', values);
 		const editedParameters = await editParameters({ ...values, id: appParams?.id || 1 });
-		console.log('editedParameters :', editedParameters);
 
 		if (editedParameters.error) {
 			return notification.error({
@@ -39,6 +37,7 @@ export default function Parameters() {
 			message: 'Parameters edited!',
 			description: 'Successfully updated parameters',
 		});
+		refetch();
 	};
 
 	const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = errorInfo => {

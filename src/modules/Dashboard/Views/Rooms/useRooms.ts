@@ -5,12 +5,17 @@ import { useGetRoomsQuery } from '@/redux/reducers/rooms';
 export default function useRooms() {
 	const { openModal, closeModal, modalRef } = useModal();
 	const { page, size } = usePagination();
-	const { data: rooms } = useGetRoomsQuery({ page, size });
+	const { data: rooms, isLoading, refetch } = useGetRoomsQuery({ page, size }, { refetchOnFocus: true });
+	const addRoomSuccess = () => {
+		refetch();
+		closeModal();
+	};
 
 	return {
 		openModal,
-		closeModal,
+		addRoomSuccess,
 		modalRef,
 		rooms,
+		isLoading,
 	};
 }
