@@ -14,7 +14,10 @@ export default function useTasks() {
 	const [tasksType, setTasksType] = useState<TTaskType>('assignedUser');
 	const { currentUser } = useAppSelector(({ users }) => users);
 	if (!currentUser) throw new Error('User not found');
-	const { data, isLoading } = useGetAllTasksQuery({ page, size, type: tasksType, id: currentUser?.id });
+	const { data, isLoading } = useGetAllTasksQuery(
+		{ page, size, type: tasksType, id: currentUser?.id },
+		{ refetchOnMountOrArgChange: true }
+	);
 
 	const COLUMNS = [
 		...TASKS_COLUMNS,

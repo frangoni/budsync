@@ -11,7 +11,7 @@ import usePagination from '@/modules/_shared/hooks/usePagination';
 
 export default function useRoom() {
 	const { roomId } = useParams();
-	const [plantsStatus, setPlantsStatus] = useState<TPlantStatus>('inactivePlants');
+	const [plantsStatus, setPlantsStatus] = useState<TPlantStatus>('plants');
 	if (!roomId) throw new Error('Room ID is required');
 	const { page, size } = usePagination();
 	const {

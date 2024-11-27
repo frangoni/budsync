@@ -12,7 +12,10 @@ export default function useRecord() {
 	if (!recordId) throw new Error('Record ID not provided');
 	const { data, isLoading, isError } = useGetRecordQuery(recordId!);
 	const { page, size } = usePagination();
-	const { data: recordTasks } = useGetTasksByRecordQuery({ recordId, page, size });
+	const { data: recordTasks, refetch } = useGetTasksByRecordQuery(
+		{ recordId, page, size },
+		{ refetchOnMountOrArgChange: true }
+	);
 	const navigate = useNavigate();
 	const navigateToTask = (taskId: string) => navigate(`/dashboard/tasks/${taskId}`);
 
@@ -29,6 +32,11 @@ export default function useRecord() {
 		},
 	];
 
+	const handleTaskAdded = () => {
+		refetch();
+		closeModal();
+	};
+
 	return {
 		closeModal,
 		modalRef,
@@ -39,5 +47,6 @@ export default function useRecord() {
 		isError,
 		COLUMNS,
 		recordTasks,
+		handleTaskAdded,
 	};
 }

@@ -8,6 +8,7 @@ import AddRoom from './AddRoom';
 import { SectionContainer } from '@/modules/_shared/components/Layout/_styles';
 import useRooms from './useRooms';
 import Loader from '@/modules/_shared/components/Loading';
+import EmptyState from '@/modules/_shared/components/Empty';
 
 export default function Rooms() {
 	const { rooms, modalRef, openModal, isLoading, addRoomSuccess } = useRooms();
@@ -18,12 +19,16 @@ export default function Rooms() {
 			<Header title='Rooms' description='Here you can manage your rooms' />
 			<Toolbar items={[{ icon: <Icon icon='mdi:house-add-outline' />, onClick: openModal, text: 'Add room' }]} />
 			<SectionContainer>
-				<RoomsWrapper>
-					{rooms?.content.map(room => {
-						const { id, name } = room;
-						return <RoomCard quantity={1} roomId={id} key={id} title={name} />;
-					})}
-				</RoomsWrapper>
+				{rooms?.content.length ? (
+					<RoomsWrapper>
+						{rooms.content.map(room => {
+							const { id, name } = room;
+							return <RoomCard quantity={1} roomId={id} key={id} title={name} />;
+						})}
+					</RoomsWrapper>
+				) : (
+					<EmptyState text='No rooms found' />
+				)}
 			</SectionContainer>
 
 			<Modal ref={modalRef}>

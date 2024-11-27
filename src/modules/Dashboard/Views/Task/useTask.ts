@@ -6,11 +6,16 @@ export default function useTask() {
 	const { taskId } = useParams<{ taskId: string }>();
 	const navigate = useNavigate();
 	const { closeModal, modalRef, openModal } = useModal();
-	const { data, isLoading } = useGetTaskQuery(taskId!);
+	const { data, isLoading, refetch } = useGetTaskQuery(taskId!);
 
 	const navigateToRecord = () => {
-		navigate(`/dashboard/record/${data?.recordId}`);
+		navigate(`/dashboard/record/${data?.record.id}`);
 	};
 
-	return { isLoading, data, taskId, navigateToRecord, closeModal, modalRef, openModal };
+	const handleFinishTask = async () => {
+		refetch();
+		closeModal();
+	};
+
+	return { isLoading, data, taskId, navigateToRecord, modalRef, openModal, handleFinishTask };
 }

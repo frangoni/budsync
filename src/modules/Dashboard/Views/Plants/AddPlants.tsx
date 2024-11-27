@@ -19,7 +19,10 @@ export default function AddPlants({ onSubmit, roomId }: AddPlantsProps) {
 	const [isCreatingStrain, setIsCreatingStrain] = useState(false);
 	const [form] = AppForm.useForm<TCreatePlants>();
 	const { data: strains, isLoading: loadingStrains } = useGetStrainsQuery();
-	const { data: rooms, isLoading: loadingRooms } = useGetRoomsQuery({ page: 0, size: -1 });
+	const { data: rooms, isLoading: loadingRooms } = useGetRoomsQuery(
+		{ page: 0, size: -1 },
+		{ refetchOnMountOrArgChange: true }
+	);
 	const [createPlants, { isLoading }] = useCreatePlantsMutation();
 
 	const roomName = rooms?.content.find(room => room.id == roomId)?.name;

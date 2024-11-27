@@ -51,3 +51,18 @@ export const RecordsWrapper = styled.div`
 		gap: 1rem;
 	}
 `;
+
+export const RecordsDetailsWrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+	gap: 0.5rem;
+
+	@media (max-width: 768px) {
+		width: 100%;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1rem;
+	}
+`;

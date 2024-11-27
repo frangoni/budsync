@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { baseApi, PaginationResponse } from '../baseApi';
 import { PaginationOptions } from './pagination';
+import { TPlant } from './plants';
 
 export interface TRecord {
 	id: number;
@@ -14,6 +15,7 @@ export interface TRecord {
 	minHumidity: number;
 	maxHumidity: number;
 	medium: string;
+	plant: TPlant;
 }
 
 export interface RecordsState {

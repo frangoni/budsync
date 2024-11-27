@@ -9,10 +9,13 @@ import useTask from './useTask';
 import { SectionContainer } from '@/modules/_shared/components/Layout/_styles';
 
 export default function Task() {
-	const { closeModal, data, isLoading, openModal, navigateToRecord, modalRef, taskId } = useTask();
+	const { handleFinishTask, data, isLoading, openModal, navigateToRecord, modalRef, taskId } = useTask();
 
-	if (isLoading) return <Loader />;
+	if (isLoading || !data) return <Loader />;
 
+	const { createdBy, assignedTo, record, description, resolvedAt } = data;
+	const isResolved = Boolean(resolvedAt);
+	console.log('record :', record);
 	return (
 		<>
 			<Header title='Task' description='See all assigned tasks' shouldGoBack />
@@ -21,27 +24,46 @@ export default function Task() {
 					<TaskDetailsWrapper>
 						<span className='detail-row'>
 							<h5>Task description:</h5>
-							<p>{data?.description}</p>
+							<p>{description}</p>
 						</span>
 						<span className='detail-row'>
 							<h5>Created by:</h5>
-							<p>{data?.createdBy}</p>
+							<p>
+								{createdBy.name} {createdBy.lastName}
+							</p>
 						</span>
 						<span className='detail-row'>
 							<h5>Assigned to:</h5>
-							<p>{data?.assignedTo}</p>
+							<p>
+								{assignedTo.name} {assignedTo.lastName}
+							</p>
 						</span>
 						<span className='detail-row'>
 							<h5>Status:</h5>
-							<PlantStatus active={data?.active} />
+							<PlantStatus active={!isResolved} text={isResolved ? 'Completed' : 'Pending'} />
 						</span>
-						<AppButton text='Finish task' onClick={openModal} />
+						<AppButton text='Finish task' onClick={openModal} disabled={isResolved} />
 					</TaskDetailsWrapper>
-
 					<TaskDetailsWrapper>
 						<span className='detail-row'>
 							<h5>Record ID:</h5>
-							<p>{data?.recordId}</p>
+							<p>{record.id}</p>
+						</span>
+						<span className='detail-row'>
+							<h5>Humidity:</h5>
+							<p>{record.humidity}</p>
+						</span>
+						<span className='detail-row'>
+							<h5>Nutrient:</h5>
+							<p>{record.nutrient}</p>
+						</span>
+						<span className='detail-row'>
+							<h5>Temperature:</h5>
+							<p>{record.temperature}</p>
+						</span>
+						<span className='detail-row'>
+							<h5>Medium:</h5>
+							<p>{record.medium}</p>
 						</span>
 						<AppButton text='Go to record' onClick={navigateToRecord} />
 					</TaskDetailsWrapper>
@@ -49,7 +71,7 @@ export default function Task() {
 			</SectionContainer>
 
 			<Modal ref={modalRef}>
-				<FinishTask onSubmit={() => closeModal()} taskId={taskId!} />
+				<FinishTask onSubmit={handleFinishTask} taskId={taskId!} />
 			</Modal>
 		</>
 	);

@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { baseApi, PaginationResponse } from '../baseApi';
 import { PaginationOptions } from './pagination';
 import { TUser } from './users';
+import { TRecord } from './records';
 
 export interface TTask {
 	id: string;
@@ -11,6 +12,7 @@ export interface TTask {
 	description: string;
 	deleted: boolean;
 	resolvedAt: string;
+	record: TRecord;
 }
 
 export type TTaskType = 'assignedUser' | 'createdByUser';
@@ -46,6 +48,10 @@ export const tasksApi = baseApi.injectEndpoints({
 			query: params => `/task/${params.type}/${params.id}/${params.page}/${params.size}`,
 			providesTags: ['Tasks'],
 		}),
+		getTask: builder.query<TTask, string>({
+			query: id => `/task/${id}`,
+			providesTags: ['Tasks'],
+		}),
 		finishTask: builder.mutation({
 			query: (id: string) => ({
 				url: `/task/done/${id}`,
@@ -68,7 +74,13 @@ export const tasksApi = baseApi.injectEndpoints({
 	}),
 });
 
-export const { useGetAllTasksQuery, useCreateTaskMutation, useFinishTaskMutation, useGetTasksByRecordQuery } = tasksApi;
+export const {
+	useGetAllTasksQuery,
+	useCreateTaskMutation,
+	useFinishTaskMutation,
+	useGetTasksByRecordQuery,
+	useGetTaskQuery,
+} = tasksApi;
 export const { setTasks } = tasksSlice.actions;
 export const initialTasksState = initialState;
 export default tasksSlice.reducer;

@@ -4,16 +4,17 @@ import Toolbar from '@/modules/_shared/components/Layout/Toolbar';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import AddTask from './AddTask';
 import Loader from '@/modules/_shared/components/Loading';
-import { ImageDetailsWrapper, PlantImgWrapper, RecordsWrapper } from './_styles';
+import { ImageDetailsWrapper, PlantImgWrapper, RecordsDetailsWrapper, RecordsWrapper } from './_styles';
 import AppTable from '@/modules/_shared/components/Table';
 import { TTask } from '@/redux/reducers/tasks';
 import useRecord from './useRecord';
 import { Card, SectionContainer } from '@/modules/_shared/components/Layout/_styles';
 import Zoom from 'react-medium-image-zoom';
 import 'react-medium-image-zoom/dist/styles.css';
+import PlantStatus from '../Plant/PlantStatus';
 
 export default function Record() {
-	const { isLoading, COLUMNS, modalRef, recordId, closeModal, openModal, recordTasks } = useRecord();
+	const { isLoading, COLUMNS, modalRef, recordId, openModal, recordTasks, data, handleTaskAdded } = useRecord();
 
 	if (isLoading) return <Loader />;
 	return (
@@ -42,10 +43,19 @@ export default function Record() {
 					<span>
 						<h3>Plant Records</h3>
 						<RecordsWrapper>
-							<Card>Plant ID: {recordId}</Card>
-							<Card>Plant Type: Tomato</Card>
-							<Card>Plant Age: 2 months</Card>
-							<Card>Plant Status: Active</Card>
+							<Card>
+								<RecordsDetailsWrapper>
+									<h4># {recordId}</h4>
+									<p>Strain: {data?.plant.strain.name}</p>
+									<p>Humidity: {data?.humidity}</p>
+									<p>Temperature: {data?.temperature}</p>
+									<p>Nutrient: {data?.nutrient}</p>
+									<p>Medium: {data?.medium}</p>
+									<p>
+										Plant Status: <PlantStatus active={data?.plant.active} />
+									</p>
+								</RecordsDetailsWrapper>
+							</Card>
 						</RecordsWrapper>
 					</span>
 				</ImageDetailsWrapper>
@@ -58,7 +68,7 @@ export default function Record() {
 				/>
 			</SectionContainer>
 			<Modal ref={modalRef}>
-				<AddTask onSubmit={() => closeModal()} recordId={parseInt(recordId!)} />
+				<AddTask onSubmit={handleTaskAdded} recordId={parseInt(recordId!)} />
 			</Modal>
 		</>
 	);

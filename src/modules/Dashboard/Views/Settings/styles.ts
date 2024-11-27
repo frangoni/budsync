@@ -13,6 +13,11 @@ export const SettingsWrapper = styled.div`
 	flex-direction: row;
 	align-items: start;
 	justify-content: space-around;
+
+	@media (max-width: 768px) {
+		flex-direction: column-reverse;
+		gap: 1rem;
+	}
 `;
 
 export const ThemeSelectorWrapper = styled.div``;

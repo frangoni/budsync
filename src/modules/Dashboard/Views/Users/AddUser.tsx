@@ -24,7 +24,6 @@ export default function AddUser({ onSubmit }: AddUserProps) {
 		if (newUser.error) {
 			return notification.error({
 				message: 'Error on user invite',
-				description: newUser.error.data?.message,
 			});
 		}
 		notification.success({
