@@ -99,3 +99,14 @@ export const ActionsCell = styled.div`
 	align-items: center;
 	gap: 0.5rem;
 `;
+
+export const StyledTableToolbar = styled.div`
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+`;
+
+export const ToolbarItems = styled.div`
+	display: flex;
+	gap: 1rem;
+`;

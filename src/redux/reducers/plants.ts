@@ -12,6 +12,8 @@ export interface TPlant {
 	strain: TStrain;
 }
 
+export type TPlantStatus = 'plants' | 'activePlants' | 'inactivePlants';
+
 export interface PlantsState {
 	plants: TPlant[];
 }
@@ -41,38 +43,17 @@ export const plantsApi = baseApi.injectEndpoints({
 		getPlants: builder.query<TPlant[], void>({
 			query: roomId => `/plants/${roomId}`,
 			providesTags: ['Plants'],
-			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
-				try {
-					const { data } = await queryFulfilled;
-					dispatch(setPlants({ plants: data }));
-				} catch (e) {
-					console.error(`Error fetching plants:${e}`);
-				}
-			},
 		}),
-		getPlantsByRoom: builder.query<PaginationResponse<TPlant>, PaginationOptions & { id: string }>({
-			query: params => `/room/${params.id}/plants/${params.page}/${params.size}`,
+		getPlantsByRoom: builder.query<
+			PaginationResponse<TPlant>,
+			PaginationOptions & { id: string; status: TPlantStatus }
+		>({
+			query: params => `/room/${params.id}/${params.status}/${params.page}/${params.size}`,
 			providesTags: ['Plants'],
-			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
-				try {
-					const { data } = await queryFulfilled;
-					dispatch(setPlants({ plants: data }));
-				} catch (e) {
-					console.error(`Error fetching room:${e}`);
-				}
-			},
 		}),
 		getPlant: builder.query<TPlant, string>({
 			query: id => `/plant/${id}`,
 			providesTags: ['Plants'],
-			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
-				try {
-					const { data } = await queryFulfilled;
-					dispatch(setPlants({ plants: [data] }));
-				} catch (e) {
-					console.error(`Error fetching plant:${e}`);
-				}
-			},
 		}),
 		createPlants: builder.mutation({
 			query: (plants: TCreatePlants[]) => ({
@@ -81,14 +62,6 @@ export const plantsApi = baseApi.injectEndpoints({
 				body: plants,
 			}),
 			invalidatesTags: ['Plants'],
-			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
-				try {
-					const { data } = await queryFulfilled;
-					dispatch(setPlants({ plants: data }));
-				} catch (e) {
-					console.error(`Error creating plants:${e}`);
-				}
-			},
 		}),
 		editPlant: builder.mutation({
 			query: plant => ({

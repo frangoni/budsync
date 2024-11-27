@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import AppButton from '@/modules/_shared/components/Button';
 import Loader from '@/modules/_shared/components/Loading';
 import { Card } from '@/modules/_shared/components/Layout/_styles';
+import PlantStatus from '../Plant/PlantStatus';
 
 export default function PlantFinder() {
 	const [triggerGetPlant, { data: plant, status }] = useLazyGetPlantQuery();
@@ -32,10 +33,13 @@ export default function PlantFinder() {
 				<Card>
 					<PlantInfo>
 						<h2>Plant info</h2>
-						<p>Plant number: {plant.id}</p>
+						<p># {plant.id}</p>
+						<PlantStatus active={plant.active} />
 						<p>Strain: {plant.strain.name}</p>
 						<p>Room: {plant.room.name}</p>
-						<p>Total quantity: {plant.totalQ}</p>
+						{!plant.active && <p>Total quantity: {plant.totalQ}</p>}
+						<div className='spacer-12' />
+
 						<AppButton
 							buttonType='secondary'
 							text='View plant'

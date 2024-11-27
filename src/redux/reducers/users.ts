@@ -70,14 +70,6 @@ export const usersApi = baseApi.injectEndpoints({
 		}),
 		getAllUsers: builder.query<PaginationResponse<TUser>, PaginationOptions>({
 			query: params => `/user/${params.page}/${params.size}`,
-			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
-				try {
-					const { data } = await queryFulfilled;
-					dispatch(setUsers({ users: data.content }));
-				} catch (e) {
-					console.error(`Error fetching users:${e}`);
-				}
-			},
 			providesTags: ['Users'],
 		}),
 		login: builder.mutation<TUser & { token: string }, { username: string; password: string }>({

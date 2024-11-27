@@ -11,7 +11,7 @@ type ModalContent = 'add' | 'edit' | 'delete';
 
 export default function useUsers() {
 	const { page, size } = usePagination();
-	const { data, isLoading, isError } = useGetAllUsersQuery({ page, size }, { refetchOnMountOrArgChange: true });
+	const { data, isLoading, isError, refetch } = useGetAllUsersQuery({ page, size }, { refetchOnFocus: true });
 	const [modalContent, setModalContent] = useState<ModalContent>('add');
 	const [selectedUser, setSelectedUser] = useState<TUser | null>(null);
 	const { closeModal, modalRef, openModal } = useModal();
@@ -65,5 +65,6 @@ export default function useUsers() {
 		modalContent,
 		page,
 		size,
+		refetch,
 	};
 }

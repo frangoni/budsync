@@ -15,7 +15,8 @@ interface HarvestPlantProps {
 
 export default function HarvestPlant({ onSubmit, plant }: HarvestPlantProps) {
 	const notification = useNotification();
-	const [harvestPlant] = useEditPlantMutation();
+	const [form] = AppForm.useForm();
+	const [harvestPlant, { isLoading }] = useEditPlantMutation();
 
 	const onFinish: FormProps<FieldType>['onFinish'] = async values => {
 		const harvestedPlant = await harvestPlant({
@@ -25,11 +26,16 @@ export default function HarvestPlant({ onSubmit, plant }: HarvestPlantProps) {
 			strainId: plant?.strain.id,
 			roomId: plant?.room.id,
 		});
-		console.log('harvestedPlant :', harvestedPlant);
+		if (harvestedPlant.error) {
+			return notification.error({
+				message: 'Error on plant harvest',
+			});
+		}
 		notification.success({
 			message: 'Plant harvested!',
 			description: 'Total quantity: ' + values.totalQ,
 		});
+		form.resetFields();
 		onSubmit();
 	};
 
@@ -43,7 +49,7 @@ export default function HarvestPlant({ onSubmit, plant }: HarvestPlantProps) {
 
 	return (
 		// @ts-expect-error Antd Form component
-		<AppForm layout='vertical' onFinish={onFinish} onFinishFailed={onFinishFailed}>
+		<AppForm form={form} layout='vertical' onFinish={onFinish} onFinishFailed={onFinishFailed}>
 			<h2>Harvest your plant</h2>
 			<div className='spacer-24' />
 			<AppForm.Item<FieldType>
@@ -54,7 +60,7 @@ export default function HarvestPlant({ onSubmit, plant }: HarvestPlantProps) {
 				<AppInput placeholder='Total quantity (grams)' type='number' min={1} />
 			</AppForm.Item>
 			<AppForm.Item>
-				<AppButton text='Harvest plant' block type='primary' htmlType='submit' />
+				<AppButton text='Harvest plant' block type='primary' htmlType='submit' loading={isLoading} />
 			</AppForm.Item>
 		</AppForm>
 	);

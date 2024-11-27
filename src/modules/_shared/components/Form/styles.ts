@@ -1,4 +1,4 @@
-import { Form, Input, Select, Switch } from 'antd';
+import { Form, Input, Radio, Select, Switch } from 'antd';
 import { css, styled } from 'styled-components';
 
 const InputBaseStyles = css`
@@ -100,6 +100,29 @@ export const AppSwitch = styled(Switch)`
 
 		&:hover {
 			background-color: ${({ theme }) => theme.colors.background.mainDimmer};
+		}
+	}
+`;
+
+export const AppRadioGroup = styled(Radio.Group)`
+	.ant-radio-button-wrapper {
+		color: ${({ theme }) => theme.colors.text.primary};
+		background-color: ${({ theme }) => theme.colors.background.secondary};
+		border: 0.15rem solid ${({ theme }) => theme.colors.border.primary};
+		&::before {
+			content: none;
+		}
+	}
+
+	.ant-radio-button-wrapper-checked {
+		background-color: ${({ theme }) => theme.colors.background.main};
+		color: ${({ theme }) => theme.colors.text.white};
+		border: 0.15rem solid ${({ theme }) => theme.colors.border.active} !important;
+		outline: none !important;
+
+		&:hover {
+			background-color: ${({ theme }) => theme.colors.background.mainDimmer};
+			border: 0.15rem solid ${({ theme }) => theme.colors.border.active};
 		}
 	}
 `;

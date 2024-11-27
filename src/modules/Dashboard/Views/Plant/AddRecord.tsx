@@ -20,17 +20,25 @@ interface AddRecordProps {
 
 export default function AddRecord({ onSubmit, plantId }: AddRecordProps) {
 	const notification = useNotification();
-	const [addRecord] = useAddRecordMutation();
+	const [form] = AppForm.useForm<FieldType>();
+	const [addRecord, { isLoading }] = useAddRecordMutation();
 	const [compressedImage, setCompressedImage] = useState<string | null>(null);
 
 	const onFinish: FormProps<FieldType>['onFinish'] = async values => {
 		const timestamp = new Date().toISOString();
 		const newRecord = await addRecord({ ...values, plantId, timestamp, imageUrl: compressedImage! });
+		if (newRecord.error) {
+			return notification.error({
+				message: 'Error on record registration',
+				description: `${newRecord.error}`,
+			});
+		}
 		console.log('newRecord :', newRecord);
 		notification.success({
 			message: 'Record added!',
 			description: 'Record added successfully',
 		});
+		form.resetFields();
 		onSubmit();
 	};
 
@@ -44,7 +52,7 @@ export default function AddRecord({ onSubmit, plantId }: AddRecordProps) {
 
 	return (
 		// @ts-expect-error Antd Form component
-		<AppForm layout='vertical' onFinish={onFinish} onFinishFailed={onFinishFailed}>
+		<AppForm form={form} layout='vertical' onFinish={onFinish} onFinishFailed={onFinishFailed}>
 			<h2>Add a record</h2>
 			<div className='spacer-24' />
 			<AppForm.Item<FieldType>
@@ -71,12 +79,12 @@ export default function AddRecord({ onSubmit, plantId }: AddRecordProps) {
 			<AppForm.Item<FieldType>
 				label='Image'
 				name='imageUrl'
-				rules={[{ required: true, message: 'Please add an image!' }]}
+				rules={[{ required: false, message: 'Please add an image!' }]}
 			>
 				<Uploader compressedImage={compressedImage} setCompressedImage={setCompressedImage} />
 			</AppForm.Item>
 			<AppForm.Item>
-				<AppButton text='Add record' block type='primary' htmlType='submit' />
+				<AppButton text='Add record' block type='primary' htmlType='submit' loading={isLoading} />
 			</AppForm.Item>
 		</AppForm>
 	);

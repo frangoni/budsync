@@ -33,14 +33,6 @@ export const strainsApi = baseApi.injectEndpoints({
 		getStrains: builder.query<TStrain[], void>({
 			query: () => `/strain`,
 			providesTags: ['Strains'],
-			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
-				try {
-					const { data } = await queryFulfilled;
-					dispatch(setStrains({ plants: data }));
-				} catch (e) {
-					console.error(`Error fetching plants:${e}`);
-				}
-			},
 		}),
 		createStrain: builder.mutation({
 			query: (strain: TCreateStrain) => ({
@@ -49,14 +41,6 @@ export const strainsApi = baseApi.injectEndpoints({
 				body: strain,
 			}),
 			invalidatesTags: ['Strains'],
-			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
-				try {
-					const { data } = await queryFulfilled;
-					dispatch(setStrains({ strains: data }));
-				} catch (e) {
-					console.error(`Error creating strain:${e}`);
-				}
-			},
 		}),
 	}),
 });

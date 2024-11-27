@@ -3,30 +3,33 @@ import { AppForm, AppInput, AppSelect } from '@/modules/_shared/components/Form/
 import useNotification from '@/modules/_shared/hooks/useNotification';
 import { useCreateTaskMutation } from '@/redux/reducers/tasks';
 import { useGetAllUsersQuery } from '@/redux/reducers/users';
-import { useAppSelector } from '@/redux/store';
 import { FormProps } from 'antd';
 
 type FieldType = {
-	assignedTo: string;
+	assignTo: number;
 	description: string;
+	recordId: number;
 };
 
 interface AddTaskProps {
 	onSubmit: () => void;
-	recordId?: string;
+	recordId?: number;
 }
 
 export default function AddTask({ onSubmit, recordId }: AddTaskProps) {
 	const notification = useNotification();
-	const [createTask] = useCreateTaskMutation();
-	const { data: users, isLoading: loadingUsers } = useGetAllUsersQuery();
-	const userId = useAppSelector(({ users }) => users.currentUser?.id);
-	console.log('userId :', userId);
+	const [createTask, { isLoading }] = useCreateTaskMutation();
+	const { data: users, isLoading: loadingUsers } = useGetAllUsersQuery({ page: 0, size: -1 });
 
 	const onFinish: FormProps<FieldType>['onFinish'] = async values => {
-		if (!userId || !recordId) return;
-		const newTask = await createTask({ ...values, recordId, createdBy: userId });
-		console.log('newTask :', newTask);
+		if (!recordId) return;
+		const newTask = await createTask({ ...values, recordId });
+		if (newTask.error) {
+			notification.error({
+				message: 'Error on task creation',
+			});
+			return;
+		}
 
 		notification.success({
 			message: 'Task created!',
@@ -46,7 +49,7 @@ export default function AddTask({ onSubmit, recordId }: AddTaskProps) {
 	return (
 		// @ts-expect-error Antd Form component
 		<AppForm layout='vertical' onFinish={onFinish} onFinishFailed={onFinishFailed}>
-			<h2>Add a record</h2>
+			<h2>Add a task to the record</h2>
 			<div className='spacer-24' />
 			<AppForm.Item<FieldType>
 				label='Task description'
@@ -57,19 +60,19 @@ export default function AddTask({ onSubmit, recordId }: AddTaskProps) {
 			</AppForm.Item>
 			<AppForm.Item<FieldType>
 				label='Assign to'
-				name='assignedTo'
+				name='assignTo'
 				rules={[{ required: true, message: 'Please assign the task to an user!' }]}
 			>
 				<AppSelect
 					loading={loadingUsers}
 					placeholder='Add task to an user'
-					options={users?.map(user => ({ value: user.id, label: user.name }))}
+					options={users?.content.map(user => ({ value: user.id, label: user.name }))}
 					showSearch
 				/>
 			</AppForm.Item>
 
 			<AppForm.Item>
-				<AppButton text='Create task' block type='primary' htmlType='submit' />
+				<AppButton text='Create task' block type='primary' htmlType='submit' loading={isLoading} />
 			</AppForm.Item>
 		</AppForm>
 	);

@@ -1,15 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { baseApi } from '../baseApi';
+import { baseApi, PaginationResponse } from '../baseApi';
+import { PaginationOptions } from './pagination';
+import { TUser } from './users';
 
 export interface TTask {
 	id: string;
 	recordId: string;
-	createdBy: string;
-	assignedTo: string;
+	createdBy: TUser;
+	assignedTo: TUser;
 	description: string;
-	active: boolean;
-	dateFinished: string;
+	deleted: boolean;
+	resolvedAt: string;
 }
+
+export type TTaskType = 'assignedUser' | 'createdByUser';
 
 export interface TasksState {
 	tasks: TTask[];
@@ -38,66 +42,33 @@ const tasksSlice = createSlice({
 
 export const tasksApi = baseApi.injectEndpoints({
 	endpoints: builder => ({
-		getTask: builder.query<TTask, string>({
-			query: id => `/tasks/${id}`,
+		getAllTasks: builder.query<PaginationResponse<TTask>, PaginationOptions & { type: TTaskType; id: number }>({
+			query: params => `/task/${params.type}/${params.id}/${params.page}/${params.size}`,
 			providesTags: ['Tasks'],
-			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
-				try {
-					const { data } = await queryFulfilled;
-					dispatch(setTasks({ tasks: data }));
-				} catch (e) {
-					console.error(`Error fetching tasks:${e}`);
-				}
-			},
 		}),
 		finishTask: builder.mutation({
 			query: (id: string) => ({
-				url: `/tasks/${id}`,
-				method: 'PATCH',
-				body: { active: false, dateFinished: new Date().toISOString() },
+				url: `/task/done/${id}`,
+				method: 'PUT',
 			}),
 			invalidatesTags: ['Tasks'],
-			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
-				try {
-					const { data } = await queryFulfilled;
-					dispatch(setTasks({ tasks: data }));
-				} catch (e) {
-					console.error(`Error finishing task:${e}`);
-				}
-			},
 		}),
-		getMyTasks: builder.query<TTask[], void>({
-			query: () => '/tasks',
+		getTasksByRecord: builder.query<PaginationResponse<TTask>, PaginationOptions & { recordId: string }>({
+			query: params => `/task/record/${params.recordId}/${params.page}/${params.size}`,
 			providesTags: ['Tasks'],
-			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
-				try {
-					const { data } = await queryFulfilled;
-					dispatch(setTasks({ tasks: data }));
-				} catch (e) {
-					console.error(`Error fetching tasks:${e}`);
-				}
-			},
 		}),
 		createTask: builder.mutation({
-			query: (task: TCreateTask) => ({
-				url: '/tasks',
+			query: (task: { assignTo: number; description: string; recordId: number }) => ({
+				url: '/task',
 				method: 'POST',
 				body: task,
 			}),
 			invalidatesTags: ['Tasks'],
-			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
-				try {
-					const { data } = await queryFulfilled;
-					dispatch(setTasks({ tasks: data }));
-				} catch (e) {
-					console.error(`Error creating task:${e}`);
-				}
-			},
 		}),
 	}),
 });
 
-export const { useGetTaskQuery, useCreateTaskMutation, useFinishTaskMutation, useGetMyTasksQuery } = tasksApi;
+export const { useGetAllTasksQuery, useCreateTaskMutation, useFinishTaskMutation, useGetTasksByRecordQuery } = tasksApi;
 export const { setTasks } = tasksSlice.actions;
 export const initialTasksState = initialState;
 export default tasksSlice.reducer;

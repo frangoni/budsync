@@ -12,7 +12,13 @@ import EditUser from './EditUser';
 import DeleteUser from './DeleteUser';
 
 export default function Users() {
-	const { data, isLoading, COLUMNS, modalRef, handleAddUser, modalContent, closeModal, selectedUser } = useUsers();
+	const { data, isLoading, COLUMNS, modalRef, handleAddUser, modalContent, closeModal, selectedUser, refetch } =
+		useUsers();
+
+	const onFormSuccess = () => {
+		refetch();
+		closeModal();
+	};
 
 	if (isLoading) return <Loader />;
 	return (
@@ -39,9 +45,9 @@ export default function Users() {
 			</SectionContainer>
 
 			<Modal ref={modalRef}>
-				{modalContent === 'add' && <AddUser onSubmit={closeModal} />}
-				{modalContent === 'edit' && <EditUser onSubmit={closeModal} selectedUser={selectedUser} />}
-				{modalContent === 'delete' && <DeleteUser onSubmit={closeModal} selectedUser={selectedUser} />}
+				{modalContent === 'add' && <AddUser onSubmit={onFormSuccess} />}
+				{modalContent === 'edit' && <EditUser onSubmit={onFormSuccess} selectedUser={selectedUser} />}
+				{modalContent === 'delete' && <DeleteUser onSubmit={onFormSuccess} selectedUser={selectedUser} />}
 			</Modal>
 		</>
 	);

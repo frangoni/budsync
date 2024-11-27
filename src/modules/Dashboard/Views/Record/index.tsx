@@ -8,13 +8,12 @@ import { ImageDetailsWrapper, PlantImgWrapper, RecordsWrapper } from './_styles'
 import AppTable from '@/modules/_shared/components/Table';
 import { TTask } from '@/redux/reducers/tasks';
 import useRecord from './useRecord';
-import { TASKS_DATA } from './_dummy';
 import { Card, SectionContainer } from '@/modules/_shared/components/Layout/_styles';
 import Zoom from 'react-medium-image-zoom';
 import 'react-medium-image-zoom/dist/styles.css';
 
 export default function Record() {
-	const { isLoading, COLUMNS, modalRef, recordID, closeModal, openModal } = useRecord();
+	const { isLoading, COLUMNS, modalRef, recordId, closeModal, openModal, recordTasks } = useRecord();
 
 	if (isLoading) return <Loader />;
 	return (
@@ -43,7 +42,7 @@ export default function Record() {
 					<span>
 						<h3>Plant Records</h3>
 						<RecordsWrapper>
-							<Card>Plant ID: {recordID}</Card>
+							<Card>Plant ID: {recordId}</Card>
 							<Card>Plant Type: Tomato</Card>
 							<Card>Plant Age: 2 months</Card>
 							<Card>Plant Status: Active</Card>
@@ -53,13 +52,13 @@ export default function Record() {
 				<AppTable<TTask>
 					columns={COLUMNS}
 					title={() => 'Tasks'}
-					dataSource={TASKS_DATA}
+					dataSource={recordTasks?.content}
 					rowKey='id'
 					loading={isLoading}
 				/>
 			</SectionContainer>
 			<Modal ref={modalRef}>
-				<AddTask onSubmit={() => closeModal()} recordId={recordID} />
+				<AddTask onSubmit={() => closeModal()} recordId={parseInt(recordId!)} />
 			</Modal>
 		</>
 	);

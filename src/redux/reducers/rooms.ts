@@ -34,15 +34,6 @@ export const roomsApi = baseApi.injectEndpoints({
 		getRooms: builder.query<PaginationResponse<TRoom>, PaginationOptions>({
 			query: params => `/room/${params.page}/${params.size}`,
 			providesTags: ['Rooms'],
-			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
-				try {
-					const { data } = await queryFulfilled;
-					console.log('data :', data);
-					dispatch(setRooms({ rooms: data }));
-				} catch (e) {
-					console.error(`Error fetching rooms:${e}`);
-				}
-			},
 		}),
 		createRoom: builder.mutation({
 			query: room => ({
@@ -51,14 +42,6 @@ export const roomsApi = baseApi.injectEndpoints({
 				body: room,
 			}),
 			invalidatesTags: ['Rooms'],
-			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
-				try {
-					const { data } = await queryFulfilled;
-					dispatch(setRooms({ rooms: data }));
-				} catch (e) {
-					console.error(`Error creating room:${e}`);
-				}
-			},
 		}),
 		editRoom: builder.mutation({
 			query: room => ({
@@ -67,14 +50,6 @@ export const roomsApi = baseApi.injectEndpoints({
 				body: room,
 			}),
 			invalidatesTags: ['Rooms'],
-			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
-				try {
-					const { data } = await queryFulfilled;
-					dispatch(setRooms({ rooms: data }));
-				} catch (e) {
-					console.error(`Error editing room:${e}`);
-				}
-			},
 		}),
 		deleteRoom: builder.mutation({
 			query: id => ({
@@ -82,26 +57,10 @@ export const roomsApi = baseApi.injectEndpoints({
 				method: 'DELETE',
 			}),
 			invalidatesTags: ['Rooms'],
-			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
-				try {
-					const { data } = await queryFulfilled;
-					dispatch(setRooms({ rooms: data }));
-				} catch (e) {
-					console.error(`Error deleting room:${e}`);
-				}
-			},
 		}),
 		getRoom: builder.query<TRoom, string>({
 			query: id => `/room/${id}`,
 			providesTags: ['Rooms'],
-			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
-				try {
-					const { data } = await queryFulfilled;
-					dispatch(setRooms({ room: [data] }));
-				} catch (e) {
-					console.error(`Error fetching room:${e}`);
-				}
-			},
 		}),
 	}),
 });

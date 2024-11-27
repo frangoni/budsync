@@ -7,15 +7,17 @@ import { useNavigate, useParams } from 'react-router-dom';
 import RECORDS_COLUMNS from './_columns';
 import AppButton from '@/modules/_shared/components/Button';
 import { TRecord, useGetRecordsQuery } from '@/redux/reducers/records';
+import usePagination from '@/modules/_shared/hooks/usePagination';
 
 type ModalContent = 'record' | 'crop';
 
 export default function usePlant() {
 	const { openModal, closeModal, modalRef } = useModal();
 	const { plantId } = useParams();
+	const { page, size } = usePagination();
 	if (!plantId) throw new Error('Plant ID is required');
-	const { data: currentPlant, isLoading, error } = useGetPlantQuery(plantId);
-	const { data: plantRecords } = useGetRecordsQuery({ plantId: plantId, page: 1, size: 10 });
+	const { data: currentPlant, isLoading, error, refetch } = useGetPlantQuery(plantId);
+	const { data: plantRecords, refetch: refetchRecords } = useGetRecordsQuery({ plantId, page, size });
 	const [modalContent, setModalContent] = useState<ModalContent>('record');
 	const navigate = useNavigate();
 	const navigateToRecord = (recordId: string) => navigate(`/dashboard/record/${recordId}`);
@@ -25,8 +27,12 @@ export default function usePlant() {
 		{
 			title: 'Actions',
 			key: 'actions',
-			render: (_: any, record: TRecord) => (
-				<AppButton onClick={() => navigateToRecord(record.id)} buttonType='secondary' text='View details' />
+			render: (_: string, record: TRecord) => (
+				<AppButton
+					onClick={() => navigateToRecord(record.id.toString())}
+					buttonType='secondary'
+					text='View details'
+				/>
 			),
 			width: 1,
 		},
@@ -43,12 +49,21 @@ export default function usePlant() {
 		openModal();
 	};
 
+	const onEditSuccess = () => {
+		refetch();
+		closeModal();
+	};
+
+	const onAddRecordSuccess = () => {
+		refetchRecords();
+		closeModal();
+	};
+
 	return {
 		currentPlant,
 		isLoading,
 		error,
 		openModal,
-		closeModal,
 		modalRef,
 		reprintQR,
 		setContentAndOpenModal,
@@ -56,5 +71,7 @@ export default function usePlant() {
 		plantId,
 		COLUMNS,
 		plantRecords,
+		onEditSuccess,
+		onAddRecordSuccess,
 	};
 }

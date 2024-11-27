@@ -1,12 +1,20 @@
 import AppButton from '@/modules/_shared/components/Button';
 import TASKS_COLUMNS from './_columns';
 import { useNavigate } from 'react-router-dom';
-import { TTask, useGetMyTasksQuery } from '@/redux/reducers/tasks';
+import { TTask, TTaskType, useGetAllTasksQuery } from '@/redux/reducers/tasks';
+import usePagination from '@/modules/_shared/hooks/usePagination';
+import { useState } from 'react';
+import { RadioChangeEvent } from 'antd';
+import { useAppSelector } from '@/redux/store';
 
 export default function useTasks() {
 	const navigate = useNavigate();
 	const navigateToTask = (taskId: string) => navigate(`/dashboard/tasks/${taskId}`);
-	const { data, isLoading } = useGetMyTasksQuery();
+	const { page, size } = usePagination();
+	const [tasksType, setTasksType] = useState<TTaskType>('assignedUser');
+	const { currentUser } = useAppSelector(({ users }) => users);
+	if (!currentUser) throw new Error('User not found');
+	const { data, isLoading } = useGetAllTasksQuery({ page, size, type: tasksType, id: currentUser?.id });
 
 	const COLUMNS = [
 		...TASKS_COLUMNS,
@@ -21,9 +29,21 @@ export default function useTasks() {
 		},
 	];
 
+	const options = [
+		{ label: 'Assigned to me', value: 'assignedUser' },
+		{ label: 'Created by me', value: 'createdByUser' },
+	];
+
+	const setTaskType = ({ target: { value } }: RadioChangeEvent) => {
+		setTasksType(value);
+	};
+
 	return {
 		COLUMNS,
 		data,
 		isLoading,
+		tasksType,
+		setTaskType,
+		options,
 	};
 }

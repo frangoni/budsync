@@ -1,11 +1,11 @@
 import AppButton from '@/modules/_shared/components/Button';
-import { AppForm, AppInput, AppSelect } from '@/modules/_shared/components/Form/styles';
+import { AppForm, AppInput, AppSelect, PasswordInput } from '@/modules/_shared/components/Form/styles';
 import useNotification from '@/modules/_shared/hooks/useNotification';
 import { TUser, useEditUserMutation, useGetRolesQuery } from '@/redux/reducers/users';
 import { FormProps } from 'antd';
 import { useForm } from 'antd/es/form/Form';
 import { useEffect } from 'react';
-
+import { LockOutlined } from '@ant-design/icons';
 interface FieldType {
 	name: string;
 	password: string;
@@ -22,7 +22,7 @@ export default function EditUser({ onSubmit, selectedUser }: EditUserProps) {
 	const notification = useNotification();
 	const [editUser, { isLoading }] = useEditUserMutation();
 	const { data: roles, isLoading: loadingRoles } = useGetRolesQuery();
-	console.log('roles :', roles);
+
 	const [form] = useForm<FieldType>();
 
 	useEffect(() => {
@@ -47,7 +47,7 @@ export default function EditUser({ onSubmit, selectedUser }: EditUserProps) {
 			message: 'User edited!',
 			description: 'Successfully edited user',
 		});
-		form.resetFields();
+		form.resetFields(['password']);
 		onSubmit();
 	};
 
@@ -85,7 +85,7 @@ export default function EditUser({ onSubmit, selectedUser }: EditUserProps) {
 				name='password'
 				rules={[{ required: false, message: 'Please type a password!' }]}
 			>
-				<AppInput type='password' placeholder='Password' />
+				<PasswordInput prefix={<LockOutlined />} type='password' placeholder='Password' />
 			</AppForm.Item>
 
 			<AppForm.Item label='Role' name='userRole' rules={[{ required: true, message: 'Please select a role!' }]}>

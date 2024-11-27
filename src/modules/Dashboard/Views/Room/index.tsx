@@ -8,6 +8,8 @@ import AddPlants from '../Plants/AddPlants';
 import useRoom from './useRoom';
 import Loader from '@/modules/_shared/components/Loading';
 import { SectionContainer } from '@/modules/_shared/components/Layout/_styles';
+import { AppRadioGroup } from '@/modules/_shared/components/Form/styles';
+import TableToolbar from '@/modules/_shared/components/Table/Toolbar';
 
 export default function Room() {
 	const {
@@ -21,6 +23,9 @@ export default function Room() {
 		closeModal,
 		COLUMNS,
 		allPlants,
+		options,
+		plantsStatus,
+		setStatusValue,
 	} = useRoom();
 
 	if (isLoading) return <Loader />;
@@ -46,7 +51,19 @@ export default function Room() {
 				<AppTable<TPlant>
 					columns={COLUMNS}
 					rowSelection={rowSelection}
-					title={() => 'Plants'}
+					title={() => (
+						<TableToolbar
+							title='Plants'
+							items={[
+								<AppRadioGroup
+									options={options}
+									onChange={setStatusValue}
+									value={plantsStatus}
+									optionType='button'
+								/>,
+							]}
+						/>
+					)}
 					dataSource={allPlants?.content}
 					rowKey='id'
 					totalCount={allPlants?.totalElements}

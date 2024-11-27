@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { baseApi } from '../baseApi';
+import { baseApi, PaginationResponse } from '../baseApi';
 import { PaginationOptions } from './pagination';
 
 export interface TRecord {
-	id: string;
+	id: number;
 	plantId: string;
 	imageUrl: string;
 	timestamp: string;
@@ -36,33 +36,17 @@ const recordsSlice = createSlice({
 
 export const recordsApi = baseApi.injectEndpoints({
 	endpoints: builder => ({
-		getRecords: builder.query<TRecord[], PaginationOptions & { plantId: string }>({
+		getRecords: builder.query<PaginationResponse<TRecord>, PaginationOptions & { plantId: string }>({
 			query: params => `/record/plant/${params.plantId}/${params.page}/${params.size}`,
 			providesTags: ['Records'],
-			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
-				try {
-					const { data } = await queryFulfilled;
-					dispatch(setRecords({ records: data }));
-				} catch (e) {
-					console.error(`Error fetching records:${e}`);
-				}
-			},
 		}),
 		getRecord: builder.query<TRecord, string>({
-			query: id => `/records/${id}`,
+			query: id => `/record/${id}`,
 			providesTags: ['Records'],
-			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
-				try {
-					const { data } = await queryFulfilled;
-					dispatch(setRecords({ records: [data] }));
-				} catch (e) {
-					console.error(`Error fetching record:${e}`);
-				}
-			},
 		}),
 		addRecord: builder.mutation<TRecord, Partial<TRecord>>({
 			query: record => ({
-				url: `/records`,
+				url: `/record`,
 				method: 'POST',
 				body: record,
 			}),
@@ -70,7 +54,7 @@ export const recordsApi = baseApi.injectEndpoints({
 		}),
 		editRecord: builder.mutation<TRecord, TRecord>({
 			query: record => ({
-				url: `/records/${record.id}`,
+				url: `/record/${record.id}`,
 				method: 'PUT',
 				body: record,
 			}),
@@ -78,7 +62,7 @@ export const recordsApi = baseApi.injectEndpoints({
 		}),
 		deleteRecord: builder.mutation<TRecord, string>({
 			query: id => ({
-				url: `/records/${id}`,
+				url: `/record/${id}`,
 				method: 'DELETE',
 			}),
 			invalidatesTags: ['Records'],

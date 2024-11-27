@@ -17,12 +17,13 @@ export default function Plant() {
 		reprintQR,
 		modalRef,
 		modalContent,
-		closeModal,
 		currentPlant,
 		plantId,
 		COLUMNS,
 		isLoading,
 		plantRecords,
+		onEditSuccess,
+		onAddRecordSuccess,
 	} = usePlant();
 
 	return (
@@ -49,6 +50,7 @@ export default function Plant() {
 						icon: <Icon icon='mdi:compost' />,
 						onClick: () => setContentAndOpenModal('crop'),
 						text: 'Harvest plant',
+						disabled: !currentPlant?.active,
 					},
 				]}
 			/>
@@ -57,17 +59,14 @@ export default function Plant() {
 				<AppTable<TRecord>
 					columns={COLUMNS}
 					title={() => 'Records'}
-					dataSource={plantRecords}
+					dataSource={plantRecords?.content}
 					rowKey='id'
 					loading={isLoading}
 				/>
 			</SectionContainer>
 			<Modal ref={modalRef}>
-				{modalContent === 'record' ? (
-					<AddRecord onSubmit={closeModal} plantId={plantId} />
-				) : (
-					<HarvestPlant onSubmit={closeModal} plant={currentPlant} />
-				)}
+				{modalContent === 'record' && <AddRecord onSubmit={onAddRecordSuccess} plantId={plantId} />}
+				{modalContent === 'crop' && <HarvestPlant onSubmit={onEditSuccess} plant={currentPlant} />}
 			</Modal>
 		</>
 	);
