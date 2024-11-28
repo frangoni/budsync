@@ -4,7 +4,7 @@ import ThemeSelector from './ThemeSelector';
 import Parameters from './Parameters';
 import { SettingsWrapper } from './styles';
 
-export default function Settings() {
+function Settings() {
 	return (
 		<>
 			<Header title='Settings' description='Manage app settings' />
@@ -17,3 +17,5 @@ export default function Settings() {
 		</>
 	);
 }
+
+export default Settings;

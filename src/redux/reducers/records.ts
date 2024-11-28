@@ -16,6 +16,7 @@ export interface TRecord {
 	maxHumidity: number;
 	medium: string;
 	plant: TPlant;
+	files: string[];
 }
 
 export interface RecordsState {
@@ -69,6 +70,19 @@ export const recordsApi = baseApi.injectEndpoints({
 			}),
 			invalidatesTags: ['Records'],
 		}),
+
+		addFileToRecord: builder.mutation<TRecord, { recordId: number; file: File }>({
+			query: ({ recordId, file }) => {
+				const formData = new FormData();
+				formData.append('file', file);
+				return {
+					url: `/file/${recordId}`,
+					method: 'POST',
+					body: formData,
+				};
+			},
+			invalidatesTags: ['Records'],
+		}),
 	}),
 });
 
@@ -78,6 +92,7 @@ export const {
 	useAddRecordMutation,
 	useEditRecordMutation,
 	useDeleteRecordMutation,
+	useAddFileToRecordMutation,
 } = recordsApi;
 export const { setRecords } = recordsSlice.actions;
 export const initialRecordsState = initialState;

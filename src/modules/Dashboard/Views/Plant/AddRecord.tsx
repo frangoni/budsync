@@ -1,7 +1,7 @@
 import AppButton from '@/modules/_shared/components/Button';
 import { AppForm, AppInput } from '@/modules/_shared/components/Form/styles';
 import useNotification from '@/modules/_shared/hooks/useNotification';
-import { useAddRecordMutation } from '@/redux/reducers/records';
+import { useAddFileToRecordMutation, useAddRecordMutation } from '@/redux/reducers/records';
 import { FormProps } from 'antd';
 import Uploader from './Uploader';
 import { useState } from 'react';
@@ -22,7 +22,9 @@ export default function AddRecord({ onSubmit, plantId }: AddRecordProps) {
 	const notification = useNotification();
 	const [form] = AppForm.useForm<FieldType>();
 	const [addRecord, { isLoading }] = useAddRecordMutation();
+	const [addFileToRecord, { isLoading: isLoadingFile }] = useAddFileToRecordMutation();
 	const [compressedImage, setCompressedImage] = useState<string | null>(null);
+	const [compressedFile, setCompressedFile] = useState<Blob | null>(null);
 
 	const onFinish: FormProps<FieldType>['onFinish'] = async values => {
 		const timestamp = new Date().toISOString();
@@ -38,6 +40,21 @@ export default function AddRecord({ onSubmit, plantId }: AddRecordProps) {
 			message: 'Record added!',
 			description: 'Record added successfully',
 		});
+
+		if (newRecord.data.id && compressedFile) {
+			const response = await addFileToRecord({ recordId: newRecord.data.id, file: compressedFile });
+			console.log('response :', response);
+			if (response.error) {
+				return notification.error({
+					message: 'Error on file upload',
+					description: `${response.error}`,
+				});
+			}
+			notification.success({
+				message: 'File uploaded!',
+				description: 'File uploaded successfully',
+			});
+		}
 		form.resetFields();
 		onSubmit();
 	};
@@ -81,8 +98,15 @@ export default function AddRecord({ onSubmit, plantId }: AddRecordProps) {
 				name='imageUrl'
 				rules={[{ required: false, message: 'Please add an image!' }]}
 			>
-				<Uploader compressedImage={compressedImage} setCompressedImage={setCompressedImage} />
+				<Uploader
+					compressedImage={compressedImage}
+					setCompressedImage={setCompressedImage}
+					setCompressedFile={setCompressedFile}
+				/>
 			</AppForm.Item>
+
+			<div className='spacer-24' />
+			{isLoadingFile && <p>Uploading file...</p>}
 			<AppForm.Item>
 				<AppButton text='Add record' block type='primary' htmlType='submit' loading={isLoading} />
 			</AppForm.Item>

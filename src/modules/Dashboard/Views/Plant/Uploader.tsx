@@ -5,9 +5,10 @@ import { UploaderWrapper } from './_styles';
 interface UploaderProps {
 	compressedImage: string | null;
 	setCompressedImage: React.Dispatch<React.SetStateAction<string | null>>;
+	setCompressedFile: React.Dispatch<React.SetStateAction<Blob | null>>;
 }
 
-export default function Uploader({ compressedImage, setCompressedImage }: UploaderProps) {
+export default function Uploader({ compressedImage, setCompressedImage, setCompressedFile }: UploaderProps) {
 	const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
 		if (!event.currentTarget?.files) return;
 		const imageFile = event.currentTarget.files[0];
@@ -30,6 +31,7 @@ export default function Uploader({ compressedImage, setCompressedImage }: Upload
 			const compressedImageUrl = URL.createObjectURL(compressedFile);
 			console.log('compressedImageUrl :', compressedImageUrl);
 			setCompressedImage(compressedImageUrl);
+			setCompressedFile(compressedFile);
 
 			// You can now upload the compressedFile to your server or API
 		} catch (error) {

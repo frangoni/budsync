@@ -12,7 +12,7 @@ const PLANT_COLUMNS = [
 		title: 'Strain',
 		dataIndex: 'strain',
 		key: 'strain',
-		render: (_, plant: TPlant) => <p>{plant.strain.name}</p>,
+		render: (_: null, plant: TPlant) => <p>{plant.strain.name}</p>,
 	},
 	{
 		title: 'Status',

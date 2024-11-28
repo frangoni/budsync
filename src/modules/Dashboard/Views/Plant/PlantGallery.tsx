@@ -7,12 +7,14 @@ import 'react-medium-image-zoom/dist/styles.css';
 import { EffectCoverflow, Pagination, Keyboard } from 'swiper/modules';
 import { SwipperWrapper } from './_styles';
 import Zoom from 'react-medium-image-zoom';
+import Loader from '@/modules/_shared/components/Loading';
 
 interface PlantGalleryProps {
-	imgUrls: string[];
+	imgUrls: (string | undefined)[];
 }
 
 export default function PlantGallery({ imgUrls }: PlantGalleryProps) {
+	if (!imgUrls.length) return <Loader />;
 	return (
 		<SwipperWrapper>
 			<Swiper
@@ -32,14 +34,17 @@ export default function PlantGallery({ imgUrls }: PlantGalleryProps) {
 				modules={[EffectCoverflow, Pagination, Keyboard]}
 				className='mySwiper'
 			>
-				{/* 		{imgUrls?.map(url => (
-					<SwiperSlide key={url}>
-						<Zoom classDialog='zoom-dialog'>
-							<img src={url} loading='lazy' />
-						</Zoom>
-					</SwiperSlide>
-				))} */}
-				{Array.from({ length: 20 }).map((_, index) => (
+				{imgUrls?.map(url => {
+					if (!url) return null;
+					return (
+						<SwiperSlide key={url}>
+							<Zoom classDialog='zoom-dialog'>
+								<img src={url} loading='lazy' />
+							</Zoom>
+						</SwiperSlide>
+					);
+				})}
+				{/* {Array.from({ length: 20 }).map((_, index) => (
 					<SwiperSlide key={index}>
 						<Zoom classDialog='zoom-dialog'>
 							<img
@@ -48,7 +53,7 @@ export default function PlantGallery({ imgUrls }: PlantGalleryProps) {
 							/>
 						</Zoom>
 					</SwiperSlide>
-				))}
+				))} */}
 			</Swiper>
 		</SwipperWrapper>
 	);

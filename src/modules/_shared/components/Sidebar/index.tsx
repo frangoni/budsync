@@ -28,7 +28,7 @@ export default function Sidebar() {
 		e.preventDefault();
 		await clearStoredState();
 		await persistedStore.purge();
-		dispatch(logout(''));
+		dispatch(logout());
 		navigate(ROUTES.login);
 	};
 
