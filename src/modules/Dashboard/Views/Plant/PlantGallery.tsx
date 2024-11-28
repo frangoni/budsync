@@ -3,20 +3,16 @@ import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-import 'react-medium-image-zoom/dist/styles.css';
 import { EffectCoverflow, Pagination, Keyboard } from 'swiper/modules';
 import { SwipperWrapper } from './_styles';
-import Zoom from 'react-medium-image-zoom';
 import { TFile } from '@/redux/reducers/records';
+import PlantImage from './PlantImage';
 
 interface PlantGalleryProps {
 	files: TFile[] | undefined;
 }
 
 export default function PlantGallery({ files }: PlantGalleryProps) {
-	const MINIO_URL =
-		process.env.NODE_ENV === 'production' ? process.env.VITE_MINIO_URL : import.meta.env.VITE_MINIO_URL;
-
 	return (
 		<SwipperWrapper>
 			<Swiper
@@ -29,7 +25,6 @@ export default function PlantGallery({ files }: PlantGalleryProps) {
 					stretch: 0,
 					depth: 500,
 					modifier: 1,
-					slideShadows: true,
 				}}
 				pagination={true}
 				keyboard={true}
@@ -37,15 +32,10 @@ export default function PlantGallery({ files }: PlantGalleryProps) {
 				className='mySwiper'
 			>
 				{files?.map(file => {
-					if (file && !file.path) return null;
 					const { id, path } = file;
-					const src = `${MINIO_URL}/images/${path}`;
-
 					return (
-						<SwiperSlide key={id}>
-							<Zoom classDialog='zoom-dialog'>
-								<img src={src} loading='lazy' />
-							</Zoom>
+						<SwiperSlide key={id + path}>
+							<PlantImage key={id} id={id} />
 						</SwiperSlide>
 					);
 				})}

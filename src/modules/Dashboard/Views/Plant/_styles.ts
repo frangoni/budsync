@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const SwipperWrapper = styled.div`
 	.swiper {
 		width: 100%;
-		margin-bottom: 2rem;
+		margin-block: 2rem;
 	}
 
 	.swiper-slide {
@@ -11,6 +11,9 @@ export const SwipperWrapper = styled.div`
 		background-size: cover;
 		width: 20rem;
 		height: 20rem;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 
 	.swiper-slide img {

@@ -27,7 +27,6 @@ export default function Plant() {
 	} = usePlant();
 
 	const allFiles = plantRecords?.content.map(record => record.files).flat();
-	console.log('allFiles :', allFiles);
 
 	return (
 		<>

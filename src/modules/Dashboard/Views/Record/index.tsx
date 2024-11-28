@@ -9,14 +9,15 @@ import AppTable from '@/modules/_shared/components/Table';
 import { TTask } from '@/redux/reducers/tasks';
 import useRecord from './useRecord';
 import { Card, SectionContainer } from '@/modules/_shared/components/Layout/_styles';
-import Zoom from 'react-medium-image-zoom';
-import 'react-medium-image-zoom/dist/styles.css';
 import PlantStatus from '../Plant/PlantStatus';
+import PlantImage from '../Plant/PlantImage';
 
 export default function Record() {
 	const { isLoading, COLUMNS, modalRef, recordId, openModal, recordTasks, data, handleTaskAdded } = useRecord();
 
 	if (isLoading) return <Loader />;
+
+	const imageFile = data?.files[0];
 	return (
 		<>
 			<Header title='Record' description='See and manage a record' shouldGoBack />
@@ -31,15 +32,15 @@ export default function Record() {
 			/>
 			<SectionContainer>
 				<ImageDetailsWrapper>
-					<span>
-						<h3>Plant Image</h3>
-						<p>Click to expand</p>
-						<PlantImgWrapper>
-							<Zoom classDialog='zoom-dialog'>
-								<img src='https://swiperjs.com/demos/images/nature-10.jpg' />
-							</Zoom>
-						</PlantImgWrapper>
-					</span>
+					{imageFile && (
+						<span>
+							<h3>Plant Image</h3>
+							<p>Click to expand</p>
+							<PlantImgWrapper>
+								<PlantImage id={imageFile.id} />
+							</PlantImgWrapper>
+						</span>
+					)}
 					<span>
 						<h3>Plant Records</h3>
 						<RecordsWrapper>
