@@ -35,7 +35,6 @@ export default function AddRecord({ onSubmit, plantId }: AddRecordProps) {
 				description: `${newRecord.error}`,
 			});
 		}
-		console.log('newRecord :', newRecord);
 		notification.success({
 			message: 'Record added!',
 			description: 'Record added successfully',
@@ -43,7 +42,6 @@ export default function AddRecord({ onSubmit, plantId }: AddRecordProps) {
 
 		if (newRecord.data.id && compressedFile) {
 			const response = await addFileToRecord({ recordId: newRecord.data.id, file: compressedFile });
-			console.log('response :', response);
 			if (response.error) {
 				return notification.error({
 					message: 'Error on file upload',

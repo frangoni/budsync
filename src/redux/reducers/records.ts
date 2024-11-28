@@ -16,7 +16,12 @@ export interface TRecord {
 	maxHumidity: number;
 	medium: string;
 	plant: TPlant;
-	files: string[];
+	files: TFile[];
+}
+
+export interface TFile {
+	id: number;
+	path: string;
 }
 
 export interface RecordsState {
@@ -71,7 +76,7 @@ export const recordsApi = baseApi.injectEndpoints({
 			invalidatesTags: ['Records'],
 		}),
 
-		addFileToRecord: builder.mutation<TRecord, { recordId: number; file: File }>({
+		addFileToRecord: builder.mutation<TRecord, { recordId: number; file: Blob }>({
 			query: ({ recordId, file }) => {
 				const formData = new FormData();
 				formData.append('file', file);

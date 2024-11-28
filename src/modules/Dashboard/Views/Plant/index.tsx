@@ -10,7 +10,6 @@ import AppTable from '@/modules/_shared/components/Table';
 import { TRecord } from '@/redux/reducers/records';
 import PlantStatus from './PlantStatus';
 import { SectionContainer } from '@/modules/_shared/components/Layout/_styles';
-import { useMemo } from 'react';
 
 export default function Plant() {
 	const {
@@ -27,7 +26,8 @@ export default function Plant() {
 		onAddRecordSuccess,
 	} = usePlant();
 
-	const imgUrls = useMemo(() => plantRecords?.content.map(record => record.files.pop()), [plantRecords]);
+	const allFiles = plantRecords?.content.map(record => record.files).flat();
+	console.log('allFiles :', allFiles);
 
 	return (
 		<>
@@ -58,7 +58,7 @@ export default function Plant() {
 				]}
 			/>
 			<SectionContainer>
-				<PlantGallery imgUrls={imgUrls || []} />
+				<PlantGallery files={allFiles} />
 				<AppTable<TRecord>
 					columns={COLUMNS}
 					title={() => 'Records'}

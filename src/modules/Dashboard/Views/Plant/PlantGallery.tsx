@@ -7,14 +7,16 @@ import 'react-medium-image-zoom/dist/styles.css';
 import { EffectCoverflow, Pagination, Keyboard } from 'swiper/modules';
 import { SwipperWrapper } from './_styles';
 import Zoom from 'react-medium-image-zoom';
-import Loader from '@/modules/_shared/components/Loading';
+import { TFile } from '@/redux/reducers/records';
 
 interface PlantGalleryProps {
-	imgUrls: (string | undefined)[];
+	files: TFile[] | undefined;
 }
 
-export default function PlantGallery({ imgUrls }: PlantGalleryProps) {
-	if (!imgUrls.length) return <Loader />;
+export default function PlantGallery({ files }: PlantGalleryProps) {
+	const MINIO_URL =
+		process.env.NODE_ENV === 'production' ? process.env.VITE_MINIO_URL : import.meta.env.VITE_MINIO_URL;
+
 	return (
 		<SwipperWrapper>
 			<Swiper
@@ -34,26 +36,19 @@ export default function PlantGallery({ imgUrls }: PlantGalleryProps) {
 				modules={[EffectCoverflow, Pagination, Keyboard]}
 				className='mySwiper'
 			>
-				{imgUrls?.map(url => {
-					if (!url) return null;
+				{files?.map(file => {
+					if (file && !file.path) return null;
+					const { id, path } = file;
+					const src = `${MINIO_URL}/images/${path}`;
+
 					return (
-						<SwiperSlide key={url}>
+						<SwiperSlide key={id}>
 							<Zoom classDialog='zoom-dialog'>
-								<img src={url} loading='lazy' />
+								<img src={src} loading='lazy' />
 							</Zoom>
 						</SwiperSlide>
 					);
 				})}
-				{/* {Array.from({ length: 20 }).map((_, index) => (
-					<SwiperSlide key={index}>
-						<Zoom classDialog='zoom-dialog'>
-							<img
-								loading='lazy'
-								src={`https://swiperjs.com/demos/images/nature-${(index % 10) + 1}.jpg`}
-							/>
-						</Zoom>
-					</SwiperSlide>
-				))} */}
 			</Swiper>
 		</SwipperWrapper>
 	);
