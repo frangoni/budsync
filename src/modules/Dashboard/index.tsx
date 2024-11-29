@@ -6,6 +6,8 @@ import { ContentWrapper, DashboardWrapper } from './_styles';
 import Welcome from './Views/Welcome';
 import Loader from '../_shared/components/Loading';
 import { useRefreshTokenMutation } from '@/redux/reducers/users';
+import { ErrorBoundary } from 'react-error-boundary';
+import ErrorElement from '../_shared/components/Error';
 
 export default function Dashboard() {
 	const hasOutlet = useOutlet();
@@ -20,7 +22,9 @@ export default function Dashboard() {
 			<DashboardWrapper>
 				<Sidebar />
 				<ContentWrapper>
-					<Suspense fallback={<Loader />}>{hasOutlet ? <Outlet /> : <Welcome />}</Suspense>
+					<ErrorBoundary FallbackComponent={ErrorElement}>
+						<Suspense fallback={<Loader />}>{hasOutlet ? <Outlet /> : <Welcome />}</Suspense>
+					</ErrorBoundary>
 				</ContentWrapper>
 			</DashboardWrapper>
 		</MainContainer>

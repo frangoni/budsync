@@ -9,8 +9,6 @@ import router from './modules/routes';
 function App() {
 	const { theme } = useTheme();
 
-	//create logic to listen to token on redux store and redirect the user to /dashboard or /login
-
 	return (
 		<ThemeProvider theme={theme}>
 			<GlobalStyle />
