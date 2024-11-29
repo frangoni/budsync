@@ -5,7 +5,7 @@ const RECORDS_COLUMNS = [
 		title: '#',
 		dataIndex: 'plantId',
 		key: 'number',
-		render: (plantId: number, record: TRecord) => <span>{record.plant.id}</span>,
+		render: (_: number, record: TRecord) => <span>{record.plant.id}</span>,
 		width: 1,
 	},
 	{

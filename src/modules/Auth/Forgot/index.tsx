@@ -17,7 +17,6 @@ type FieldType = {
 
 export default function Forgot() {
 	const [forgotPass, { isFetching }] = useLazyForgotPasswordQuery();
-	console.log('isFetching :', isFetching);
 	const notification = useNotification();
 	const [form] = AppForm.useForm<FieldType>();
 

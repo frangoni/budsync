@@ -17,10 +17,18 @@ const PLANT_COLUMNS = [
 	{
 		title: 'Status',
 		dataIndex: 'active',
-		key: 'quantity',
+		key: 'active',
 		render: (active: boolean) => (
 			<StatusBadge active={active.toString()}>{active ? 'Active' : 'Inactive'}</StatusBadge>
 		),
+	},
+	{
+		title: 'Total quantity',
+		dataIndex: 'totalQ',
+		key: 'totalQ',
+		render: (totalQ: number) => {
+			return totalQ ? <p>{totalQ}grs</p> : <p>Still growing</p>;
+		},
 	},
 ];
 

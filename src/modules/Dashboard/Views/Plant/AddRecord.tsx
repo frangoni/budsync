@@ -28,7 +28,7 @@ export default function AddRecord({ onSubmit, plantId }: AddRecordProps) {
 
 	const onFinish: FormProps<FieldType>['onFinish'] = async values => {
 		const timestamp = new Date().toISOString();
-		const newRecord = await addRecord({ ...values, plantId, timestamp, imageUrl: compressedImage! });
+		const newRecord = await addRecord({ ...values, plantId, date: timestamp, imageUrl: compressedImage! });
 		if (newRecord.error) {
 			return notification.error({
 				message: 'Error on record registration',

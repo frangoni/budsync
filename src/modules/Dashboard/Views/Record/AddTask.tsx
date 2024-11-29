@@ -2,7 +2,7 @@ import AppButton from '@/modules/_shared/components/Button';
 import { AppForm, AppInput, AppSelect } from '@/modules/_shared/components/Form/styles';
 import useNotification from '@/modules/_shared/hooks/useNotification';
 import { useCreateTaskMutation } from '@/redux/reducers/tasks';
-import { useGetAllUsersQuery } from '@/redux/reducers/users';
+import { TUser, useGetAllUsersQuery } from '@/redux/reducers/users';
 import { FormProps } from 'antd';
 
 type FieldType = {
@@ -46,6 +46,10 @@ export default function AddTask({ onSubmit, recordId }: AddTaskProps) {
 		});
 	};
 
+	const filterActiveUsers = (user: TUser) => {
+		return user.deleted === false && user.verifiedAt !== null;
+	};
+
 	return (
 		// @ts-expect-error Antd Form component
 		<AppForm layout='vertical' onFinish={onFinish} onFinishFailed={onFinishFailed}>
@@ -66,7 +70,9 @@ export default function AddTask({ onSubmit, recordId }: AddTaskProps) {
 				<AppSelect
 					loading={loadingUsers}
 					placeholder='Add task to an user'
-					options={users?.content.map(user => ({ value: user.id, label: user.name }))}
+					options={users?.content
+						.filter(filterActiveUsers)
+						.map(user => ({ value: user.id, label: user.name }))}
 					showSearch
 				/>
 			</AppForm.Item>
