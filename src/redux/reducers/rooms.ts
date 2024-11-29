@@ -7,6 +7,11 @@ export interface TRoom {
 	name: string;
 }
 
+interface TRoomWQuantity {
+	activePlants: number;
+	room: TRoom;
+}
+
 export interface RoomsState {
 	rooms: TRoom[];
 	currentRoom?: TRoom;
@@ -31,8 +36,8 @@ const roomsSlice = createSlice({
 
 export const roomsApi = baseApi.injectEndpoints({
 	endpoints: builder => ({
-		getRooms: builder.query<PaginationResponse<TRoom>, PaginationOptions>({
-			query: params => `/room/${params.page}/${params.size}`,
+		getRooms: builder.query<PaginationResponse<TRoomWQuantity>, PaginationOptions>({
+			query: params => `/room/activePlants/${params.page}/${params.size}`,
 			providesTags: ['Rooms'],
 		}),
 		createRoom: builder.mutation({

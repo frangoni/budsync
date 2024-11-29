@@ -10,7 +10,7 @@ interface RoomCardProps {
 	quantity: number;
 }
 
-export default function RoomCard({ title, roomId }: RoomCardProps) {
+export default function RoomCard({ title, roomId, quantity }: RoomCardProps) {
 	const navigate = useNavigate();
 	const handleNavigate = () => navigate(`/dashboard/rooms/${roomId}`);
 
@@ -18,9 +18,9 @@ export default function RoomCard({ title, roomId }: RoomCardProps) {
 		<Card>
 			<RoomCardLayout>
 				<h3>{title}</h3>
-				{/* 	<p>
+				<p>
 					Active plants: <b>{quantity}</b>
-				</p> */}
+				</p>
 				<AppButton
 					iconPosition='end'
 					text='See room'

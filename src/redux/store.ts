@@ -16,7 +16,7 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = configureStore({
 	reducer: persistedReducer,
-	devTools: process.env.NODE_ENV !== 'production',
+	devTools: import.meta.env.DEV,
 	middleware: getDefaultMiddleware => getDefaultMiddleware({ serializableCheck: false }).concat(usersApi.middleware),
 });
 

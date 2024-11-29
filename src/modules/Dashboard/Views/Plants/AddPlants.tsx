@@ -25,7 +25,7 @@ export default function AddPlants({ onSubmit, roomId }: AddPlantsProps) {
 	);
 	const [createPlants, { isLoading }] = useCreatePlantsMutation();
 
-	const roomName = rooms?.content.find(room => room.id == roomId)?.name;
+	const roomName = rooms?.content.find(({ room }) => room.id == roomId)?.room.name;
 
 	const onFinish: FormProps<TCreatePlants>['onFinish'] = async (values: TCreatePlants) => {
 		const createdPlants = await createPlants([values]);
@@ -81,7 +81,7 @@ export default function AddPlants({ onSubmit, roomId }: AddPlantsProps) {
 						loading={loadingRooms}
 						placeholder='Select an existing room'
 						disabled={!!roomId}
-						options={rooms?.content.map(room => ({ value: room.id, label: room.name }))}
+						options={rooms?.content.map(({ room }) => ({ value: room.id, label: room.name }))}
 						showSearch
 					/>
 				</AppForm.Item>

@@ -21,9 +21,10 @@ export default function Rooms() {
 			<SectionContainer>
 				{rooms?.content.length ? (
 					<RoomsWrapper>
-						{rooms.content.map(room => {
+						{rooms.content.map(({ room, activePlants }) => {
+							console.log('activePlants :', activePlants);
 							const { id, name } = room;
-							return <RoomCard quantity={1} roomId={id} key={id} title={name} />;
+							return <RoomCard quantity={activePlants} roomId={id} key={id} title={name} />;
 						})}
 					</RoomsWrapper>
 				) : (
