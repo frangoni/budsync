@@ -15,7 +15,6 @@ export default function Task() {
 
 	const { createdBy, assignedTo, record, description, resolvedAt } = data;
 	const isResolved = Boolean(resolvedAt);
-	console.log('record :', record);
 	return (
 		<>
 			<Header title='Task' description='See all assigned tasks' shouldGoBack />

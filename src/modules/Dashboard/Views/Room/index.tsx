@@ -20,12 +20,12 @@ export default function Room() {
 		rowSelection,
 		modalRef,
 		roomId,
-		closeModal,
 		COLUMNS,
 		allPlants,
 		options,
 		plantsStatus,
 		setStatusValue,
+		handleAddPlant,
 	} = useRoom();
 
 	if (isLoading) return <Loader />;
@@ -70,7 +70,7 @@ export default function Room() {
 				/>
 			</SectionContainer>
 			<Modal ref={modalRef}>
-				<AddPlants roomId={roomId} onSubmit={() => closeModal()} />
+				<AddPlants roomId={roomId} onSubmit={handleAddPlant} />
 			</Modal>
 		</>
 	);

@@ -1,15 +1,18 @@
+import { TRecord } from '@/redux/reducers/records';
+
 const RECORDS_COLUMNS = [
 	{
 		title: '#',
 		dataIndex: 'plantId',
 		key: 'number',
+		render: (plantId: number, record: TRecord) => <span>{record.plant.id}</span>,
 		width: 1,
 	},
 	{
 		title: 'Date',
-		dataIndex: 'timestamp',
-		key: 'timestamp',
-		render: (timestamp: string) => new Date(timestamp).toLocaleString(),
+		dataIndex: 'date',
+		key: 'date',
+		render: (date: string) => new Date(date).toLocaleString(),
 	},
 	{
 		title: 'Humidity',

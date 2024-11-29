@@ -5,6 +5,7 @@ import { CONSTANTS } from './_shared/_constants';
 import localforage from 'localforage';
 import Reports from './Dashboard/Views/Reports';
 import Users from './Dashboard/Views/Users';
+import Recover from './Auth/Recover';
 const Settings = lazy(() => import('./Dashboard/Views/Settings'));
 const Landing = lazy(() => import('./Landing'));
 const Login = lazy(() => import('./Auth/Login'));
@@ -51,7 +52,14 @@ const router = createBrowserRouter([
 		},
 		element: <Forgot />,
 	},
-	{},
+	{
+		path: ROUTES.recover,
+		async loader() {
+			const token = await getToken();
+			return token ? redirect(ROUTES.dashboard) : null;
+		},
+		element: <Recover />,
+	},
 	{
 		path: ROUTES.dashboard,
 		async loader() {

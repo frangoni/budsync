@@ -11,15 +11,16 @@ export const SwipperWrapper = styled.div`
 		background-size: cover;
 		width: 20rem;
 		height: 20rem;
+
 		display: flex;
 		justify-content: center;
 		align-items: center;
 	}
 
 	.swiper-slide img {
-		width: 100%;
-		border-radius: 0.5rem;
-		border: 0.15rem solid ${({ theme }) => theme.colors.border.context};
+		max-height: 20rem;
+		border-radius: 1rem;
+		border: 0.2rem solid ${({ theme }) => theme.colors.border.context};
 	}
 `;
 

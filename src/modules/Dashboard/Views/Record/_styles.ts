@@ -4,10 +4,10 @@ export const PlantImgWrapper = styled.div`
 	cursor: pointer;
 	margin-top: 1rem;
 	width: 100%;
-	max-width: 20rem;
+	max-height: 20rem;
 
 	img {
-		width: 100%;
+		max-height: 20rem;
 		border: 0.25rem solid ${({ theme }) => theme.colors.border.context};
 		border-radius: 1rem;
 	}
@@ -20,7 +20,7 @@ export const PlantImgWrapper = styled.div`
 export const ImageDetailsWrapper = styled.div`
 	display: flex;
 	flex-direction: row;
-	align-items: start;
+	align-items: center;
 	justify-content: space-around;
 	margin-bottom: 2rem;
 

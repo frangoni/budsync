@@ -56,13 +56,18 @@ const usersSlice = createSlice({
 
 export const usersApi = baseApi.injectEndpoints({
 	endpoints: builder => ({
-		getUser: builder.query({
-			query: () => `/refreshToken`,
+		refreshToken: builder.mutation<string, void>({
+			query: () => ({
+				url: '/refreshToken',
+				method: 'POST',
+				cache: 'no-cache',
+				responseHandler: 'text',
+			}),
 			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
 				try {
 					const { data } = await queryFulfilled;
-					dispatch(setUser(data.user));
-					localforage.setItem(K.JWT_LS_KEY, data.token);
+					dispatch(setToken(data));
+					localforage.setItem(K.JWT_LS_KEY, data);
 				} catch (e) {
 					console.error(`Error fetching user:${e}`);
 				}
@@ -132,19 +137,23 @@ export const usersApi = baseApi.injectEndpoints({
 		recoverPassword: builder.mutation<void, { token: string; password: string }>({
 			query: params => ({
 				url: `/user/recover-password/${params.token}`,
-				method: 'POST',
+				method: 'PUT',
 				body: { password: params.password },
 			}),
 		}),
 		forgotPassword: builder.query<void, string>({
-			query: email => `/user/forgot-password/${email}`,
+			query: email => ({
+				url: `/user/forgot-password/${email}`,
+				method: 'GET',
+				responseHandler: 'text',
+			}),
 		}),
 	}),
 	overrideExisting: false,
 });
 
 export const {
-	useGetUserQuery,
+	useRefreshTokenMutation,
 	useLoginMutation,
 	useRegisterMutation,
 	useEditUserMutation,

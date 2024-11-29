@@ -17,7 +17,7 @@ export default function useRoom() {
 	const {
 		data: allPlants,
 		isLoading,
-		isError,
+		refetch,
 	} = useGetPlantsByRoomQuery({ id: roomId, status: plantsStatus, page, size }, { refetchOnMountOrArgChange: true });
 
 	const [selectedRows, setSelectedRows] = useState<TPlant[]>([]);
@@ -62,21 +62,24 @@ export default function useRoom() {
 		setPlantsStatus(value);
 	};
 
+	const handleAddPlant = () => {
+		refetch();
+		closeModal();
+	};
+
 	return {
 		isLoading,
-		isError,
 		allPlants,
 		selectedRows,
 		rowSelection,
 		reprintQR,
-		navigateToPlant,
 		openModal,
-		closeModal,
 		modalRef,
 		roomId,
 		COLUMNS,
 		plantsStatus,
 		options,
 		setStatusValue,
+		handleAddPlant,
 	};
 }

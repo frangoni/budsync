@@ -11,13 +11,14 @@ import useRecord from './useRecord';
 import { Card, SectionContainer } from '@/modules/_shared/components/Layout/_styles';
 import PlantStatus from '../Plant/PlantStatus';
 import PlantImage from '../Plant/PlantImage';
+import AddFile from './AddFile';
 
 export default function Record() {
-	const { isLoading, COLUMNS, modalRef, recordId, openModal, recordTasks, data, handleTaskAdded } = useRecord();
+	const { isLoading, COLUMNS, modalRef, recordId, openModal, recordTasks, data, handleTaskAdded, refetchRecord } =
+		useRecord();
+	const imageFile = data?.files[0];
 
 	if (isLoading) return <Loader />;
-
-	const imageFile = data?.files[0];
 	return (
 		<>
 			<Header title='Record' description='See and manage a record' shouldGoBack />
@@ -32,7 +33,7 @@ export default function Record() {
 			/>
 			<SectionContainer>
 				<ImageDetailsWrapper>
-					{imageFile && (
+					{imageFile ? (
 						<span>
 							<h3>Plant Image</h3>
 							<p>Click to expand</p>
@@ -40,21 +41,24 @@ export default function Record() {
 								<PlantImage id={imageFile.id} />
 							</PlantImgWrapper>
 						</span>
+					) : (
+						<span>
+							<AddFile recordId={+recordId} onSubmit={refetchRecord} />
+						</span>
 					)}
 					<span>
-						<h3>Plant Records</h3>
+						<h3>Plant Record</h3>
 						<RecordsWrapper>
 							<Card>
 								<RecordsDetailsWrapper>
-									<h4># {recordId}</h4>
+									<h4># {data?.plant.id}</h4>
+									<p>Plant Status:</p> <PlantStatus active={data?.plant.active} />
 									<p>Strain: {data?.plant.strain.name}</p>
 									<p>Humidity: {data?.humidity}</p>
 									<p>Temperature: {data?.temperature}</p>
 									<p>Nutrient: {data?.nutrient}</p>
 									<p>Medium: {data?.medium}</p>
-									<p>
-										Plant Status: <PlantStatus active={data?.plant.active} />
-									</p>
+									{data?.date && <p>Date: {new Date(data?.date).toLocaleDateString()}</p>}
 								</RecordsDetailsWrapper>
 							</Card>
 						</RecordsWrapper>

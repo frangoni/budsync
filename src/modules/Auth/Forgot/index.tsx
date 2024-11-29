@@ -16,8 +16,10 @@ type FieldType = {
 };
 
 export default function Forgot() {
-	const [forgotPass, { isLoading }] = useLazyForgotPasswordQuery();
+	const [forgotPass, { isFetching }] = useLazyForgotPasswordQuery();
+	console.log('isFetching :', isFetching);
 	const notification = useNotification();
+	const [form] = AppForm.useForm<FieldType>();
 
 	const onFinish: FormProps<FieldType>['onFinish'] = async values => {
 		const forgottenPassword = await forgotPass(values.username);
@@ -51,6 +53,7 @@ export default function Forgot() {
 					</FormHeader>
 					{/* @ts-expect-error Form extend */}
 					<AppForm
+						form={form}
 						layout='vertical'
 						initialValues={{ remember: true }}
 						onFinish={onFinish}
@@ -62,7 +65,7 @@ export default function Forgot() {
 							name='username'
 							rules={[{ required: true, message: 'Please input your User name!' }]}
 						>
-							<AppInput prefix={<UserOutlined />} placeholder='Username' />
+							<AppInput prefix={<UserOutlined />} type='email' placeholder='Username' />
 						</AppForm.Item>
 
 						<p>
@@ -70,7 +73,7 @@ export default function Forgot() {
 						</p>
 						<div className='spacer-24' />
 						<AppForm.Item>
-							<AppButton block text='Submit' htmlType='submit' loading={isLoading} />
+							<AppButton block text='Submit' htmlType='submit' loading={isFetching} />
 						</AppForm.Item>
 					</AppForm>
 				</Card>

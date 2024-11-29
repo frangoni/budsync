@@ -54,6 +54,8 @@ export default function AddRecord({ onSubmit, plantId }: AddRecordProps) {
 			});
 		}
 		form.resetFields();
+		setCompressedFile(null);
+		setCompressedImage(null);
 		onSubmit();
 	};
 

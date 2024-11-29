@@ -12,8 +12,6 @@ export default function Uploader({ compressedImage, setCompressedImage, setCompr
 	const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
 		if (!event.currentTarget?.files) return;
 		const imageFile = event.currentTarget.files[0];
-		console.log('originalFile instanceof Blob', imageFile instanceof Blob); // true
-		console.log(`originalFile size ${imageFile.size / 1024 / 1024} MB`);
 
 		const options = {
 			maxSizeMB: 0.5,
@@ -24,12 +22,9 @@ export default function Uploader({ compressedImage, setCompressedImage, setCompr
 		try {
 			// Compress the image
 			const compressedFile = await imageCompression(imageFile, options);
-			console.log('compressedFile instanceof Blob', compressedFile instanceof Blob); // true
-			console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`); // smaller than maxSizeMB
 
 			// Convert to a URL to preview or upload
 			const compressedImageUrl = URL.createObjectURL(compressedFile);
-			console.log('compressedImageUrl :', compressedImageUrl);
 			setCompressedImage(compressedImageUrl);
 			setCompressedFile(compressedFile);
 

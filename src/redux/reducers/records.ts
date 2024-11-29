@@ -7,7 +7,7 @@ export interface TRecord {
 	id: number;
 	plantId: string;
 	imageUrl: string;
-	timestamp: string;
+	date: string;
 	humidity: number;
 	nutrient: number;
 	temperature: number;
@@ -88,6 +88,22 @@ export const recordsApi = baseApi.injectEndpoints({
 			},
 			invalidatesTags: ['Records'],
 		}),
+
+		getFile: builder.query<string, number>({
+			query: id => ({
+				url: `/file/${id}`,
+				method: 'GET',
+				headers: new Headers({
+					'Content-Type': 'image/png',
+				}),
+				cache: 'no-store',
+				responseHandler: async response => {
+					const res = await response.blob();
+					return URL.createObjectURL(res);
+				},
+			}),
+			providesTags: ['Records'],
+		}),
 	}),
 });
 
@@ -98,6 +114,7 @@ export const {
 	useEditRecordMutation,
 	useDeleteRecordMutation,
 	useAddFileToRecordMutation,
+	useGetFileQuery,
 } = recordsApi;
 export const { setRecords } = recordsSlice.actions;
 export const initialRecordsState = initialState;

@@ -1,43 +1,20 @@
-import { useState, useEffect } from 'react';
-import { useAppSelector } from '@/redux/store';
 import Loader from '@/modules/_shared/components/Loading';
 import 'react-medium-image-zoom/dist/styles.css';
 import Zoom from 'react-medium-image-zoom';
+import { useGetFileQuery } from '@/redux/reducers/records';
 
 interface PlantImageProps {
-	id?: number;
+	id: number;
 }
 
-const FETCH_URL = 'http://localhost:8080/file/';
-
 export default function PlantImage({ id }: PlantImageProps) {
-	const fetchUrl = `${FETCH_URL}${id}`;
-	const { token } = useAppSelector(({ users }) => users);
-	const [imageUrl, setImageUrl] = useState<string | null>(null);
+	const { data, isLoading } = useGetFileQuery(id, { refetchOnMountOrArgChange: true });
 
-	useEffect(() => {
-		fetch(fetchUrl, {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'image/png',
-				Authorization: 'Bearer ' + token,
-			},
-		})
-			.then(response => response.blob())
-			.then(blob => {
-				const url = URL.createObjectURL(blob);
-				setImageUrl(url);
-			})
-			.catch(() => {
-				setImageUrl(null);
-			});
-	}, [fetchUrl, token]);
-
-	if (!imageUrl) return <Loader />;
+	if (isLoading || !data) return <Loader />;
 
 	return (
 		<Zoom classDialog='zoom-dialog'>
-			<img src={imageUrl} loading='lazy' alt={`File ${id}`} />
+			<img src={data} loading='lazy' alt={`File ${id}`} />
 		</Zoom>
 	);
 }
