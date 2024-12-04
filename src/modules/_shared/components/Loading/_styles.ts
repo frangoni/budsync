@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 export const LoaderWrapper = styled.div`
 	.loader {
@@ -26,4 +26,24 @@ export const LoaderWrapper = styled.div`
 			transform: rotate(calc(var(--s, 1) * 1turn));
 		}
 	}
+`;
+
+const Typing = keyframes`
+	from{
+		width: 0ch;
+	} 
+
+
+`;
+
+export const ThreeDotsWrapper = styled.div`
+	width: 4ch;
+	text-wrap: nowrap;
+	display: inline-block;
+	font-family: monospace;
+	overflow: hidden;
+	font-size: inherit;
+	line-height: 0.7;
+	color: inherit;
+	animation: ${Typing} 1s steps(4) infinite alternate-reverse;
 `;

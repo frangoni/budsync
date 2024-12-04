@@ -6,6 +6,7 @@ import localforage from 'localforage';
 import Reports from './Dashboard/Views/Reports';
 import Users from './Dashboard/Views/Users';
 import Recover from './Auth/Recover';
+import ErrorElement from './_shared/components/Error';
 const Settings = lazy(() => import('./Dashboard/Views/Settings'));
 const Landing = lazy(() => import('./Landing'));
 const Login = lazy(() => import('./Auth/Login'));
@@ -27,6 +28,7 @@ const router = createBrowserRouter([
 	{
 		path: ROUTES.home,
 		element: <Landing />,
+		errorElement: <ErrorElement />,
 	},
 	{
 		path: ROUTES.login,
