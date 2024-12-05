@@ -20,7 +20,7 @@ export default function Plants() {
 
 	return (
 		<>
-			<Header title='Plants' description='Here you can manage your rooms' />
+			<Header title='Plants' description='Search and grow plants' />
 			<Toolbar
 				items={[
 					{
@@ -32,9 +32,9 @@ export default function Plants() {
 			/>
 			<SectionContainer>
 				<PlantsMainContainer>
-					<PlantScanner onScan={onScan} />
-					<h4>OR</h4>
 					<PlantFinder />
+					<h4>OR</h4>
+					<PlantScanner onScan={onScan} />
 				</PlantsMainContainer>
 			</SectionContainer>
 

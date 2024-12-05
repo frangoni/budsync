@@ -10,7 +10,7 @@ export default function Tasks() {
 	const { COLUMNS, data, setTaskType, tasksType, options } = useTasks();
 	return (
 		<>
-			<Header title='Tasks' description='See and manage tasks' />
+			<Header title='Tasks' description='Manage created and assigned tasks' />
 			<SectionContainer>
 				<AppTable<TTask>
 					columns={COLUMNS}

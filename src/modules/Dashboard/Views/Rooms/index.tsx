@@ -16,7 +16,7 @@ export default function Rooms() {
 	if (isLoading) return <Loader />;
 	return (
 		<>
-			<Header title='Rooms' description='Here you can manage your rooms' />
+			<Header title='Rooms' description='Manage your rooms' />
 			<Toolbar items={[{ icon: <Icon icon='mdi:house-add-outline' />, onClick: openModal, text: 'Add room' }]} />
 			<SectionContainer>
 				{rooms?.content.length ? (

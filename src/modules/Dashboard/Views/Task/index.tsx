@@ -17,7 +17,7 @@ export default function Task() {
 	const isResolved = Boolean(resolvedAt);
 	return (
 		<>
-			<Header title='Task' description='See all assigned tasks' shouldGoBack />
+			<Header title='Task' description='See an edit a task' shouldGoBack />
 			<SectionContainer>
 				<TaskMainWrapper>
 					<TaskDetailsWrapper>

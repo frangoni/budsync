@@ -12,16 +12,28 @@ import { Card, SectionContainer } from '@/modules/_shared/components/Layout/_sty
 import PlantStatus from '../Plant/PlantStatus';
 import PlantImage from '../Plant/PlantImage';
 import AddFile from './AddFile';
+import AppButton from '@/modules/_shared/components/Button';
 
 export default function Record() {
-	const { isLoading, COLUMNS, modalRef, recordId, openModal, recordTasks, data, handleTaskAdded, refetchRecord } =
-		useRecord();
-	const imageFile = data?.files[0];
+	const {
+		isLoading,
+		COLUMNS,
+		modalRef,
+		recordId,
+		openModal,
+		recordTasks,
+		data,
+		handleTaskAdded,
+		refetchRecord,
+		imageFile,
+		handleDeleteFile,
+		isDeletingFile,
+	} = useRecord();
 
 	if (isLoading) return <Loader />;
 	return (
 		<>
-			<Header title='Record' description='See and manage a record' shouldGoBack />
+			<Header title='Record' description='Manage a record and create tasks' shouldGoBack />
 			<Toolbar
 				items={[
 					{
@@ -40,6 +52,12 @@ export default function Record() {
 							<PlantImgWrapper>
 								<PlantImage id={imageFile.id} />
 							</PlantImgWrapper>
+							<AppButton
+								loading={isDeletingFile}
+								buttonType='danger'
+								text='Delete file'
+								onClick={handleDeleteFile}
+							/>
 						</span>
 					) : (
 						<span>

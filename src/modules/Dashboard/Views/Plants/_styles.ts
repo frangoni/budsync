@@ -7,7 +7,6 @@ export const PlantsMainContainer = styled.div`
 	justify-content: space-between;
 	gap: 2rem;
 	width: 100%;
-	height: 100%;
 
 	h4 {
 		align-self: center;
@@ -61,7 +60,7 @@ export const QRCardLayout = styled.div`
 export const PlantFinderContainer = styled.div`
 	display: flex;
 	flex-direction: column;
-	align-items: center;
+	align-items: start;
 	justify-content: center;
 	width: 50%;
 	padding: 0 4rem;

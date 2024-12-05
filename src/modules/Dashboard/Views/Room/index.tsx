@@ -31,7 +31,7 @@ export default function Room() {
 	if (isLoading) return <Loader />;
 	return (
 		<>
-			<Header title='Room' description={'Manage room name, add plants or search for active'} shouldGoBack />
+			<Header title='Room' description={'Manage plants in room'} shouldGoBack />
 			<Toolbar
 				items={[
 					{

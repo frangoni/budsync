@@ -5,6 +5,7 @@ import { AppForm } from '@/modules/_shared/components/Form/styles';
 import useNotification from '@/modules/_shared/hooks/useNotification';
 import { FormProps } from 'antd';
 import AppButton from '@/modules/_shared/components/Button';
+import Threedots from '@/modules/_shared/components/Loading/Threedots';
 
 interface FieldType {
 	imageUrl: string;
@@ -29,10 +30,11 @@ export default function AddFile({ recordId, onSubmit }: AddFileProps) {
 				description: 'Please add a file!',
 			});
 		const response = await addFileToRecord({ recordId, file: compressedFile });
+
 		if (response.error) {
 			return notification.error({
 				message: 'Error on file upload',
-				description: `${response.error}`,
+				description: `Internal server error. Try again later`,
 			});
 		}
 		notification.success({
@@ -72,7 +74,11 @@ export default function AddFile({ recordId, onSubmit }: AddFileProps) {
 			</AppForm.Item>
 
 			<div className='spacer-24' />
-			{isLoadingFile && <p>Uploading file...</p>}
+			{isLoadingFile && (
+				<p>
+					Uploading file <Threedots />
+				</p>
+			)}
 			<AppForm.Item>
 				<AppButton text='Add file' block type='primary' htmlType='submit' loading={isLoadingFile} />
 			</AppForm.Item>

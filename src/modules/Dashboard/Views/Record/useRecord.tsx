@@ -1,5 +1,5 @@
 import useModal from '@/modules/_shared/hooks/useModal';
-import { useGetRecordQuery } from '@/redux/reducers/records';
+import { useDeleteFileFromRecordMutation, useGetRecordQuery } from '@/redux/reducers/records';
 import { useNavigate, useParams } from 'react-router-dom';
 import TASKS_COLUMNS from '../Tasks/_columns';
 import AppButton from '@/modules/_shared/components/Button';
@@ -12,10 +12,13 @@ export default function useRecord() {
 	if (!recordId) throw new Error('Record ID not provided');
 	const { data, isLoading, isError, refetch: refetchRecord } = useGetRecordQuery(recordId!);
 	const { page, size } = usePagination();
+	const [deleteFile, { isLoading: isDeletingFile }] = useDeleteFileFromRecordMutation();
 	const { data: recordTasks, refetch } = useGetTasksByRecordQuery(
 		{ recordId, page, size },
 		{ refetchOnMountOrArgChange: true }
 	);
+
+	const imageFile = data?.files[0];
 
 	const navigate = useNavigate();
 	const navigateToTask = (taskId: string) => navigate(`/dashboard/tasks/${taskId}`);
@@ -38,6 +41,11 @@ export default function useRecord() {
 		closeModal();
 	};
 
+	const handleDeleteFile = async () => {
+		if (!imageFile?.id) return;
+		await deleteFile({ fileId: imageFile.id });
+	};
+
 	return {
 		closeModal,
 		modalRef,
@@ -50,5 +58,8 @@ export default function useRecord() {
 		recordTasks,
 		handleTaskAdded,
 		refetchRecord,
+		imageFile,
+		handleDeleteFile,
+		isDeletingFile,
 	};
 }

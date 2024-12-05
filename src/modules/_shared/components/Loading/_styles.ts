@@ -29,7 +29,7 @@ export const LoaderWrapper = styled.div`
 `;
 
 const Typing = keyframes`
-	from{
+	from {
 		width: 0ch;
 	} 
 

@@ -88,7 +88,13 @@ export const recordsApi = baseApi.injectEndpoints({
 			},
 			invalidatesTags: ['Records'],
 		}),
-
+		deleteFileFromRecord: builder.mutation<TRecord, { fileId: number }>({
+			query: ({ fileId }) => ({
+				url: `/file/${fileId}`,
+				method: 'DELETE',
+			}),
+			invalidatesTags: ['Records'],
+		}),
 		getFile: builder.query<string, number>({
 			query: id => ({
 				url: `/file/${id}`,
@@ -115,6 +121,7 @@ export const {
 	useDeleteRecordMutation,
 	useAddFileToRecordMutation,
 	useGetFileQuery,
+	useDeleteFileFromRecordMutation,
 } = recordsApi;
 export const { setRecords } = recordsSlice.actions;
 export const initialRecordsState = initialState;

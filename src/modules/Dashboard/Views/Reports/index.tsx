@@ -6,8 +6,7 @@ import Bud from '@/modules/_shared/assets/pngs/buddy-bong.png';
 export default function Reports() {
 	return (
 		<>
-			<Header title='Reports' />
-
+			<Header title='Reports' description='See your metrics' />
 			<SectionContainer>
 				<CenteredWrapper>
 					<h1>Coming soon...</h1>
