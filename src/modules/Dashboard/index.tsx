@@ -8,6 +8,7 @@ import Loader from '../_shared/components/Loading';
 import { useRefreshTokenMutation } from '@/redux/reducers/users';
 import { ErrorBoundary } from 'react-error-boundary';
 import ErrorElement from '../_shared/components/Error';
+import NetworkStrength from '../_shared/components/NetworkStrength';
 
 export default function Dashboard() {
 	const hasOutlet = useOutlet();
@@ -22,6 +23,7 @@ export default function Dashboard() {
 			<DashboardWrapper>
 				<Sidebar />
 				<ContentWrapper>
+					<NetworkStrength />
 					<ErrorBoundary FallbackComponent={ErrorElement}>
 						<Suspense fallback={<Loader />}>{hasOutlet ? <Outlet /> : <Welcome />}</Suspense>
 					</ErrorBoundary>

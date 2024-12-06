@@ -5,8 +5,10 @@ import TASKS_COLUMNS from '../Tasks/_columns';
 import AppButton from '@/modules/_shared/components/Button';
 import { TTask, useGetTasksByRecordQuery } from '@/redux/reducers/tasks';
 import usePagination from '@/modules/_shared/hooks/usePagination';
+import useNotification from '@/modules/_shared/hooks/useNotification';
 
 export default function useRecord() {
+	const notification = useNotification();
 	const { closeModal, modalRef, openModal } = useModal();
 	const { recordId } = useParams();
 	if (!recordId) throw new Error('Record ID not provided');
@@ -43,7 +45,15 @@ export default function useRecord() {
 
 	const handleDeleteFile = async () => {
 		if (!imageFile?.id) return;
-		await deleteFile({ fileId: imageFile.id });
+		const deletedFile = await deleteFile({ fileId: imageFile.id });
+
+		if (deletedFile.error) {
+			notification.error({ message: 'Error deleting file' });
+			return;
+		} else {
+			notification.success({ message: 'File deleted successfully' });
+			refetchRecord();
+		}
 	};
 
 	return {

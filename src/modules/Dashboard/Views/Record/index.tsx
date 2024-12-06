@@ -4,7 +4,13 @@ import Toolbar from '@/modules/_shared/components/Layout/Toolbar';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import AddTask from './AddTask';
 import Loader from '@/modules/_shared/components/Loading';
-import { ImageDetailsWrapper, PlantImgWrapper, RecordsDetailsWrapper, RecordsWrapper } from './_styles';
+import {
+	ImageDetailsWrapper,
+	ImageViewerWrapper,
+	PlantImgWrapper,
+	RecordsDetailsWrapper,
+	RecordsWrapper,
+} from './_styles';
 import AppTable from '@/modules/_shared/components/Table';
 import { TTask } from '@/redux/reducers/tasks';
 import useRecord from './useRecord';
@@ -46,19 +52,21 @@ export default function Record() {
 			<SectionContainer>
 				<ImageDetailsWrapper>
 					{imageFile ? (
-						<span>
+						<ImageViewerWrapper>
 							<h3>Plant Image</h3>
 							<p>Click to expand</p>
 							<PlantImgWrapper>
 								<PlantImage id={imageFile.id} />
 							</PlantImgWrapper>
+							<div className='spacer-24' />
 							<AppButton
 								loading={isDeletingFile}
 								buttonType='danger'
 								text='Delete file'
+								icon={<Icon icon='mdi:delete' />}
 								onClick={handleDeleteFile}
 							/>
-						</span>
+						</ImageViewerWrapper>
 					) : (
 						<span>
 							<AddFile recordId={+recordId} onSubmit={refetchRecord} />
@@ -70,7 +78,9 @@ export default function Record() {
 							<Card>
 								<RecordsDetailsWrapper>
 									<h4># {data?.plant.id}</h4>
-									<p>Plant Status:</p> <PlantStatus active={data?.plant.active} />
+									<p>
+										Plant Status: <PlantStatus active={data?.plant.active} />
+									</p>
 									<p>Strain: {data?.plant.strain.name}</p>
 									<p>Humidity: {data?.humidity}</p>
 									<p>Temperature: {data?.temperature}</p>

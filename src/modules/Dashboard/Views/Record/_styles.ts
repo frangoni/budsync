@@ -8,12 +8,26 @@ export const PlantImgWrapper = styled.div`
 
 	img {
 		max-height: 20rem;
+		max-width: 100%;
 		border: 0.25rem solid ${({ theme }) => theme.colors.border.context};
 		border-radius: 1rem;
 	}
 
 	@media (max-width: 768px) {
 		max-width: 100%;
+
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+`;
+
+export const ImageViewerWrapper = styled.span`
+	@media (max-width: 768px) {
+		display: flex;
+		flex-direction: column;
+
+		width: 100%;
 	}
 `;
 
@@ -26,9 +40,9 @@ export const ImageDetailsWrapper = styled.div`
 
 	@media (max-width: 768px) {
 		flex-direction: column;
-		align-items: left;
-		justify-content: center;
-		gap: 1rem;
+		align-items: stretch;
+		gap: 2rem;
+		width: 100%;
 	}
 `;
 
@@ -46,9 +60,10 @@ export const RecordsWrapper = styled.div`
 
 	@media (max-width: 768px) {
 		width: 100%;
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 1rem;
+
+		> div {
+			width: 100%;
+		}
 	}
 `;
 
@@ -60,9 +75,8 @@ export const RecordsDetailsWrapper = styled.div`
 	gap: 0.5rem;
 
 	@media (max-width: 768px) {
-		width: 100%;
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		gap: 1rem;
+		gap: 0.5rem;
 	}
 `;
