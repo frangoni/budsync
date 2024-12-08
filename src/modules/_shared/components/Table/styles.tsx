@@ -81,13 +81,19 @@ export const StyledTable = styled(Table)`
 		.ant-select-arrow {
 			color: ${({ theme }) => theme.colors.text.primary};
 		}
+
 		.ant-select-dropdown {
 			background-color: ${({ theme }) => theme.colors.background.secondary};
-			color: ${({ theme }) => theme.colors.text.primary};
+			color: ${({ theme }) => theme.colors.text.button};
 			border: 1px solid ${({ theme }) => theme.colors.border.context};
+
+			.ant-select-item {
+				color: ${({ theme }) => theme.colors.text.primary};
+			}
 
 			.ant-select-item-option-active {
 				background-color: ${({ theme }) => theme.colors.background.main};
+				color: ${({ theme }) => theme.colors.text.button};
 			}
 		}
 	}

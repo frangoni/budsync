@@ -61,7 +61,7 @@ export default function Login() {
 						autoComplete='off'
 					>
 						<AppForm.Item<FieldType>
-							label='User name'
+							label='Email'
 							name='username'
 							rules={[{ required: true, message: 'Please input your User name!' }]}
 						>

@@ -77,21 +77,21 @@ export default function AddRecord({ onSubmit, plantId }: AddRecordProps) {
 				name='humidity'
 				rules={[{ required: true, message: 'Please input a humidity level!' }]}
 			>
-				<AppInput placeholder='Humidity' type='number' min={0} />
+				<AppInput placeholder='Humidity (%)' type='number' min={0} step={0.01} suffix='%' />
 			</AppForm.Item>
 			<AppForm.Item<FieldType>
 				label='Nutrient'
 				name='nutrient'
 				rules={[{ required: true, message: 'Please input a nutrient level!' }]}
 			>
-				<AppInput placeholder='Nutrient' type='number' min={0} />
+				<AppInput placeholder='Nutrient (EC)' type='number' min={0} step={0.01} suffix='EC' />
 			</AppForm.Item>
 			<AppForm.Item<FieldType>
-				label='Temperature'
+				label='Temperature (°C)'
 				name='temperature'
 				rules={[{ required: true, message: 'Please input a temperature level!' }]}
 			>
-				<AppInput placeholder='Temperature' type='number' min={0} />
+				<AppInput placeholder='Temperature (°C)' type='number' min={0} step={0.01} suffix='°C' />
 			</AppForm.Item>
 			<AppForm.Item<FieldType>
 				label='Image'

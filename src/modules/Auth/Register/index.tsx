@@ -87,7 +87,7 @@ export default function Register() {
 						<AppForm.Item<FieldType>
 							label='Password'
 							name='password'
-							rules={[{ required: true, message: 'Please input your password!' }]}
+							rules={[{ required: true, message: 'Password too short!', min: 7 }]}
 						>
 							<PasswordInput prefix={<LockOutlined />} type='password' placeholder='Password' />
 						</AppForm.Item>

@@ -50,15 +50,15 @@ export default function Task() {
 						</span>
 						<span className='detail-row'>
 							<h5>Humidity:</h5>
-							<p>{record.humidity}</p>
+							<p>{record.humidity}%</p>
 						</span>
 						<span className='detail-row'>
 							<h5>Nutrient:</h5>
-							<p>{record.nutrient}</p>
+							<p>{record.nutrient}EC</p>
 						</span>
 						<span className='detail-row'>
 							<h5>Temperature:</h5>
-							<p>{record.temperature}</p>
+							<p>{record.temperature}°C</p>
 						</span>
 						<span className='detail-row'>
 							<h5>Medium:</h5>

@@ -82,9 +82,9 @@ export default function Record() {
 										Plant Status: <PlantStatus active={data?.plant.active} />
 									</p>
 									<p>Strain: {data?.plant.strain.name}</p>
-									<p>Humidity: {data?.humidity}</p>
-									<p>Temperature: {data?.temperature}</p>
-									<p>Nutrient: {data?.nutrient}</p>
+									<p>Humidity: {data?.humidity}%</p>
+									<p>Temperature: {data?.temperature}°C</p>
+									<p>Nutrient: {data?.nutrient}EC</p>
 									<p>Medium: {data?.medium}</p>
 									{data?.date && <p>Date: {new Date(data?.date).toLocaleDateString()}</p>}
 								</RecordsDetailsWrapper>

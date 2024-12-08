@@ -1,6 +1,6 @@
 import { FormHeader, FormWrapper } from '../styles';
 import Leaf from '@/modules/_shared/assets/pngs/leaf-fill.png';
-import type { FormProps } from 'antd';
+import { type FormProps } from 'antd';
 import { LockOutlined } from '@ant-design/icons';
 import { useRecoverPasswordMutation } from '@/redux/reducers/users';
 import { Link, useNavigate, useParams } from 'react-router-dom';
@@ -76,14 +76,30 @@ export default function Recover() {
 						<AppForm.Item<FieldType>
 							label='New password'
 							name='password'
-							rules={[{ required: true, message: 'Please input your new password!' }]}
+							rules={[{ required: true, message: 'Password too short!', min: 7 }]}
 						>
 							<PasswordInput prefix={<LockOutlined />} placeholder='Password' />
 						</AppForm.Item>
 						<AppForm.Item<FieldType>
 							label='Confirm Password'
 							name='confirmPassword'
-							rules={[{ required: true, message: 'Confirm your new password!' }]}
+							dependencies={['password']}
+							rules={[
+								{
+									required: true,
+									message: 'Please confirm your password!',
+								},
+								({ getFieldValue }) => ({
+									validator(_, value) {
+										if (!value || getFieldValue('password') === value) {
+											return Promise.resolve();
+										}
+										return Promise.reject(
+											new Error('The new password that you entered do not match!')
+										);
+									},
+								}),
+							]}
 						>
 							<PasswordInput prefix={<LockOutlined />} type='password' placeholder='Password' />
 						</AppForm.Item>

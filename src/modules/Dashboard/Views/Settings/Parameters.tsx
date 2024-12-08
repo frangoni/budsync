@@ -10,6 +10,7 @@ interface FieldType {
 	minHumidity: number;
 	maxHumidity: number;
 	minNutrient: number;
+	maxNutrient: number;
 	medium: string;
 	id: number;
 }
@@ -61,28 +62,35 @@ export default function Parameters() {
 					name='minHumidity'
 					rules={[{ required: true, message: 'This field is required' }]}
 				>
-					<AppInput type='number' min={0} />
+					<AppInput placeholder='Minimum Humidity' type='number' min={0} step={0.01} suffix='%' />
 				</AppForm.Item>
 				<AppForm.Item
 					label='Maximum Humidity'
 					name='maxHumidity'
 					rules={[{ required: true, message: 'This field is required' }]}
 				>
-					<AppInput type='number' min={0} />
+					<AppInput placeholder='Maximum Humidity' type='number' min={0} step={0.01} suffix='%' />
 				</AppForm.Item>
 				<AppForm.Item
 					label='Minimum Nutrient'
 					name='minNutrient'
 					rules={[{ required: true, message: 'This field is required' }]}
 				>
-					<AppInput type='number' min={0} />
+					<AppInput placeholder='Minimum Nutrient' type='number' min={0} step={0.01} suffix='EC' />
+				</AppForm.Item>
+				<AppForm.Item
+					label='Maximum Nutrient'
+					name='maxNutrient'
+					rules={[{ required: true, message: 'This field is required' }]}
+				>
+					<AppInput placeholder='Maximum Nutrient' type='number' min={0} step={0.01} suffix='EC' />
 				</AppForm.Item>
 				<AppForm.Item
 					label='Medium'
 					name='medium'
 					rules={[{ required: true, message: 'This field is required' }]}
 				>
-					<AppInput />
+					<AppInput placeholder='Medium' />
 				</AppForm.Item>
 				<AppForm.Item>
 					<AppButton

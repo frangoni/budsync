@@ -57,7 +57,7 @@ export default function HarvestPlant({ onSubmit, plant }: HarvestPlantProps) {
 				name='totalQ'
 				rules={[{ required: true, message: 'Please select the total quantity!' }]}
 			>
-				<AppInput placeholder='Total quantity (grams)' type='number' min={1} />
+				<AppInput placeholder='Total quantity (grams)' type='number' min={1} suffix='grs' />
 			</AppForm.Item>
 			<AppForm.Item>
 				<AppButton text='Harvest plant' block type='primary' htmlType='submit' loading={isLoading} />

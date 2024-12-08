@@ -10,6 +10,7 @@ import AppTable from '@/modules/_shared/components/Table';
 import { TRecord } from '@/redux/reducers/records';
 import PlantStatus from './PlantStatus';
 import { SectionContainer } from '@/modules/_shared/components/Layout/_styles';
+import FloatingScanner from '../Plants/FloatingScanner';
 
 export default function Plant() {
 	const {
@@ -42,6 +43,7 @@ export default function Plant() {
 						icon: <Icon icon='mdi:database-arrow-up-outline' />,
 						onClick: () => setContentAndOpenModal('record'),
 						text: 'Add record',
+						disabled: !currentPlant?.active,
 					},
 					{
 						icon: <Icon icon='mdi:qrcode' />,
@@ -65,6 +67,7 @@ export default function Plant() {
 					rowKey='id'
 					loading={isLoading}
 				/>
+				<FloatingScanner />
 			</SectionContainer>
 			<Modal ref={modalRef}>
 				{modalContent === 'record' && <AddRecord onSubmit={onAddRecordSuccess} plantId={plantId} />}

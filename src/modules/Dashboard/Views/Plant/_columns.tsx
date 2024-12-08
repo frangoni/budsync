@@ -18,31 +18,43 @@ const RECORDS_COLUMNS = [
 		title: 'Humidity',
 		dataIndex: 'humidity',
 		key: 'humidity',
+		render: (humidity: number) => `${humidity}%`,
 	},
 	{
 		title: 'Nutrient',
 		dataIndex: 'nutrient',
 		key: 'nutrient',
+		render: (nutrient: number) => `${nutrient}EC`,
 	},
 	{
 		title: 'Temperature',
 		dataIndex: 'temperature',
 		key: 'temperature',
+		render: (temperature: number) => `${temperature}°C`,
 	},
 	{
 		title: 'Min Nutrient',
 		dataIndex: 'minNutrient',
 		key: 'minNutrient',
+		render: (minNutrient: number) => `${minNutrient}EC`,
+	},
+	{
+		title: 'Max Nutrient',
+		dataIndex: 'maxNutrient',
+		key: 'maxNutrient',
+		render: (maxNutrient: number) => `${maxNutrient}EC`,
 	},
 	{
 		title: 'Min Humidity',
 		dataIndex: 'minHumidity',
 		key: 'minHumidity',
+		render: (minHumidity: number) => `${minHumidity}%`,
 	},
 	{
 		title: 'Max Humidity',
 		dataIndex: 'maxHumidity',
 		key: 'maxHumidity',
+		render: (maxHumidity: number) => `${maxHumidity}%`,
 	},
 	{
 		title: 'Medium',

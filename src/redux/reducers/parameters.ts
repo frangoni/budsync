@@ -5,6 +5,7 @@ export interface TParameter {
 	minHumidity: number;
 	maxHumidity: number;
 	minNutrient: number;
+	maxNutrient: number;
 	medium: string;
 	id: number;
 }
@@ -13,6 +14,7 @@ const initialState: TParameter = {
 	minHumidity: 0,
 	maxHumidity: 0,
 	minNutrient: 0,
+	maxNutrient: 0,
 	medium: '',
 	id: 0,
 };
@@ -25,6 +27,7 @@ const parametersSlice = createSlice({
 			state.minHumidity = action.payload.minHumidity;
 			state.maxHumidity = action.payload.maxHumidity;
 			state.minNutrient = action.payload.minNutrient;
+			state.maxNutrient = action.payload.maxNutrient;
 			state.medium = action.payload.medium;
 		},
 	},

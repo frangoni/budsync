@@ -12,6 +12,7 @@ export interface TRecord {
 	nutrient: number;
 	temperature: number;
 	minNutrient: number;
+	maxNutrient: number;
 	minHumidity: number;
 	maxHumidity: number;
 	medium: string;

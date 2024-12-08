@@ -2,65 +2,88 @@ import { useState, useEffect } from 'react';
 import { NetworkStrengthWrapper } from './styles';
 import { Icon } from '@iconify/react/dist/iconify.js';
 
-interface ConnectionInfo {
-	effectiveType: string;
-	downlink: number;
-	rtt: number;
-	saveData: boolean;
+interface Connection {
+	effectiveType?: string;
+	downlink?: number;
+	rtt?: number;
+	saveData?: boolean;
+	addEventListener?: (type: string, listener: () => void) => void;
+	removeEventListener?: (type: string, listener: () => void) => void;
 }
 
+const getConnection = (): Connection | null => {
+	// Retrieve the connection object from the navigator
+	return (
+		(navigator as any).connection || (navigator as any).mozConnection || (navigator as any).webkitConnection || null
+	);
+};
+
+const calculateSignalBars = (rtt: number, downlink: number): number => {
+	if (rtt < 100 && downlink > 10) return 4; // Excellent
+	if (rtt < 200 && downlink > 5) return 3; // Good
+	if (rtt < 300 && downlink > 1) return 2; // Fair
+	return 1; // Poor
+};
+
+const getSignalColor = (rtt: number): string => {
+	if (rtt < 100) return 'green';
+	if (rtt < 200) return 'yellow';
+	if (rtt < 300) return 'orange';
+	return 'red';
+};
+
 const NetworkStrength = () => {
-	const [connectionInfo, setConnectionInfo] = useState<ConnectionInfo | null>(null);
+	const [connectionInfo, setConnectionInfo] = useState<Connection | null>(null);
 
 	useEffect(() => {
-		const getConnectionInfo = () => {
-			if ('connection' in navigator) {
-				const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-				setConnectionInfo({
-					effectiveType: connection.effectiveType,
-					downlink: connection.downlink,
-					rtt: connection.rtt,
-					saveData: connection.saveData,
-				});
-			} else {
-				console.warn('Network Information API is not supported in this browser.');
-			}
+		const connection = getConnection();
+
+		if (!connection) {
+			console.warn('Network Information API is not supported in this browser.');
+			return;
+		}
+
+		const updateConnectionInfo = () => {
+			setConnectionInfo({
+				effectiveType: connection.effectiveType,
+				downlink: connection.downlink,
+				rtt: connection.rtt,
+				saveData: connection.saveData,
+			});
 		};
 
-		getConnectionInfo();
+		updateConnectionInfo();
+		connection.addEventListener?.('change', updateConnectionInfo);
 
-		if ('connection' in navigator) {
-			navigator.connection.addEventListener('change', getConnectionInfo);
-			return () => navigator.connection.removeEventListener('change', getConnectionInfo);
-		}
+		return () => {
+			connection.removeEventListener?.('change', updateConnectionInfo);
+		};
 	}, []);
 
-	if (!connectionInfo) return;
-	const { effectiveType, downlink, rtt } = connectionInfo;
+	if (!connectionInfo || !connectionInfo.downlink) {
+		return (
+			<NetworkStrengthWrapper>
+				<Icon icon='mdi:network-strength-off' color='red' aria-label='No connection' />
+				<p>No connection</p>
+			</NetworkStrengthWrapper>
+		);
+	}
 
-	const signalBarsByQuality = (rtt: number, downlink: number) => {
-		if (rtt < 100 && downlink > 10) return 3; // Good RTT and high bandwidth
-		if (rtt < 200 && downlink > 5) return 2; // Moderate RTT and acceptable bandwidth
-		if (rtt < 300 || downlink > 1) return 1; // Poor RTT or minimal bandwidth
-		return 0; // Very poor connection
-	};
+	const { effectiveType, downlink = 0, rtt = 0 } = connectionInfo;
 
-	const colorBarsByRTT = rtt < 100 ? 'green' : rtt < 200 ? 'yellow' : rtt < 300 ? 'orange' : 'red';
-
-	if (rtt === 0) return 'Offline';
+	const signalBars = calculateSignalBars(rtt, downlink);
+	const signalColor = getSignalColor(rtt);
 
 	return (
 		<NetworkStrengthWrapper>
-			{rtt ? (
-				<>
-					<p> {effectiveType}</p>
-					<p>{downlink} Mbps</p>
-					<Icon icon={`mdi:signal-cellular-${signalBarsByQuality(rtt, downlink)}`} color={colorBarsByRTT} />
-					<p>{rtt} ms</p>
-				</>
-			) : (
-				<p>Offline</p>
-			)}
+			<p>{effectiveType || 'Unknown'}</p>
+			<p>{downlink.toFixed(1)} Mbps</p>
+			<Icon
+				icon={`mdi:signal-cellular-${signalBars}`}
+				color={signalColor}
+				aria-label={`Signal strength: ${signalBars} bars`}
+			/>
+			<p>{rtt} ms</p>
 		</NetworkStrengthWrapper>
 	);
 };

@@ -11,10 +11,17 @@ const InputBaseStyles = css`
 	background-color: ${({ theme }) => theme.colors.background.primary} !important;
 
 	&::placeholder {
-		color: ${({ theme }) => theme.colors.text.secondary};
+		color: ${({ theme }) => theme.colors.text.secondary} !important;
 	}
+
 	.ant-input-status-error {
 		background-color: ${({ theme }) => theme.colors.background.primary};
+	}
+
+	.ant-input-suffix,
+	ant-input-prefix {
+		color: ${({ theme }) => theme.colors.text.primary};
+		transform: scale(1.2);
 	}
 
 	&:disabled {
@@ -106,7 +113,6 @@ export const AppSwitch = styled(Switch)`
 
 export const AppRadioGroup = styled(Radio.Group)`
 	.ant-radio-button-wrapper {
-		color: ${({ theme }) => theme.colors.text.primary};
 		background-color: ${({ theme }) => theme.colors.background.secondary};
 		border: 0.15rem solid ${({ theme }) => theme.colors.border.primary};
 		&::before {
@@ -116,7 +122,7 @@ export const AppRadioGroup = styled(Radio.Group)`
 
 	.ant-radio-button-wrapper-checked {
 		background-color: ${({ theme }) => theme.colors.background.main};
-		color: ${({ theme }) => theme.colors.text.white};
+		color: ${({ theme }) => theme.colors.text.button} !important;
 		border: 0.15rem solid ${({ theme }) => theme.colors.border.active} !important;
 		outline: none !important;
 
