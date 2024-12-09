@@ -1,5 +1,5 @@
 import usePagination from '../../hooks/usePagination';
-import { StyledTable } from './styles';
+import { StyledTable } from './_styles';
 import { TableProps } from 'antd';
 
 interface AppTableProps<T> extends TableProps<T> {
@@ -17,6 +17,7 @@ export default function AppTable<T extends object>({ columns, dataSource, totalC
 			columns={columns}
 			dataSource={dataSource}
 			pagination={{
+				responsive: true,
 				current: page + 1,
 				pageSize: size,
 				showSizeChanger: true,

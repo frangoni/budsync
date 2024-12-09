@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import AppButton from '@/modules/_shared/components/Button';
 import usePagination from '@/modules/_shared/hooks/usePagination';
-import { ActionsCell } from '@/modules/_shared/components/Table/styles';
+import { ActionsCell } from '@/modules/_shared/components/Table/_styles';
 
 type ModalContent = 'add' | 'edit' | 'delete';
 

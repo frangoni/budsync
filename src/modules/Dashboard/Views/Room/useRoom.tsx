@@ -13,7 +13,7 @@ export default function useRoom() {
 	const { roomId } = useParams();
 	const [plantsStatus, setPlantsStatus] = useState<TPlantStatus>('plants');
 	if (!roomId) throw new Error('Room ID is required');
-	const { page, size } = usePagination();
+	const { page, size, resetPage } = usePagination();
 	const {
 		data: allPlants,
 		isLoading,
@@ -60,6 +60,7 @@ export default function useRoom() {
 
 	const setStatusValue = ({ target: { value } }: RadioChangeEvent) => {
 		setPlantsStatus(value);
+		resetPage();
 	};
 
 	const handleAddPlant = () => {

@@ -1,4 +1,4 @@
-import { StyledTableToolbar, ToolbarItems } from './styles';
+import { StyledTableToolbar, ToolbarItems } from './_styles';
 
 interface TableToolbarProps {
 	title: string;

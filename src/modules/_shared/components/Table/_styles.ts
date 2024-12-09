@@ -96,6 +96,18 @@ export const StyledTable = styled(Table)`
 				color: ${({ theme }) => theme.colors.text.button};
 			}
 		}
+
+		@media (max-width: 768px) {
+			display: flex;
+			justify-content: center;
+		}
+
+		.ant-pagination-options {
+			@media (max-width: 768px) {
+				display: flex;
+				margin-left: auto;
+			}
+		}
 	}
 `;
 
