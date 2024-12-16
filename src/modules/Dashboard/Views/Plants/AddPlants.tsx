@@ -3,6 +3,7 @@ import { AppForm, AppInput, AppSelect } from '@/modules/_shared/components/Form/
 import useNotification from '@/modules/_shared/hooks/useNotification';
 import { generatePDF } from '@/modules/_shared/utilities/pdf';
 import { generateQRCodes } from '@/modules/_shared/utilities/qr';
+import { useLazyGetAllDesksQuery } from '@/redux/reducers/desks';
 import { TCreatePlants, useCreatePlantsMutation } from '@/redux/reducers/plants';
 import { useGetRoomsQuery } from '@/redux/reducers/rooms';
 import { useGetStrainsQuery } from '@/redux/reducers/strains';
@@ -17,15 +18,25 @@ interface AddPlantsProps {
 export default function AddPlants({ onSubmit, roomId }: AddPlantsProps) {
 	const notification = useNotification();
 	const [isCreatingStrain, setIsCreatingStrain] = useState(false);
+	const [createPlants, { isLoading }] = useCreatePlantsMutation();
 	const [form] = AppForm.useForm<TCreatePlants>();
+
 	const { data: strains, isLoading: loadingStrains } = useGetStrainsQuery();
 	const { data: rooms, isLoading: loadingRooms } = useGetRoomsQuery(
 		{ page: 0, size: -1 },
 		{ refetchOnMountOrArgChange: true }
 	);
-	const [createPlants, { isLoading }] = useCreatePlantsMutation();
+	const [getAllDesks, { data: desks, isLoading: loadingDesks }] = useLazyGetAllDesksQuery();
 
 	const roomName = rooms?.content.find(({ room }) => room.id == roomId)?.room.name;
+
+	const handleDesksFetch = () => {
+		getAllDesks({ roomId: form.getFieldValue('roomId'), page: 0, size: -1 });
+	};
+
+	useEffect(() => {
+		if (roomId) handleDesksFetch();
+	}, [roomId, handleDesksFetch]);
 
 	const onFinish: FormProps<TCreatePlants>['onFinish'] = async (values: TCreatePlants) => {
 		const createdPlants = await createPlants([values]);
@@ -82,6 +93,7 @@ export default function AddPlants({ onSubmit, roomId }: AddPlantsProps) {
 						placeholder='Select an existing room'
 						disabled={!!roomId}
 						options={rooms?.content.map(({ room }) => ({ value: room.id, label: room.name }))}
+						onChange={handleDesksFetch}
 						showSearch
 					/>
 				</AppForm.Item>
@@ -95,6 +107,17 @@ export default function AddPlants({ onSubmit, roomId }: AddPlantsProps) {
 					<h4>{roomName}</h4>
 				</AppForm.Item>
 			)}
+
+			<AppForm.Item label='Table ' name='deskId' rules={[{ required: true, message: 'Please select a table!' }]}>
+				<AppSelect
+					loading={loadingDesks}
+					placeholder='Select an existing table'
+					disabled={!form.getFieldValue('roomId')}
+					options={desks?.map(desk => ({ value: desk.id, label: desk.name }))}
+					showSearch
+				/>
+			</AppForm.Item>
+
 			{isCreatingStrain ? (
 				<AppForm.Item<TCreatePlants>
 					label='New strain'

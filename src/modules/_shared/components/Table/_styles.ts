@@ -121,7 +121,7 @@ export const ActionsCell = styled.div`
 export const StyledTableToolbar = styled.div`
 	display: flex;
 	justify-content: space-between;
-	align-items: center;
+	align-items: flex-end;
 
 	@media (max-width: 768px) {
 		flex-direction: column;
@@ -132,5 +132,7 @@ export const StyledTableToolbar = styled.div`
 
 export const ToolbarItems = styled.div`
 	display: flex;
-	gap: 1rem;
+	flex-direction: column;
+	align-items: end;
+	gap: 0.5rem;
 `;

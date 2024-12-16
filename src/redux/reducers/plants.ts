@@ -51,6 +51,13 @@ export const plantsApi = baseApi.injectEndpoints({
 			query: params => `/room/${params.id}/${params.status}/${params.page}/${params.size}`,
 			providesTags: ['Plants'],
 		}),
+		getPlantsByDesk: builder.query<
+			PaginationResponse<TPlant>,
+			PaginationOptions & { id: string; status: TPlantStatus }
+		>({
+			query: params => `/room/desk/${params.id}/${params.status}/${params.page}/${params.size}`,
+			providesTags: ['Plants'],
+		}),
 		getPlant: builder.query<TPlant, string>({
 			query: id => `/plant/${id}`,
 			providesTags: ['Plants'],
@@ -81,6 +88,8 @@ export const {
 	useCreatePlantsMutation,
 	useEditPlantMutation,
 	useGetPlantsByRoomQuery,
+	useGetPlantsByDeskQuery,
+	useLazyGetPlantsByDeskQuery,
 } = plantsApi;
 export const { setPlants } = plantsSlice.actions;
 export const initialPlantsState = initialState;

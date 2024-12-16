@@ -7,7 +7,7 @@ import { FormProps } from 'antd';
 
 type FieldType = {
 	name: string;
-	numberOfRooms: number;
+	numberOfDesks: number;
 };
 
 interface AddRoomProps {
@@ -20,14 +20,13 @@ export default function AddRoom({ onSubmit }: AddRoomProps) {
 	const [createDesks, { isLoading: isLoadingDesks }] = useCreateAllDesksMutation();
 
 	const onFinish: FormProps<FieldType>['onFinish'] = async values => {
-		const { numberOfRooms, name } = values;
+		const { numberOfDesks, name } = values;
 		const createdRoom = await createRoom({ name });
-		const range = numberOfRooms === 1 ? [1] : [1, numberOfRooms];
-		const createdDesks = await createDesks({
+		const range = numberOfDesks === 1 ? [1] : [1, numberOfDesks];
+		await createDesks({
 			range,
 			roomId: createdRoom.data?.id,
 		});
-		console.log('createdDesks :', createdDesks);
 		if (!createdRoom.data) return;
 		notification.success({
 			message: 'Room created!',
@@ -57,11 +56,11 @@ export default function AddRoom({ onSubmit }: AddRoomProps) {
 				<AppInput placeholder='Room name' />
 			</AppForm.Item>
 			<AppForm.Item<FieldType>
-				label='Number of rooms'
-				name='numberOfRooms'
-				rules={[{ required: true, message: 'Please choose a number of rooms!' }]}
+				label='Number of tables'
+				name='numberOfDesks'
+				rules={[{ required: true, message: 'Please choose a number of tables!' }]}
 			>
-				<AppInput type='number' placeholder='Number of rooms' min={1} step={1} />
+				<AppInput type='number' placeholder='Number of tables' min={1} step={1} />
 			</AppForm.Item>
 			<AppForm.Item>
 				<AppButton

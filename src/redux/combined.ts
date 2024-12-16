@@ -1,5 +1,17 @@
 import { combineReducers } from 'redux';
-import { pagination, parameters, plants, records, rooms, strains, tasks, theme, users, desks } from './reducers/index';
+import {
+	pagination,
+	parameters,
+	plants,
+	records,
+	rooms,
+	strains,
+	tasks,
+	theme,
+	users,
+	desks,
+	irrigations,
+} from './reducers/index';
 import { baseApi } from './baseApi';
 
 const rootReducer = combineReducers({
@@ -13,6 +25,7 @@ const rootReducer = combineReducers({
 	parameters,
 	pagination,
 	desks,
+	irrigations,
 	[baseApi.reducerPath]: baseApi.reducer,
 });
 

@@ -8,7 +8,18 @@ const getToken = () => localforage.getItem(CONSTANTS.JWT_LS_KEY) || '';
 
 export const baseApi = createApi({
 	reducerPath: 'api',
-	tagTypes: ['Rooms', 'Users', 'Plants', 'Tasks', 'Records', 'Strains', 'Reports', 'Parameters', 'Desks'],
+	tagTypes: [
+		'Rooms',
+		'Users',
+		'Plants',
+		'Tasks',
+		'Records',
+		'Strains',
+		'Reports',
+		'Parameters',
+		'Desks',
+		'Irrigations',
+	],
 	baseQuery: fetchBaseQuery({
 		baseUrl,
 		async prepareHeaders(headers) {

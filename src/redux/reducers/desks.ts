@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { baseApi, PaginationResponse } from '../baseApi';
+import { baseApi } from '../baseApi';
 import { PaginationOptions } from './pagination';
 import { TRoom } from './rooms';
 
@@ -34,7 +34,7 @@ const desksSlice = createSlice({
 
 export const desksApi = baseApi.injectEndpoints({
 	endpoints: builder => ({
-		getAllDesks: builder.query<PaginationResponse<TDesk>, PaginationOptions & { roomId: number }>({
+		getAllDesks: builder.query<TDesk[], PaginationOptions & { roomId: number }>({
 			query: params => `/desk/${params.roomId}/${params.page}/${params.size}`,
 			providesTags: ['Desks'],
 		}),
@@ -49,7 +49,7 @@ export const desksApi = baseApi.injectEndpoints({
 	}),
 });
 
-export const { useCreateAllDesksMutation, useGetAllDesksQuery } = desksApi;
+export const { useCreateAllDesksMutation, useLazyGetAllDesksQuery, useGetAllDesksQuery } = desksApi;
 export const { setDesks } = desksSlice.actions;
 export const initialTasksState = initialState;
 export default desksSlice.reducer;

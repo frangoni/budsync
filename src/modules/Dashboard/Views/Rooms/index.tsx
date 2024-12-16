@@ -22,7 +22,6 @@ export default function Rooms() {
 				{rooms?.content.length ? (
 					<RoomsWrapper>
 						{rooms.content.map(({ room, activePlants }) => {
-							console.log('activePlants :', activePlants);
 							const { id, name } = room;
 							return <RoomCard quantity={activePlants} roomId={id} key={id} title={name} />;
 						})}

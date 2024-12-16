@@ -11,3 +11,17 @@ export const StatusBadge = styled.div<{ active: string }>`
 	font-weight: 500;
 	text-transform: capitalize;
 `;
+
+export const PlantIdsPill = styled.div`
+	padding: 0rem 0.5rem;
+	background-color: ${({ theme }) => theme.colors.background.mainDimmer};
+	border: 0.02rem solid ${({ theme }) => theme.colors.border.primary};
+`;
+
+export const PlantIdsPillContainer = styled.div`
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	margin-bottom: 1rem;
+	max-width: 60vw;
+`;

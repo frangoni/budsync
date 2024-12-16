@@ -10,11 +10,11 @@ import Loader from '@/modules/_shared/components/Loading';
 import { SectionContainer } from '@/modules/_shared/components/Layout/_styles';
 import { AppRadioGroup } from '@/modules/_shared/components/Form/styles';
 import TableToolbar from '@/modules/_shared/components/Table/Toolbar';
+import WaterPlants from './WaterPlants';
 
 export default function Room() {
 	const {
 		isLoading,
-		openModal,
 		reprintQR,
 		selectedRows,
 		rowSelection,
@@ -22,13 +22,20 @@ export default function Room() {
 		roomId,
 		COLUMNS,
 		allPlants,
-		options,
+		statusOptions,
+		desksOptions,
+		setDeskValue,
+		deskId,
 		plantsStatus,
 		setStatusValue,
 		handleAddPlant,
+		loadingDesks,
+		modalContent,
+		setContentAndOpenModal,
+		closeModal,
 	} = useRoom();
 
-	if (isLoading) return <Loader />;
+	if (isLoading || loadingDesks) return <Loader />;
 	return (
 		<>
 			<Header title='Room' description={'Manage plants in room'} shouldGoBack />
@@ -36,13 +43,19 @@ export default function Room() {
 				items={[
 					{
 						icon: <Icon icon='material-symbols-light:potted-plant-outline' />,
-						onClick: openModal,
+						onClick: () => setContentAndOpenModal('add'),
 						text: 'Grow plants',
 					},
 					{
 						icon: <Icon icon='mdi:qrcode' />,
 						onClick: reprintQR,
 						text: 'Reprint QR',
+						disabled: !selectedRows.length,
+					},
+					{
+						icon: <Icon icon='mdi:water' />,
+						onClick: () => setContentAndOpenModal('water'),
+						text: 'Water Plants',
 						disabled: !selectedRows.length,
 					},
 				]}
@@ -56,9 +69,15 @@ export default function Room() {
 							title='Plants'
 							items={[
 								<AppRadioGroup
-									options={options}
+									options={statusOptions}
 									onChange={setStatusValue}
 									value={plantsStatus}
+									optionType='button'
+								/>,
+								<AppRadioGroup
+									options={desksOptions}
+									onChange={setDeskValue}
+									value={deskId}
 									optionType='button'
 								/>,
 							]}
@@ -70,7 +89,10 @@ export default function Room() {
 				/>
 			</SectionContainer>
 			<Modal ref={modalRef}>
-				<AddPlants roomId={roomId} onSubmit={handleAddPlant} />
+				{modalContent === 'add' && <AddPlants roomId={roomId} onSubmit={handleAddPlant} />}
+				{modalContent === 'water' && (
+					<WaterPlants plantIds={selectedRows.map(row => row.id)} onSubmit={closeModal} />
+				)}
 			</Modal>
 		</>
 	);
