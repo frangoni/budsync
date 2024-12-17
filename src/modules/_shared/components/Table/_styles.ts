@@ -122,12 +122,6 @@ export const StyledTableToolbar = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: flex-end;
-
-	@media (max-width: 768px) {
-		flex-direction: column;
-		align-items: start;
-		gap: 0.5rem;
-	}
 `;
 
 export const ToolbarItems = styled.div`

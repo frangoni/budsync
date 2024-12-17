@@ -99,7 +99,7 @@ export const FloatingScannerContainer = styled.div`
 		position: fixed;
 		bottom: 1rem;
 		right: 1rem;
-		z-index: 10;
+		z-index: 3;
 
 		#scanner:has(video) {
 			position: fixed !important;

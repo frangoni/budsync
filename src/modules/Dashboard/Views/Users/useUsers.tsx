@@ -43,11 +43,16 @@ export default function useUsers() {
 			key: 'action',
 			render: (_: string, user: TUser) => (
 				<ActionsCell>
-					<AppButton icon={<Icon icon='mdi:pencil' />} onClick={() => handleEditUser(user)} />
+					<AppButton
+						icon={<Icon icon='mdi:pencil' />}
+						onClick={() => handleEditUser(user)}
+						disabled={user.deleted}
+					/>
 					<AppButton
 						icon={<Icon icon='mdi:delete' />}
 						onClick={() => handleDeleteUser(user)}
 						buttonType='danger'
+						disabled={user.deleted}
 					/>
 				</ActionsCell>
 			),

@@ -79,6 +79,10 @@ export const CollapseButton = styled.div`
 	&:hover {
 		color: ${({ theme }) => theme.colors.text.active};
 	}
+
+	@media (max-width: 768px) {
+		transform: scale(1.5);
+	}
 `;
 
 export const SidebarWrapper = styled.aside`
