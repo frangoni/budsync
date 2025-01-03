@@ -15,7 +15,7 @@ export default function useScanner() {
 			{ fps: 10, qrbox: { width: 500, height: 500 } },
 			decodedText => {
 				stopScanner();
-				navigate(`/dashboard/plants/${decodedText}`);
+				navigate(`/dashboard/plants/${decodedText}`, { replace: true });
 			},
 			errorMessage => {
 				console.warn('QR Code scanning failed', errorMessage);
