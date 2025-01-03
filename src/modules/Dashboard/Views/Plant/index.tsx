@@ -11,21 +11,21 @@ import { TRecord } from '@/redux/reducers/records';
 import PlantStatus from './PlantStatus';
 import { SectionContainer } from '@/modules/_shared/components/Layout/_styles';
 import FloatingScanner from '../Plants/FloatingScanner';
+import { useParams } from 'react-router-dom';
 
-export default function Plant() {
+function Plant({ plantId }: { plantId: string }) {
 	const {
 		setContentAndOpenModal,
 		reprintQR,
 		modalRef,
 		modalContent,
 		currentPlant,
-		plantId,
 		COLUMNS,
 		isLoading,
 		plantRecords,
 		onEditSuccess,
 		onAddRecordSuccess,
-	} = usePlant();
+	} = usePlant({ plantId });
 
 	const allFiles = plantRecords?.content.map(record => record.files).flat();
 
@@ -75,4 +75,10 @@ export default function Plant() {
 			</Modal>
 		</>
 	);
+}
+
+export default function PlantWrapper() {
+	const { plantId } = useParams();
+	if (!plantId) throw new Error('Plant ID is required');
+	return <Plant key={plantId} plantId={plantId} />;
 }
