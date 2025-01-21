@@ -24,7 +24,7 @@ export default function Dashboard() {
 			dispatch(logout());
 			navigate(ROUTES.login);
 		}
-	}, [refreshToken]);
+	}, [refreshToken, isError]);
 
 	return (
 		<MainContainer>

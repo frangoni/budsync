@@ -2,14 +2,22 @@ import { createSlice } from '@reduxjs/toolkit';
 import { baseApi, PaginationResponse } from '../baseApi';
 import { TStrain } from './strains';
 import { PaginationOptions } from './pagination';
-import { TRoom } from './rooms';
+import { TDesk } from './desks';
 
 export interface TPlant {
 	id: number;
 	active: boolean;
 	totalQ: number;
-	room: TRoom;
+	desk: TDesk;
 	strain: TStrain;
+}
+
+export interface TEditPlant {
+	active: boolean;
+	deskId: number;
+	id: number;
+	strainId: number;
+	totalQ: number;
 }
 
 export type TPlantStatus = 'plants' | 'activePlants' | 'inactivePlants';
@@ -19,6 +27,7 @@ export interface PlantsState {
 }
 
 export interface TCreatePlants {
+	deskId: string;
 	roomId: string;
 	amountOfPlants: number;
 	strainName: string;
@@ -46,14 +55,14 @@ export const plantsApi = baseApi.injectEndpoints({
 		}),
 		getPlantsByRoom: builder.query<
 			PaginationResponse<TPlant>,
-			PaginationOptions & { id: string; status: TPlantStatus }
+			PaginationOptions & { id: number; status: TPlantStatus }
 		>({
 			query: params => `/room/${params.id}/${params.status}/${params.page}/${params.size}`,
 			providesTags: ['Plants'],
 		}),
 		getPlantsByDesk: builder.query<
 			PaginationResponse<TPlant>,
-			PaginationOptions & { id: string; status: TPlantStatus }
+			PaginationOptions & { id: number; status: TPlantStatus }
 		>({
 			query: params => `/room/desk/${params.id}/${params.status}/${params.page}/${params.size}`,
 			providesTags: ['Plants'],
@@ -71,7 +80,7 @@ export const plantsApi = baseApi.injectEndpoints({
 			invalidatesTags: ['Plants'],
 		}),
 		editPlant: builder.mutation({
-			query: plant => ({
+			query: (plant: TEditPlant) => ({
 				url: `/plant`,
 				method: 'PUT',
 				body: plant,

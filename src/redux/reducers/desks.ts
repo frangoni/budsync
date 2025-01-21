@@ -4,7 +4,7 @@ import { PaginationOptions } from './pagination';
 import { TRoom } from './rooms';
 
 export interface TDesk {
-	id: string;
+	id: number;
 	name: string;
 	room: TRoom;
 }

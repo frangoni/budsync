@@ -1,6 +1,6 @@
 import { generatePDF } from '@/modules/_shared/utilities/pdf';
 import { generateQRCodes } from '@/modules/_shared/utilities/qr';
-import { TPlant, TPlantStatus, useLazyGetPlantsByDeskQuery } from '@/redux/reducers/plants';
+import { TPlant, TPlantStatus, useGetPlantsByDeskQuery } from '@/redux/reducers/plants';
 import { RadioChangeEvent, TableProps } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -17,9 +17,16 @@ export default function useRoom() {
 	const [modalContent, setModalContent] = useState<ModalContent>('add');
 	const [plantsStatus, setPlantsStatus] = useState<TPlantStatus>('plants');
 	const { openModal, closeModal, modalRef } = useModal();
-	const [fetchPlants, { data: allPlants, isLoading }] = useLazyGetPlantsByDeskQuery({});
-	const [deskId, setDeskId] = useState<string | undefined>(undefined);
 	const { page, size, resetPage } = usePagination();
+	const [deskId, setDeskId] = useState<number | undefined>(undefined);
+	const {
+		data: allPlants,
+		isLoading,
+		refetch,
+	} = useGetPlantsByDeskQuery(
+		{ id: deskId, status: plantsStatus, page, size },
+		{ skip: !deskId, refetchOnMountOrArgChange: true }
+	);
 
 	const {
 		data: desks,
@@ -30,10 +37,6 @@ export default function useRoom() {
 	useEffect(() => {
 		if (isSuccess && desks.length) setDeskId(desks[0].id);
 	}, [isSuccess, desks]);
-
-	useEffect(() => {
-		if (deskId) fetchPlants({ id: deskId, status: plantsStatus, page, size });
-	}, [deskId, fetchPlants, page, plantsStatus, size]);
 
 	const [selectedRows, setSelectedRows] = useState<TPlant[]>([]);
 	const navigate = useNavigate();
@@ -82,14 +85,16 @@ export default function useRoom() {
 		resetPage();
 	};
 
-	const setDeskValue = ({ target: { value } }: RadioChangeEvent) => {
-		setDeskId(value);
-		resetPage();
+	const setDeskValue = (value: unknown) => {
+		if (typeof value === 'number') {
+			setDeskId(value);
+			resetPage();
+		}
 	};
 
 	const handleAddPlant = () => {
 		if (!deskId) return;
-		fetchPlants({ id: deskId, status: plantsStatus, page, size });
+		refetch();
 		closeModal();
 	};
 

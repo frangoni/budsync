@@ -36,7 +36,8 @@ export default function PlantFinder() {
 						<p># {plant.id}</p>
 						<PlantStatus active={plant.active} />
 						<p>Strain: {plant.strain.name}</p>
-						<p>Room: {plant.room.name}</p>
+						<p>Room: {plant.desk.room.name}</p>
+						<p>Desk: {plant.desk.name}</p>
 						{!plant.active && <p>Total quantity: {plant.totalQ}</p>}
 						<div className='spacer-12' />
 

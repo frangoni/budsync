@@ -53,7 +53,7 @@ export const StyledTable = styled(Table)`
 
 	.ant-pagination {
 		a {
-			color: ${({ theme }) => theme.colors.text.button};
+			color: ${({ theme }) => theme.colors.text.primary};
 		}
 		.ant-pagination-item {
 			border: 1px solid ${({ theme }) => theme.colors.border.active};
@@ -122,11 +122,16 @@ export const StyledTableToolbar = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: flex-end;
+	gap: 1rem;
 `;
 
 export const ToolbarItems = styled.div`
 	display: flex;
 	flex-direction: column;
-	align-items: end;
+	align-items: stretch;
 	gap: 0.5rem;
+
+	.ant-select {
+		min-height: 2.5rem;
+	}
 `;

@@ -8,7 +8,7 @@ import { TCreatePlants, useCreatePlantsMutation } from '@/redux/reducers/plants'
 import { useGetRoomsQuery } from '@/redux/reducers/rooms';
 import { useGetStrainsQuery } from '@/redux/reducers/strains';
 import { FormProps } from 'antd';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 interface AddPlantsProps {
 	onSubmit: () => void;
@@ -17,22 +17,22 @@ interface AddPlantsProps {
 
 export default function AddPlants({ onSubmit, roomId }: AddPlantsProps) {
 	const notification = useNotification();
-	const [isCreatingStrain, setIsCreatingStrain] = useState(false);
-	const [createPlants, { isLoading }] = useCreatePlantsMutation();
-	const [form] = AppForm.useForm<TCreatePlants>();
-
-	const { data: strains, isLoading: loadingStrains } = useGetStrainsQuery();
 	const { data: rooms, isLoading: loadingRooms } = useGetRoomsQuery(
 		{ page: 0, size: -1 },
 		{ refetchOnMountOrArgChange: true }
 	);
+
+	const { data: strains, isLoading: loadingStrains } = useGetStrainsQuery();
 	const [getAllDesks, { data: desks, isLoading: loadingDesks }] = useLazyGetAllDesksQuery();
+	const [createPlants, { isLoading }] = useCreatePlantsMutation();
+	const [isCreatingStrain, setIsCreatingStrain] = useState(false);
+	const [form] = AppForm.useForm<TCreatePlants>();
 
 	const roomName = rooms?.content.find(({ room }) => room.id == roomId)?.room.name;
 
-	const handleDesksFetch = () => {
+	const handleDesksFetch = useCallback(() => {
 		getAllDesks({ roomId: form.getFieldValue('roomId'), page: 0, size: -1 });
-	};
+	}, [form, getAllDesks]);
 
 	useEffect(() => {
 		if (roomId) handleDesksFetch();
@@ -49,7 +49,7 @@ export default function AddPlants({ onSubmit, roomId }: AddPlantsProps) {
 
 		notification.success({
 			message: 'Plants created!',
-			description: 'Successfull created plants: ',
+			description: 'Successfull created plants',
 		});
 
 		const qrCode = await generateQRCodes(createdPlants.data);
@@ -61,14 +61,14 @@ export default function AddPlants({ onSubmit, roomId }: AddPlantsProps) {
 	const onFinishFailed: FormProps<TCreatePlants>['onFinishFailed'] = errorInfo => {
 		const error = errorInfo.errorFields[0].errors[0];
 		notification.error({
-			message: 'Error on room creation',
+			message: 'Error on plants creation',
 			description: `${error}`,
 		});
 	};
 
 	useEffect(() => {
 		form.setFieldsValue({ strainName: '' });
-	}, [isCreatingStrain]);
+	}, [isCreatingStrain, form]);
 
 	return (
 		// @ts-expect-error Antd Form component

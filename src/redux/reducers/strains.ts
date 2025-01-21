@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { baseApi } from '../baseApi';
 
 export interface TStrain {
-	id: string;
+	id: number;
 	name: string;
 }
 

@@ -56,28 +56,12 @@ export const AppSelect = styled(Select)`
 		background-color: transparent !important;
 		color: ${({ theme }) => theme.colors.text.primary};
 		border: none !important;
+		box-shadow: none !important;
 		padding: 0 !important;
-	}
-	.ant-select-selector {
-		background-color: transparent !important;
-		border: none !important;
 	}
 
 	.ant-select-selection-placeholder {
 		color: ${({ theme }) => theme.colors.text.secondary} !important;
-	}
-
-	.ant-select-item-option {
-		color: ${({ theme }) => theme.colors.text.primary};
-		&:hover {
-			background-color: ${({ theme }) => theme.colors.background.secondary};
-			color: ${({ theme }) => theme.colors.text.primary};
-		}
-
-		&.ant-select-item-option-selected {
-			background-color: ${({ theme }) => theme.colors.background.secondary};
-			color: ${({ theme }) => theme.colors.text.primary};
-		}
 	}
 `;
 

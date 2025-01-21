@@ -12,6 +12,7 @@ import PlantStatus from './PlantStatus';
 import { SectionContainer } from '@/modules/_shared/components/Layout/_styles';
 import FloatingScanner from '../Plants/FloatingScanner';
 import { useParams } from 'react-router-dom';
+import EditPlant from './EditPlant';
 
 function Plant({ plantId }: { plantId: string }) {
 	const {
@@ -56,6 +57,11 @@ function Plant({ plantId }: { plantId: string }) {
 						text: 'Harvest plant',
 						disabled: !currentPlant?.active,
 					},
+					{
+						icon: <Icon icon='mdi:pencil' />,
+						onClick: () => setContentAndOpenModal('edit'),
+						text: 'Edit plant',
+					},
 				]}
 			/>
 			<SectionContainer>
@@ -72,6 +78,7 @@ function Plant({ plantId }: { plantId: string }) {
 			<Modal ref={modalRef}>
 				{modalContent === 'record' && <AddRecord onSubmit={onAddRecordSuccess} plantId={plantId} />}
 				{modalContent === 'crop' && <HarvestPlant onSubmit={onEditSuccess} plant={currentPlant} />}
+				{modalContent === 'edit' && <EditPlant onSubmit={onEditSuccess} plant={currentPlant} />}
 			</Modal>
 		</>
 	);

@@ -19,8 +19,7 @@ export const SwipperWrapper = styled.div`
 
 	.swiper-slide img {
 		max-height: 20rem;
-		border-radius: 1rem;
-		border: 0.2rem solid ${({ theme }) => theme.colors.border.context};
+		border-radius: 0.5rem;
 	}
 `;
 

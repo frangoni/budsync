@@ -21,10 +21,9 @@ export default function PlantGallery({ files }: PlantGalleryProps) {
 				centeredSlides={true}
 				slidesPerView={'auto'}
 				coverflowEffect={{
-					rotate: 45,
+					rotate: 15,
 					stretch: 0,
 					depth: 500,
-					modifier: 1,
 				}}
 				pagination={true}
 				keyboard={true}

@@ -37,8 +37,11 @@ const roomsSlice = createSlice({
 export const roomsApi = baseApi.injectEndpoints({
 	endpoints: builder => ({
 		getRooms: builder.query<PaginationResponse<TRoomWQuantity>, PaginationOptions>({
-			query: params => `/room/activePlants/${params.page}/${params.size}`,
-			providesTags: ['Rooms'],
+			query: params => ({
+				url: `/room/activePlants/${params.page}/${params.size}`,
+				method: 'GET',
+				cache: 'no-cache',
+			}),
 		}),
 		createRoom: builder.mutation({
 			query: room => ({

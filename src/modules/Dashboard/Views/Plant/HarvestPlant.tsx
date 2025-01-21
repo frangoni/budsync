@@ -19,12 +19,13 @@ export default function HarvestPlant({ onSubmit, plant }: HarvestPlantProps) {
 	const [harvestPlant, { isLoading }] = useEditPlantMutation();
 
 	const onFinish: FormProps<FieldType>['onFinish'] = async values => {
+		if (!plant) return;
 		const harvestedPlant = await harvestPlant({
-			totalQ: values.totalQ,
-			active: false,
 			id: plant?.id,
+			deskId: plant?.desk.id,
 			strainId: plant?.strain.id,
-			roomId: plant?.room.id,
+			totalQ: values.totalQ || 0,
+			active: false,
 		});
 		if (harvestedPlant.error) {
 			return notification.error({
@@ -55,6 +56,7 @@ export default function HarvestPlant({ onSubmit, plant }: HarvestPlantProps) {
 			<AppForm.Item<FieldType>
 				label='Total quantity (grams)'
 				name='totalQ'
+				initialValue={1}
 				rules={[{ required: true, message: 'Please select the total quantity!' }]}
 			>
 				<AppInput placeholder='Total quantity (grams)' type='number' min={1} suffix='grs' />

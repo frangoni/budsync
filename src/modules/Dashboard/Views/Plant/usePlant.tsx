@@ -9,12 +9,13 @@ import AppButton from '@/modules/_shared/components/Button';
 import { TRecord, useGetRecordsQuery } from '@/redux/reducers/records';
 import usePagination from '@/modules/_shared/hooks/usePagination';
 
-type ModalContent = 'record' | 'crop';
+type ModalContent = 'record' | 'crop' | 'edit';
 
 export default function usePlant({ plantId }: { plantId: string }) {
 	const { openModal, closeModal, modalRef } = useModal();
 	const { page, size } = usePagination();
 	const { data: currentPlant, isLoading, error, refetch } = useGetPlantQuery(plantId);
+
 	const { data: plantRecords, refetch: refetchRecords } = useGetRecordsQuery(
 		{ plantId, page, size },
 		{ refetchOnMountOrArgChange: true }

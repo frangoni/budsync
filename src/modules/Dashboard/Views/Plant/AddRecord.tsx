@@ -108,7 +108,14 @@ export default function AddRecord({ onSubmit, plantId }: AddRecordProps) {
 			<div className='spacer-24' />
 			{isLoadingFile && <p>Uploading file...</p>}
 			<AppForm.Item>
-				<AppButton text='Add record' block type='primary' htmlType='submit' loading={isLoading} />
+				<AppButton
+					disabled={!compressedImage}
+					text='Add record'
+					block
+					type='primary'
+					htmlType='submit'
+					loading={isLoading}
+				/>
 			</AppForm.Item>
 		</AppForm>
 	);

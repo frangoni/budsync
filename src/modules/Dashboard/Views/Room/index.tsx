@@ -8,7 +8,7 @@ import AddPlants from '../Plants/AddPlants';
 import useRoom from './useRoom';
 import Loader from '@/modules/_shared/components/Loading';
 import { SectionContainer } from '@/modules/_shared/components/Layout/_styles';
-import { AppRadioGroup } from '@/modules/_shared/components/Form/styles';
+import { AppRadioGroup, AppSelect } from '@/modules/_shared/components/Form/styles';
 import TableToolbar from '@/modules/_shared/components/Table/Toolbar';
 import WaterPlants from './WaterPlants';
 
@@ -74,12 +74,7 @@ export default function Room() {
 									value={plantsStatus}
 									optionType='button'
 								/>,
-								<AppRadioGroup
-									options={desksOptions}
-									onChange={setDeskValue}
-									value={deskId}
-									optionType='button'
-								/>,
+								<AppSelect options={desksOptions} onChange={setDeskValue} value={deskId} />,
 							]}
 						/>
 					)}
