@@ -24,7 +24,7 @@ export default function useRoom() {
 		isLoading,
 		refetch,
 	} = useGetPlantsByDeskQuery(
-		{ id: deskId, status: plantsStatus, page, size },
+		{ id: deskId || 0, status: plantsStatus, page, size },
 		{ skip: !deskId, refetchOnMountOrArgChange: true }
 	);
 
