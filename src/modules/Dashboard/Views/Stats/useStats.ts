@@ -1,5 +1,6 @@
 import { StatsParams, useLazyGetStatsQuery } from '@/redux/reducers/stats';
 import { useState } from 'react';
+import { usePDF } from 'react-to-pdf';
 
 export default function useStats() {
 	const [statsParams, setStatsParams] = useState<StatsParams>({
@@ -11,14 +12,21 @@ export default function useStats() {
 		endDate: new Date().getTime(),
 	});
 
-	const [getStats, { data: stats, isLoading, error }] = useLazyGetStatsQuery();
+	const [getStats, { data: stats, error, isFetching }] = useLazyGetStatsQuery();
+
+	const { toPDF, targetRef: pdfRef } = usePDF({
+		filename: `${new Date().toLocaleDateString()} Budsync KPIs.pdf`,
+		page: {},
+	});
 
 	return {
 		statsParams,
 		setStatsParams,
 		getStats,
 		stats,
-		isLoading,
 		error,
+		toPDF,
+		pdfRef,
+		isFetching,
 	};
 }

@@ -13,9 +13,10 @@ export interface StatsFiltersProps {
 	statsParams: StatsParams;
 	setStatsParams: (params: StatsParams) => void;
 	getStats: (params: StatsParams) => void;
+	isFetching: boolean;
 }
 
-export default function StatsFilters({ statsParams, setStatsParams, getStats }: StatsFiltersProps) {
+export default function StatsFilters({ statsParams, setStatsParams, getStats, isFetching }: StatsFiltersProps) {
 	const {
 		loadingRooms,
 		rooms,
@@ -77,7 +78,13 @@ export default function StatsFilters({ statsParams, setStatsParams, getStats }: 
 				<label htmlFor='active'>Active</label>
 				<AppSwitch checked={statsParams.active} onChange={checked => updateStatsParams({ active: checked })} />
 			</FilterField>
-			<AppButton id='submit' onClick={() => getStats(statsParams)} text='Submit' />
+			<AppButton
+				id='submit'
+				onClick={() => getStats(statsParams)}
+				text='Submit'
+				disabled={isFetching}
+				loading={isFetching}
+			/>
 		</FiltersWrapper>
 	);
 }

@@ -57,7 +57,9 @@ export const CenteredWrapper = styled.div`
 	align-items: center;
 	height: 100%;
 	max-height: 100vh;
-	width: 100%;
+	width: 80%;
+	text-align: center;
+	margin: 0 auto;
 `;
 
 export const ToolbarWrapper = styled.div`
@@ -95,6 +97,5 @@ export const ButtonGroup = styled.div`
 
 export const SectionContainer = styled.article`
 	margin-top: 2rem;
-	height: 100%;
 	position: relative;
 `;

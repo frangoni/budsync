@@ -3,21 +3,11 @@ import { SectionContainer } from '@/modules/_shared/components/Layout/_styles';
 import StatsContainer from './StatsContainer';
 import StatsFilters from './StatsFilters';
 import useStats from './useStats';
-import { statsData } from './_dummy';
-import { usePDF } from 'react-to-pdf';
 import { Icon } from '@iconify/react/dist/iconify.js';
+import ReportLoader from './ReportLoader';
 
 const StatsComponent = () => {
-	const { error, isLoading, getStats, setStatsParams, stats, statsParams } = useStats();
-	console.log('stats :', stats);
-	const date = new Date();
-	const today = date.toLocaleDateString();
-	const { toPDF, targetRef: pdfRef } = usePDF({
-		filename: `${today} Budsync KPIs.pdf`,
-		page: {},
-	});
-
-	if (isLoading) return <div>Loading...</div>;
+	const { error, isFetching, getStats, setStatsParams, stats, statsParams, pdfRef, toPDF } = useStats();
 	if (error) return <div>Error: {error.toString()}</div>;
 
 	return (
@@ -34,12 +24,20 @@ const StatsComponent = () => {
 				}
 			/>
 			<SectionContainer>
-				<StatsFilters setStatsParams={setStatsParams} statsParams={statsParams} getStats={getStats} />
+				<StatsFilters
+					setStatsParams={setStatsParams}
+					statsParams={statsParams}
+					getStats={getStats}
+					isFetching={isFetching}
+				/>
 				<div className='spacer-16' />
-
-				<div ref={pdfRef}>
-					<StatsContainer stats={statsData} />
-				</div>
+				{isFetching ? (
+					<ReportLoader />
+				) : (
+					<div ref={pdfRef}>
+						<StatsContainer stats={stats} />
+					</div>
+				)}
 			</SectionContainer>
 		</>
 	);

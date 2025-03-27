@@ -2,6 +2,7 @@ import { TStat } from '@/redux/reducers/stats';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { GraphContainer, KPISWrapper, PDFWrapper, StatCardsWrapper } from './_styles';
 import StatCard from './StatCard';
+import EmptyState from '@/modules/_shared/components/Empty';
 
 interface StatsProps {
 	stats: TStat[] | undefined;
@@ -19,7 +20,7 @@ export default function StatsContainer({ stats }: StatsProps) {
 		date: new Date(stat.date).toLocaleDateString(),
 	}));
 
-	if (!stats) return <h2>Please, select filters to see data</h2>;
+	if (!stats) return <EmptyState text='Select filters and submit to generate your report.' />;
 
 	return (
 		<PDFWrapper>
@@ -109,19 +110,19 @@ export default function StatsContainer({ stats }: StatsProps) {
 						statNumber={10}
 						statName='Average'
 						statColor={METRICS_COLORS.humidity}
-						statIcon='mdi:humidity-outline'
+						statIcon='mdi:humidity'
 					/>
 					<StatCard
 						statNumber={10}
 						statName='Median'
 						statColor={METRICS_COLORS.humidity}
-						statIcon='mdi:humidity-outline'
+						statIcon='mdi:humidity'
 					/>
 					<StatCard
 						statNumber={10}
 						statName='Range'
 						statColor={METRICS_COLORS.humidity}
-						statIcon='mdi:humidity-outline'
+						statIcon='mdi:humidity'
 					/>
 				</StatCardsWrapper>
 			</KPISWrapper>
