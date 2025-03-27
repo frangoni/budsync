@@ -1,4 +1,5 @@
 import { baseApi } from './baseApi';
+import { initialStatsState } from './reducers/stats';
 import { initialPaginationState } from './reducers/pagination';
 import { initialParametersState } from './reducers/parameters';
 import { initialPlantsState } from './reducers/plants';
@@ -18,6 +19,7 @@ const initialStore = {
 	records: initialRecordsState,
 	tasks: initialTasksState,
 	strains: initialStrainsState,
+	stats: initialStatsState,
 	parameters: initialParametersState,
 	pagination: initialPaginationState,
 	[baseApi.reducerPath]: baseApi.reducer,

@@ -160,12 +160,12 @@ const appTheme: { dark: ThemeInterface; light: ThemeInterface } = {
 	light: {
 		colors: {
 			background: {
-				primary: '#dbdbdb',
+				primary: '#f7f7f7',
 				secondary: '#EEEEEE',
 				dark: '#333333',
 				main: '#377E80',
 				sidebar: '#EEEEEE',
-				cards: '#E7E7E7',
+				cards: '#f1f1f1',
 				buttons: {
 					primary: '#377E80',
 					secondary: '#FFFFFF',

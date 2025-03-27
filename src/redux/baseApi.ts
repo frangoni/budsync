@@ -19,6 +19,7 @@ export const baseApi = createApi({
 		'Parameters',
 		'Desks',
 		'Irrigations',
+		'Stats',
 	],
 	baseQuery: fetchBaseQuery({
 		baseUrl,

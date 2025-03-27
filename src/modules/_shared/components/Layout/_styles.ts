@@ -12,6 +12,8 @@ export const Card = styled.div`
 	border: 0.15rem solid ${({ theme }) => theme.colors.border.primary};
 	background-color: ${({ theme }) => theme.colors.background.cards};
 	padding: 2rem;
+	position: relative;
+	overflow: hidden;
 `;
 
 export const GlassCard = styled(Card)`

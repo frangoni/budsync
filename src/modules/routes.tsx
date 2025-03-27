@@ -20,6 +20,7 @@ const Plant = lazy(() => import('./Dashboard/Views/Plant'));
 const Tasks = lazy(() => import('./Dashboard/Views/Tasks'));
 const Task = lazy(() => import('./Dashboard/Views/Task'));
 const Record = lazy(() => import('./Dashboard/Views/Record'));
+const Stats = lazy(() => import('./Dashboard/Views/Stats'));
 const NotFound = lazy(() => import('./404'));
 
 const getToken = async () => localforage.getItem(CONSTANTS.JWT_LS_KEY);
@@ -100,7 +101,7 @@ const router = createBrowserRouter([
 			},
 			{
 				path: ROUTES.reports,
-				element: <Reports />,
+				element: <Stats />,
 			},
 			{
 				path: ROUTES.users,

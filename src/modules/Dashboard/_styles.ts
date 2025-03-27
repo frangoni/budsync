@@ -11,8 +11,7 @@ export const ContentWrapper = styled.section`
 	flex-direction: column;
 
 	@media (max-width: 768px) {
-		padding-block: 2rem;
-		padding-inline: 2rem 1rem;
+		padding: 2rem 1rem;
 	}
 `;
 

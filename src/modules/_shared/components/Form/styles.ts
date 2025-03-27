@@ -5,6 +5,7 @@ const InputBaseStyles = css`
 	border-radius: 0.25rem;
 	padding: 0.5rem 1rem;
 	width: 100%;
+	min-width: 6rem;
 	font-size: 1.25rem;
 	border: 0.2rem solid ${({ theme }) => theme.colors.border.primary};
 	color: ${({ theme }) => theme.colors.text.primary};
@@ -46,7 +47,7 @@ export const PasswordInput = styled(Input.Password)`
 
 export const AppSelect = styled(Select)`
 	${InputBaseStyles}
-	min-height: 4rem;
+	min-height: 3rem;
 
 	.anticon {
 		color: ${({ theme }) => theme.colors.text.secondary};
@@ -82,15 +83,20 @@ export const AppForm = styled(Form)`
 `;
 
 export const AppSwitch = styled(Switch)`
+	max-width: 3rem;
 	.ant-switch-handle::before {
-		background-color: ${({ theme }) => theme.colors.background.secondary};
+		background-color: ${({ theme }) => theme.colors.background.main};
+	}
+	.ant-switch-inner {
+		background-color: ${({ theme }) => theme.colors.background.mainDimmer};
 	}
 
 	&.ant-switch.ant-switch-checked {
-		background-color: ${({ theme }) => theme.colors.background.main};
-
-		&:hover {
-			background-color: ${({ theme }) => theme.colors.background.mainDimmer};
+		.ant-switch-handle::before {
+			background-color: ${({ theme }) => theme.colors.background.primary};
+		}
+		.ant-switch-inner {
+			background-color: ${({ theme }) => theme.colors.background.main};
 		}
 	}
 `;
