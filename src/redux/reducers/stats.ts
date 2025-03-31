@@ -1,25 +1,40 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { baseApi } from '../baseApi';
 
-export interface TStat {
-	date: string;
-	meanTemperature: number;
-	medianTemperature: number;
-	rangeTemperature: number;
-	meanNutrient: number;
-	medianNutrient: number;
-	rangeNutrient: number;
+export interface TStatData {
+	humidity: number;
+	nutrient: number;
+	record_date: string;
+	temperature: number;
+}
+export interface TStatResponse {
 	meanHumidity: number;
+	meanNutrient: number;
+	meanTemperature: number;
 	medianHumidity: number;
+	medianNutrient: number;
+	medianTemperature: number;
 	rangeHumidity: number;
+	rangeNutrient: number;
+	rangeTemperature: number;
+	stats: TStatData[];
 }
 
 export interface StatsState {
-	stats: TStat[];
+	stats: TStatResponse[];
+	statParams: StatsParams;
 }
 
 const initialState: StatsState = {
 	stats: [],
+	statParams: {
+		active: true,
+		deskId: 0,
+		roomId: 0,
+		strainId: 0,
+		startDate: new Date('2025-01-01').getTime(),
+		endDate: new Date().getTime(),
+	},
 };
 
 const statsSlice = createSlice({
@@ -28,6 +43,10 @@ const statsSlice = createSlice({
 	reducers: {
 		setStats: (state, action) => {
 			state.stats = action.payload.stats;
+		},
+		setStatParams: (state, action) => {
+			const updatedParams = { ...state.statParams, ...action.payload };
+			state.statParams = updatedParams;
 		},
 	},
 });
@@ -42,7 +61,7 @@ export interface StatsParams {
 }
 export const statsApi = baseApi.injectEndpoints({
 	endpoints: builder => ({
-		getStats: builder.query<TStat[], StatsParams>({
+		getStats: builder.query<TStatResponse, StatsParams>({
 			query: params =>
 				`/dashboard/stats?active=${params.active}&deskId=${params.deskId}&roomId=${params.roomId}&strainId=${params.strainId}&startDate=${params.startDate}&endDate=${params.endDate}`,
 			providesTags: ['Stats'],
@@ -51,6 +70,6 @@ export const statsApi = baseApi.injectEndpoints({
 });
 
 export const { useGetStatsQuery, useLazyGetStatsQuery } = statsApi;
-export const { setStats } = statsSlice.actions;
+export const { setStats, setStatParams } = statsSlice.actions;
 export const initialStatsState = initialState;
 export default statsSlice.reducer;

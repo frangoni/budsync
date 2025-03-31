@@ -37,12 +37,6 @@ export const HeaderWrapper = styled.header`
 		align-items: center;
 		gap: 1rem;
 		margin-bottom: 0.5rem;
-
-		@media (max-width: 768px) {
-			flex-direction: column;
-			align-items: start;
-			gap: 0.5rem;
-		}
 	}
 
 	h1,

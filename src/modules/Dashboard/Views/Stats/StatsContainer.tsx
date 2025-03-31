@@ -1,26 +1,26 @@
-import { TStat } from '@/redux/reducers/stats';
+import { TStatResponse } from '@/redux/reducers/stats';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { GraphContainer, KPISWrapper, PDFWrapper, StatCardsWrapper } from './_styles';
+import { GraphContainer, KPISWrapper, METRICS_COLORS, PDFWrapper, StatCardsWrapper } from './_styles';
 import StatCard from './StatCard';
 import EmptyState from '@/modules/_shared/components/Empty';
+import { smartFormatNumber } from './_utils';
 
 interface StatsProps {
-	stats: TStat[] | undefined;
+	statsResponse: TStatResponse | undefined;
+	isUninitialized: boolean;
 }
 
-export const METRICS_COLORS = {
-	nutrient: '#82ca9d',
-	temperature: '#8884d8',
-	humidity: '#ff7300',
-};
-
-export default function StatsContainer({ stats }: StatsProps) {
-	const formattedStats = stats?.map(stat => ({
-		...stat,
-		date: new Date(stat.date).toLocaleDateString(),
+export default function StatsContainer({ statsResponse, isUninitialized }: StatsProps) {
+	const formattedStats = statsResponse?.stats.map(stat => ({
+		humidity: smartFormatNumber(stat.humidity),
+		nutrient: smartFormatNumber(stat.nutrient),
+		temperature: smartFormatNumber(stat.temperature),
+		date: new Date(stat.record_date).toLocaleDateString(),
 	}));
 
-	if (!stats) return <EmptyState text='Select filters and submit to generate your report.' />;
+	if (isUninitialized)
+		return <EmptyState imgOption='buddy-bong' text='Select filters and submit to generate your report.' />;
+	if (!statsResponse?.stats.length) return <EmptyState text='No data available for the selected filters.' />;
 
 	return (
 		<PDFWrapper>
@@ -37,7 +37,7 @@ export default function StatsContainer({ stats }: StatsProps) {
 						<Line
 							yAxisId='left'
 							type='monotone'
-							dataKey='meanTemperature'
+							dataKey='temperature'
 							stroke={METRICS_COLORS.temperature}
 							name='Temperature (°C)'
 						/>
@@ -45,7 +45,7 @@ export default function StatsContainer({ stats }: StatsProps) {
 						<Line
 							yAxisId='left'
 							type='monotone'
-							dataKey='meanNutrient'
+							dataKey='nutrient'
 							stroke={METRICS_COLORS.nutrient}
 							name='Nutrient (EC)'
 						/>
@@ -53,7 +53,7 @@ export default function StatsContainer({ stats }: StatsProps) {
 						<Line
 							yAxisId='right'
 							type='monotone'
-							dataKey='meanHumidity'
+							dataKey='humidity'
 							stroke={METRICS_COLORS.humidity}
 							name='Humidity (%)'
 						/>
@@ -65,19 +65,19 @@ export default function StatsContainer({ stats }: StatsProps) {
 				<h3>Temperature</h3>
 				<StatCardsWrapper>
 					<StatCard
-						statNumber={1}
+						statNumber={statsResponse.meanTemperature}
 						statName='Average'
 						statColor={METRICS_COLORS.temperature}
 						statIcon='mdi:temperature'
 					/>
 					<StatCard
-						statNumber={2}
+						statNumber={statsResponse.medianTemperature}
 						statName='Median'
 						statColor={METRICS_COLORS.temperature}
 						statIcon='mdi:temperature'
 					/>
 					<StatCard
-						statNumber={3}
+						statNumber={statsResponse.rangeTemperature}
 						statName='Range'
 						statColor={METRICS_COLORS.temperature}
 						statIcon='mdi:temperature'
@@ -86,19 +86,19 @@ export default function StatsContainer({ stats }: StatsProps) {
 				<h3>Nutrient</h3>
 				<StatCardsWrapper>
 					<StatCard
-						statNumber={4}
+						statNumber={statsResponse.meanNutrient}
 						statName='Average'
 						statColor={METRICS_COLORS.nutrient}
 						statIcon='mdi:energy-circle'
 					/>
 					<StatCard
-						statNumber={5}
+						statNumber={statsResponse.medianNutrient}
 						statName='Median'
 						statColor={METRICS_COLORS.nutrient}
 						statIcon='mdi:energy-circle'
 					/>
 					<StatCard
-						statNumber={6}
+						statNumber={statsResponse.rangeNutrient}
 						statName='Range'
 						statColor={METRICS_COLORS.nutrient}
 						statIcon='mdi:energy-circle'
@@ -107,19 +107,19 @@ export default function StatsContainer({ stats }: StatsProps) {
 				<h3>Humidity</h3>
 				<StatCardsWrapper>
 					<StatCard
-						statNumber={10}
+						statNumber={statsResponse.meanHumidity}
 						statName='Average'
 						statColor={METRICS_COLORS.humidity}
 						statIcon='mdi:humidity'
 					/>
 					<StatCard
-						statNumber={10}
+						statNumber={statsResponse.medianHumidity}
 						statName='Median'
 						statColor={METRICS_COLORS.humidity}
 						statIcon='mdi:humidity'
 					/>
 					<StatCard
-						statNumber={10}
+						statNumber={statsResponse.rangeHumidity}
 						statName='Range'
 						statColor={METRICS_COLORS.humidity}
 						statIcon='mdi:humidity'

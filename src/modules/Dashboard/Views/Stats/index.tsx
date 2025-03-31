@@ -7,7 +7,8 @@ import { Icon } from '@iconify/react/dist/iconify.js';
 import ReportLoader from './ReportLoader';
 
 const StatsComponent = () => {
-	const { error, isFetching, getStats, setStatsParams, stats, statsParams, pdfRef, toPDF } = useStats();
+	const { error, isFetching, getStats, setStatsParams, stats, statsParams, pdfRef, toPDF, isUninitialized } =
+		useStats();
 	if (error) return <div>Error: {error.toString()}</div>;
 
 	return (
@@ -35,7 +36,7 @@ const StatsComponent = () => {
 					<ReportLoader />
 				) : (
 					<div ref={pdfRef}>
-						<StatsContainer stats={stats} />
+						<StatsContainer statsResponse={stats} isUninitialized={isUninitialized} />
 					</div>
 				)}
 			</SectionContainer>

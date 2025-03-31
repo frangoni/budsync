@@ -64,6 +64,8 @@ export const GraphContainer = styled.div`
 
 	@media (max-width: 768px) {
 		width: 100%;
+		margin-top: 0rem;
+		height: 50vh;
 	}
 `;
 
@@ -73,6 +75,10 @@ export const KPISWrapper = styled.div`
 	align-items: center;
 	gap: 2rem;
 	margin-top: 4rem;
+
+	@media (max-width: 768px) {
+		margin-top: 2rem;
+	}
 `;
 
 export const StatLabel = styled.div`
@@ -92,7 +98,7 @@ export const StatValue = styled.div`
 	flex-direction: row;
 	align-items: baseline;
 	justify-content: center;
-	min-width: 10rem;
+	min-width: 15rem;
 	gap: 0.25rem;
 	margin-top: 1rem;
 
@@ -100,10 +106,6 @@ export const StatValue = styled.div`
 		font-size: 5rem;
 		font-weight: 700;
 		line-height: 1;
-	}
-
-	@media (max-width: 768px) {
-		justify-content: flex-start;
 	}
 `;
 
@@ -116,10 +118,16 @@ export const StatCardsWrapper = styled.div`
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
-		width: 80%;
+		width: 100%;
 	}
 `;
 
 export const PDFWrapper = styled.div`
 	background-color: ${({ theme }) => theme.colors.background.primary};
 `;
+
+export const METRICS_COLORS = {
+	nutrient: '#82ca9d',
+	temperature: '#8884d8',
+	humidity: '#ff7300',
+};

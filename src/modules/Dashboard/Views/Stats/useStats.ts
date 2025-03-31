@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { usePDF } from 'react-to-pdf';
 
 export default function useStats() {
+	//	const { statParams } = useAppSelector(state => state.stats);
+
 	const [statsParams, setStatsParams] = useState<StatsParams>({
 		active: true,
 		deskId: 0,
@@ -12,7 +14,7 @@ export default function useStats() {
 		endDate: new Date().getTime(),
 	});
 
-	const [getStats, { data: stats, error, isFetching }] = useLazyGetStatsQuery();
+	const [getStats, { data: stats, error, isFetching, isUninitialized }] = useLazyGetStatsQuery();
 
 	const { toPDF, targetRef: pdfRef } = usePDF({
 		filename: `${new Date().toLocaleDateString()} Budsync KPIs.pdf`,
@@ -28,5 +30,6 @@ export default function useStats() {
 		toPDF,
 		pdfRef,
 		isFetching,
+		isUninitialized,
 	};
 }

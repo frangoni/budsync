@@ -1,6 +1,7 @@
 import { Card } from '@/modules/_shared/components/Layout/_styles';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { StatLabel, StatValue } from './_styles';
+import { smartFormatNumber } from './_utils';
 
 interface StatCardProps {
 	statNumber: number;
@@ -14,7 +15,7 @@ export default function StatCard({ statNumber, statName, statColor, statIcon }: 
 		<Card>
 			<StatLabel style={{ background: statColor }}>{statName}</StatLabel>
 			<StatValue>
-				<p>{statNumber}</p>
+				<p>{smartFormatNumber(statNumber)}</p>
 				<Icon icon={statIcon} style={{ fontSize: '3rem' }} />
 			</StatValue>
 		</Card>
