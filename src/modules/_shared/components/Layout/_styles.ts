@@ -12,6 +12,8 @@ export const Card = styled.div`
 	border: 0.15rem solid ${({ theme }) => theme.colors.border.primary};
 	background-color: ${({ theme }) => theme.colors.background.cards};
 	padding: 2rem;
+	position: relative;
+	overflow: hidden;
 `;
 
 export const GlassCard = styled(Card)`
@@ -35,12 +37,6 @@ export const HeaderWrapper = styled.header`
 		align-items: center;
 		gap: 1rem;
 		margin-bottom: 0.5rem;
-
-		@media (max-width: 768px) {
-			flex-direction: column;
-			align-items: start;
-			gap: 0.5rem;
-		}
 	}
 
 	h1,
@@ -55,7 +51,9 @@ export const CenteredWrapper = styled.div`
 	align-items: center;
 	height: 100%;
 	max-height: 100vh;
-	width: 100%;
+	width: 80%;
+	text-align: center;
+	margin: 0 auto;
 `;
 
 export const ToolbarWrapper = styled.div`
@@ -93,6 +91,5 @@ export const ButtonGroup = styled.div`
 
 export const SectionContainer = styled.article`
 	margin-top: 2rem;
-	height: 100%;
 	position: relative;
 `;

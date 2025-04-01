@@ -9,5 +9,20 @@ import desks from './desks';
 import parameters from './parameters';
 import irrigations from './irrigation';
 import pagination from './pagination';
+import stats from './stats';
 
-export { plants, rooms, records, tasks, strains, theme, users, usersApi, parameters, pagination, desks, irrigations };
+export {
+	plants,
+	rooms,
+	records,
+	tasks,
+	strains,
+	theme,
+	users,
+	usersApi,
+	parameters,
+	pagination,
+	desks,
+	irrigations,
+	stats,
+};

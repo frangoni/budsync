@@ -11,6 +11,7 @@ import {
 	users,
 	desks,
 	irrigations,
+	stats,
 } from './reducers/index';
 import { baseApi } from './baseApi';
 
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
 	pagination,
 	desks,
 	irrigations,
+	stats,
 	[baseApi.reducerPath]: baseApi.reducer,
 });
 
