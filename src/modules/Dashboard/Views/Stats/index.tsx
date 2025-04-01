@@ -5,9 +5,10 @@ import StatsFilters from './StatsFilters';
 import useStats from './useStats';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import ReportLoader from './ReportLoader';
+import AppButton from '@/modules/_shared/components/Button';
 
 const StatsComponent = () => {
-	const { error, isFetching, getStats, setStatsParams, stats, statsParams, pdfRef, toPDF, isUninitialized } =
+	const { error, isFetching, getStats, setStatsParams, stats, statsParams, pdfRef, toPDF, toExcel, isUninitialized } =
 		useStats();
 	if (error) return <div>Error: {error.toString()}</div>;
 
@@ -17,11 +18,20 @@ const StatsComponent = () => {
 				title='Stats'
 				description='Check your metrics, export your report.'
 				subtitle={
-					<Icon
-						icon='vscode-icons:file-type-pdf2'
-						onClick={() => toPDF()}
-						style={{ fontSize: '2.5rem', cursor: 'pointer' }}
-					/>
+					<>
+						<AppButton
+							icon={<Icon icon='vscode-icons:file-type-pdf2' />}
+							onClick={() => toPDF()}
+							buttonType='icon'
+							disabled={!stats}
+						/>
+						<AppButton
+							icon={<Icon icon='vscode-icons:file-type-excel' />}
+							buttonType='icon'
+							onClick={() => toExcel()}
+							disabled={!stats}
+						/>
+					</>
 				}
 			/>
 			<SectionContainer>

@@ -27,12 +27,25 @@ export default function StatsContainer({ statsResponse, isUninitialized }: Stats
 			<GraphContainer>
 				<ResponsiveContainer>
 					<LineChart data={formattedStats ?? []}>
-						<CartesianGrid strokeDasharray='10 10' />
-						<XAxis dataKey='date' />
-						<YAxis yAxisId='left' />
-						<YAxis yAxisId='right' orientation='right' />
+						<CartesianGrid strokeDasharray='1 15' />
+						<XAxis dataKey='date' label={{ value: 'Date', position: 'insideBottomLeft', offset: -10 }} />
+						<YAxis
+							yAxisId='left'
+							label={{
+								value: 'Temperature & Nutrient',
+								angle: -90,
+								position: 'insideBottomLeft',
+								offset: 30,
+							}}
+						/>
+						<YAxis
+							yAxisId='right'
+							orientation='right'
+							label={{ value: 'Humidity', angle: 90, position: 'insideBottomRight', offset: 20 }}
+						/>
 						<Tooltip />
-						<Legend />
+						<Legend align='right' />
+
 						{/* Temperature Line */}
 						<Line
 							yAxisId='left'

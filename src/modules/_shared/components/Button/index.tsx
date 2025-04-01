@@ -4,7 +4,7 @@ import { styled } from 'styled-components';
 
 interface AppButtonProps extends ButtonProps {
 	text?: string;
-	buttonType?: 'primary' | 'secondary' | 'danger';
+	buttonType?: 'primary' | 'secondary' | 'danger' | 'icon';
 }
 
 export default function AppButton({ text, buttonType = 'primary', ...rest }: AppButtonProps) {
@@ -64,5 +64,21 @@ const StyledButton = styled(Button)`
 	&.danger {
 		background-color: ${({ theme }) => theme.colors.border.danger};
 		color: ${({ theme }) => theme.colors.text.primary};
+	}
+
+	&.icon {
+		background-color: transparent;
+		border: none;
+		padding: 0 !important;
+
+		svg {
+			font-size: 2rem;
+		}
+
+		&:hover {
+			transform: scale(1.1);
+			background-color: transparent !important;
+			border: none !important;
+		}
 	}
 `;

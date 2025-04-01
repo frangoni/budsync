@@ -1,6 +1,7 @@
 import { StatsParams, useLazyGetStatsQuery } from '@/redux/reducers/stats';
 import { useState } from 'react';
 import { usePDF } from 'react-to-pdf';
+import { exportToExcel } from '@/modules/Dashboard/Views/Stats/_utils';
 
 export default function useStats() {
 	//	const { statParams } = useAppSelector(state => state.stats);
@@ -16,10 +17,17 @@ export default function useStats() {
 
 	const [getStats, { data: stats, error, isFetching, isUninitialized }] = useLazyGetStatsQuery();
 
+	const fileName = `${new Date().toLocaleDateString()} Budsync KPIs`;
+
 	const { toPDF, targetRef: pdfRef } = usePDF({
-		filename: `${new Date().toLocaleDateString()} Budsync KPIs.pdf`,
+		filename: fileName + '.pdf',
 		page: {},
 	});
+
+	const toExcel = () => {
+		if (!stats) return;
+		exportToExcel(stats, statsParams, fileName + '.xlsx');
+	};
 
 	return {
 		statsParams,
@@ -28,6 +36,7 @@ export default function useStats() {
 		stats,
 		error,
 		toPDF,
+		toExcel,
 		pdfRef,
 		isFetching,
 		isUninitialized,
