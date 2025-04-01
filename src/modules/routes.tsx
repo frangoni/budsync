@@ -3,8 +3,6 @@ import { lazy } from 'react';
 import { ROUTES } from './_shared/_routes';
 import { CONSTANTS } from './_shared/_constants';
 import localforage from 'localforage';
-import Reports from './Dashboard/Views/Reports';
-import Users from './Dashboard/Views/Users';
 import Recover from './Auth/Recover';
 import ErrorElement from './_shared/components/Error';
 const Settings = lazy(() => import('./Dashboard/Views/Settings'));
@@ -21,6 +19,7 @@ const Tasks = lazy(() => import('./Dashboard/Views/Tasks'));
 const Task = lazy(() => import('./Dashboard/Views/Task'));
 const Record = lazy(() => import('./Dashboard/Views/Record'));
 const Stats = lazy(() => import('./Dashboard/Views/Stats'));
+const Users = lazy(() => import('./Dashboard/Views/Users'));
 const NotFound = lazy(() => import('./404'));
 
 const getToken = async () => localforage.getItem(CONSTANTS.JWT_LS_KEY);

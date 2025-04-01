@@ -21,7 +21,7 @@ export default function EmptyState({ text, imgOption }: EmptyStateProps) {
 	const src = imageMap[imgOption || 'buddy-joint'];
 	return (
 		<CenteredWrapper>
-			<StyledBud src={src} alt='Buddy' />
+			<StyledBud src={src} alt='Buddy' loading='lazy' />
 			<h2>{text}</h2>
 		</CenteredWrapper>
 	);
