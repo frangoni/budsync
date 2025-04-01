@@ -21,15 +21,15 @@ const StatsComponent = () => {
 					<>
 						<AppButton
 							icon={<Icon icon='vscode-icons:file-type-pdf2' />}
-							onClick={() => toPDF()}
 							buttonType='icon'
-							disabled={!stats}
+							onClick={() => toPDF()}
+							disabled={!stats || isFetching}
 						/>
 						<AppButton
 							icon={<Icon icon='vscode-icons:file-type-excel' />}
 							buttonType='icon'
 							onClick={() => toExcel()}
-							disabled={!stats}
+							disabled={!stats || isFetching}
 						/>
 					</>
 				}

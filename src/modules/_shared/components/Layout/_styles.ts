@@ -51,8 +51,8 @@ export const CenteredWrapper = styled.div`
 	align-items: center;
 	height: 100%;
 	max-height: 100vh;
-	width: 80%;
 	text-align: center;
+	max-width: 35rem;
 	margin: 0 auto;
 `;
 

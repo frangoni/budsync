@@ -64,6 +64,11 @@ const StyledButton = styled(Button)`
 	&.danger {
 		background-color: ${({ theme }) => theme.colors.border.danger};
 		color: ${({ theme }) => theme.colors.text.primary};
+
+		&:hover {
+			background-color: ${({ theme }) => theme.colors.background.danger} !important;
+			color: ${({ theme }) => theme.colors.text.danger} !important;
+		}
 	}
 
 	&.icon {
