@@ -24,6 +24,7 @@ const StyledButton = styled(Button)`
 	height: 3rem;
 	min-width: 3rem;
 	outline: none !important;
+	box-shadow: none !important;
 
 	&:disabled {
 		opacity: 0.5;

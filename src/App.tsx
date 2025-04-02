@@ -5,18 +5,32 @@ import { GlobalStyle } from './global';
 import { Suspense } from 'react';
 import { useTheme } from './modules/_shared/hooks/useTheme';
 import router from './modules/routes';
+import { ConfigProvider } from 'antd';
 
 function App() {
 	const { theme } = useTheme();
 
 	return (
 		<ThemeProvider theme={theme}>
-			<GlobalStyle />
-			<AppContainer>
-				<Suspense>
-					<RouterProvider router={router} />
-				</Suspense>
-			</AppContainer>
+			<ConfigProvider
+				theme={{
+					token: {
+						colorPrimary: theme.colors.background.main,
+						colorBgBase: theme.colors.background.cards,
+						colorTextBase: theme.colors.text.primary,
+						colorBgElevated: theme.colors.background.cards,
+						colorBgContainer: theme.colors.background.primary,
+						controlItemBgActive: theme.colors.background.mainDimmer,
+					},
+				}}
+			>
+				<GlobalStyle />
+				<AppContainer>
+					<Suspense>
+						<RouterProvider router={router} />
+					</Suspense>
+				</AppContainer>
+			</ConfigProvider>
 		</ThemeProvider>
 	);
 }
