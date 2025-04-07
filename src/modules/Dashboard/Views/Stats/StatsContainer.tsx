@@ -15,7 +15,7 @@ export default function StatsContainer({ statsResponse, isUninitialized }: Stats
 		humidity: smartFormatNumber(stat.humidity),
 		nutrient: smartFormatNumber(stat.nutrient),
 		temperature: smartFormatNumber(stat.temperature),
-		date: new Date(stat.record_date).toLocaleDateString(),
+		date: stat.record_date,
 	}));
 
 	if (isUninitialized)

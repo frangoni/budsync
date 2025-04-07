@@ -67,10 +67,7 @@ export const statsApi = baseApi.injectEndpoints({
 			providesTags: ['Stats'],
 		}),
 		getPlantStats: builder.query<TStatResponse, string>({
-			query: plantId =>
-				`/dashboard/stats/plant/${plantId}?startDate=${new Date(
-					'2020-01-01'
-				).getTime()}&endDate=${new Date().getTime()}`,
+			query: plantId => `/dashboard/stats/plant/${plantId}`,
 			providesTags: ['Stats'],
 		}),
 	}),

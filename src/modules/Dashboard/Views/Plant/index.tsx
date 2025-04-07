@@ -14,6 +14,7 @@ import FloatingScanner from '../Plants/FloatingScanner';
 import { useParams } from 'react-router-dom';
 import EditPlant from './EditPlant';
 import PlantStats from './PlantStats';
+import Loader from '@/modules/_shared/components/Loading';
 
 function Plant({ plantId }: { plantId: string }) {
 	const {
@@ -23,13 +24,17 @@ function Plant({ plantId }: { plantId: string }) {
 		modalContent,
 		currentPlant,
 		COLUMNS,
-		isLoading,
 		plantRecords,
 		onEditSuccess,
 		onAddRecordSuccess,
+		isFetching,
+		isLoading,
+		isLoadingRecords,
 	} = usePlant({ plantId });
 
 	const allFiles = plantRecords?.content.map(record => record.files).flat();
+
+	if (isLoading || isLoadingRecords) return <Loader />;
 
 	return (
 		<>
@@ -72,7 +77,7 @@ function Plant({ plantId }: { plantId: string }) {
 					title={() => 'Records'}
 					dataSource={plantRecords?.content}
 					rowKey='id'
-					loading={isLoading}
+					loading={isFetching}
 				/>
 				<PlantStats />
 				<FloatingScanner />

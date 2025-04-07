@@ -11,6 +11,7 @@ export default function AppTable<T extends object>({ columns, dataSource, totalC
 
 	return (
 		<StyledTable
+			loading={rest.loading}
 			scroll={{ x: 'max-content' }}
 			bordered={false}
 			//@ts-expect-error Custom Table component

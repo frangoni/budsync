@@ -14,7 +14,6 @@ import WaterPlants from './WaterPlants';
 
 export default function Room() {
 	const {
-		isLoading,
 		reprintQR,
 		selectedRows,
 		rowSelection,
@@ -33,9 +32,12 @@ export default function Room() {
 		modalContent,
 		setContentAndOpenModal,
 		closeModal,
+		isFetching,
+		isLoading,
 	} = useRoom();
 
 	if (isLoading || loadingDesks) return <Loader />;
+
 	return (
 		<>
 			<Header title='Room' description={'Manage plants in room'} shouldGoBack />
@@ -64,6 +66,7 @@ export default function Room() {
 				<AppTable<TPlant>
 					columns={COLUMNS}
 					rowSelection={rowSelection}
+					loading={isFetching}
 					title={() => (
 						<TableToolbar
 							title='Plants'
