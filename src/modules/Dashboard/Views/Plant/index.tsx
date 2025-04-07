@@ -13,6 +13,7 @@ import { SectionContainer } from '@/modules/_shared/components/Layout/_styles';
 import FloatingScanner from '../Plants/FloatingScanner';
 import { useParams } from 'react-router-dom';
 import EditPlant from './EditPlant';
+import PlantStats from './PlantStats';
 
 function Plant({ plantId }: { plantId: string }) {
 	const {
@@ -73,6 +74,7 @@ function Plant({ plantId }: { plantId: string }) {
 					rowKey='id'
 					loading={isLoading}
 				/>
+				<PlantStats />
 				<FloatingScanner />
 			</SectionContainer>
 			<Modal ref={modalRef}>
