@@ -12,8 +12,18 @@ import EditUser from './EditUser';
 import DeleteUser from './DeleteUser';
 
 export default function Users() {
-	const { data, isLoading, COLUMNS, modalRef, handleAddUser, modalContent, closeModal, selectedUser, refetch } =
-		useUsers();
+	const {
+		data,
+		isLoading,
+		COLUMNS,
+		modalRef,
+		handleAddUser,
+		modalContent,
+		closeModal,
+		selectedUser,
+		refetch,
+		isFetching,
+	} = useUsers();
 
 	const onFormSuccess = () => {
 		refetch();
@@ -39,7 +49,7 @@ export default function Users() {
 					dataSource={data?.content}
 					title={() => 'Users'}
 					rowKey={'id'}
-					loading={isLoading}
+					loading={isFetching}
 					totalCount={data?.totalElements}
 				/>
 			</SectionContainer>

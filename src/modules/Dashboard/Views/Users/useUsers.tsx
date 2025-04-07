@@ -11,7 +11,7 @@ type ModalContent = 'add' | 'edit' | 'delete';
 
 export default function useUsers() {
 	const { page, size } = usePagination();
-	const { data, isLoading, isError, refetch } = useGetAllUsersQuery(
+	const { data, isLoading, isError, refetch, isFetching } = useGetAllUsersQuery(
 		{ page, size },
 		{ refetchOnMountOrArgChange: true }
 	);
@@ -74,5 +74,6 @@ export default function useUsers() {
 		page,
 		size,
 		refetch,
+		isFetching,
 	};
 }

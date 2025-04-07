@@ -21,6 +21,7 @@ export default function useRoom() {
 	const [deskId, setDeskId] = useState<number | undefined>(undefined);
 	const {
 		data: allPlants,
+		isFetching,
 		isLoading,
 		refetch,
 	} = useGetPlantsByDeskQuery(
@@ -104,7 +105,6 @@ export default function useRoom() {
 	};
 
 	return {
-		isLoading,
 		allPlants,
 		selectedRows,
 		rowSelection,
@@ -125,5 +125,7 @@ export default function useRoom() {
 		setContentAndOpenModal,
 		modalContent,
 		closeModal,
+		isFetching,
+		isLoading,
 	};
 }

@@ -16,10 +16,12 @@ export default function usePlant({ plantId }: { plantId: string }) {
 	const { page, size } = usePagination();
 	const { data: currentPlant, isLoading, error, refetch } = useGetPlantQuery(plantId);
 
-	const { data: plantRecords, refetch: refetchRecords } = useGetRecordsQuery(
-		{ plantId, page, size },
-		{ refetchOnMountOrArgChange: true }
-	);
+	const {
+		data: plantRecords,
+		refetch: refetchRecords,
+		isFetching,
+		isLoading: isLoadingRecords,
+	} = useGetRecordsQuery({ plantId, page, size }, { refetchOnMountOrArgChange: true });
 	const [modalContent, setModalContent] = useState<ModalContent>('record');
 	const navigate = useNavigate();
 	const navigateToRecord = (recordId: string) => navigate(`/dashboard/record/${recordId}`);
@@ -75,5 +77,7 @@ export default function usePlant({ plantId }: { plantId: string }) {
 		plantRecords,
 		onEditSuccess,
 		onAddRecordSuccess,
+		isFetching,
+		isLoadingRecords,
 	};
 }
